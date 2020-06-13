@@ -25,7 +25,7 @@ class FSource extends ISource {
 
     @Override
     public double getI(Nodes thisNode) {
-        double i=a*(element.getI(element.node[0]));
+        double i=a * element.is.get(element.is.size()-1);
         if (thisNode.equals(node[1]))
             return i;
         else
@@ -46,7 +46,7 @@ class GSource extends ISource {
 
     @Override
     public double getI(Nodes thisNode) {
-        double i=a*(node1.v-node2.v);
+        double i=a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
         if (thisNode.equals(node[1]))
             return i;
         else
@@ -54,3 +54,4 @@ class GSource extends ISource {
     }
 
 }
+
