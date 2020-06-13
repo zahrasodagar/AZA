@@ -22,7 +22,7 @@ public class InputManager {
     }
 
     public boolean checkInputFormat(){
-        return dSomething()||checkResistor()||checkCapacitor()||checkInductor()||checkDiode()||checkVSource()||checkISource()||checkGSource()||checkFSource()||checkESource()||checkHSource();
+        return checkDSomething()||checkResistor()||checkCapacitor()||checkInductor()||checkDiode()||checkVSource()||checkISource()||checkGSource()||checkFSource()||checkESource()||checkHSource();
     }
 
     public boolean checkResistor(){
@@ -39,9 +39,14 @@ public class InputManager {
                 return false;
 
             Resistor resistor=new Resistor(name,node1,node2,resistance);
-            addElement(resistor,node1,node2);
-
-            return true;
+            Main.t+=Main.dt;
+            double hold=resistor.getR();
+            Main.t-=Main.dt;
+            if (hold<0){
+                //System.out.println("Negative Resistance");
+                return false;
+            }
+            return addElement(resistor,node1,node2);
         }
         return false;
     }
@@ -60,9 +65,14 @@ public class InputManager {
                 return false;
 
             Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
-            addElement(capacitor,node1,node2);
-
-            return true;
+            Main.t+=Main.dt;
+            double hold=capacitor.getC();
+            Main.t-=Main.dt;
+            if (hold<0){
+                //System.out.println("Negative Capacity");
+                return false;
+            }
+            return addElement(capacitor,node1,node2);
         }
 
         return false;
@@ -81,8 +91,14 @@ public class InputManager {
                 return false;
 
             Inductor inductor=new Inductor(name,node1,node2,inductance);
-            addElement(inductor,node1,node2);
-            return true;
+            Main.t+=Main.dt;
+            double hold=inductor.getL();
+            Main.t-=Main.dt;
+            if (hold<0){
+                //System.out.println("Negative Inductance");
+                return false;
+            }
+            return addElement(inductor,node1,node2);
         }
         return false;
     }
@@ -105,8 +121,7 @@ public class InputManager {
                 default:
                     return false;
             }
-            addElement(diode,node1,node2);
-            return true;
+            return addElement(diode,node1,node2);
         }
         return false;
     }
@@ -120,8 +135,7 @@ public class InputManager {
             Nodes node1=getNode(n1);
             Nodes node2=getNode(n2);
             VSource vSource=new VSource(name,node1,node2,v,a,f,ph);
-            addElement(vSource,node1,node2);
-            return true;
+            return addElement(vSource,node1,node2);
         }
         return false;
     }
@@ -135,8 +149,7 @@ public class InputManager {
             Nodes node1=getNode(n1);
             Nodes node2=getNode(n2);
             ISource iSource=new ISource(name,node1,node2,i,a,f,ph);
-            addElement(iSource,node1,node2);
-            return true;
+            return addElement(iSource,node1,node2);
         }
         return false;
     }
@@ -154,8 +167,7 @@ public class InputManager {
             Nodes node22=getNode(n22);
 
             GSource gSource=new GSource(name,node11,node12,node21,node22,a);
-            addElement(gSource,node11,node12);
-            return true;
+            return addElement(gSource,node11,node12);
         }
         return false;
     }
@@ -171,8 +183,7 @@ public class InputManager {
             Element element=getElement(e);
 
             FSource fSource=new FSource(name,node1,node2,element,a);
-            addElement(fSource,node1,node2);
-            return true;
+            return addElement(fSource,node1,node2);
         }
         return false;
     }
@@ -190,8 +201,7 @@ public class InputManager {
             Nodes node22=getNode(n22);
 
             ESource eSource=new ESource(name,node11,node12,node21,node22,a);
-            addElement(eSource,node11,node12);
-            return true;
+            return addElement(eSource,node11,node12);
         }
         return false;
     }
@@ -207,14 +217,13 @@ public class InputManager {
             Element element=getElement(e);
 
             HSource hSource=new HSource(name,node1,node2,element,a);
-            addElement(hSource,node1,node2);
-            return true;
+            return addElement(hSource,node1,node2);
         }
         return false;
     }
 
-    public boolean dSomething(){
-        Pattern pattern=Pattern.compile("^d([IiVvTt])\\s+(\\d+\\.?\\d*)([p|n|u|m|k|M|G|x]?)$");
+    public boolean checkDSomething(){
+        Pattern pattern=Pattern.compile("^d([IiVvTt])\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
             String sth=matcher.group(1).toLowerCase(),p=matcher.group(3);
@@ -246,13 +255,21 @@ public class InputManager {
                     Main.dV=hold;
                     break;
                 default:
-                    //oh shit
-                    break;
+                    return false;//oh shit?
             }
+            if (hold<0)
+                return false;
             return true;
-            // TODO: 20/06/11 if (dSTH<0) ?!
         }
         return false;
+    }
+
+    public boolean checkName(String name){
+        for (Element element:Element.elements){
+            if (element.name.equals(name))
+                return false;
+        }
+        return true;
     }
 
     public HashMap <Integer,ArrayList<double[]>> getPolynomial(String input){
@@ -320,10 +337,13 @@ public class InputManager {
         return null;
     }
 
-    public void addElement(Element element, Nodes node1, Nodes node2){
+    public boolean addElement(Element element, Nodes node1, Nodes node2){
+        if (!checkName(element.name))
+            return false;
         Main.everything.add(element);
         node1.elements.add(element);
         node2.elements.add(element);
+        return true;
     }
 
     public Nodes getNode(String name){

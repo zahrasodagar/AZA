@@ -6,12 +6,12 @@ class ISource extends Source {
     @Override
     public double getI(Nodes thisNode) {
         double i=value();
-        if (thisNode.equals(node[0]))
+        if (thisNode.equals(node[1]))
             return i;
         else
             return -i;
     }
-
+    // TODO: 20/06/13 check direction
 }
 
 class FSource extends ISource {
@@ -26,7 +26,7 @@ class FSource extends ISource {
     @Override
     public double getI(Nodes thisNode) {
         double i=a*(element.getI(element.node[0]));
-        if (thisNode.equals(node[0]))
+        if (thisNode.equals(node[1]))
             return i;
         else
             return -i;
@@ -47,7 +47,7 @@ class GSource extends ISource {
     @Override
     public double getI(Nodes thisNode) {
         double i=a*(node1.v-node2.v);
-        if (thisNode.equals(node[0]))
+        if (thisNode.equals(node[1]))
             return i;
         else
             return -i;

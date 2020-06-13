@@ -11,7 +11,7 @@ public class test {
                 node1r3 = "3" , node2r3 = "0",
                 node1I2 = "2" , node2I2 = "3";
 
-        Solve solve = new Solve();
+        Solve1 solve = new Solve1();
         for (double i=0;i<=t;i+=dt){
             a = new double[] {0, 0, 0};
             A = new double[][] {{0,0,0},{0,0,0},{0,0,0}};
@@ -65,7 +65,7 @@ public class test {
 }
 
 
-class Solve{
+class Solve1{
     double[] GaussJordanElimination(double[][] A,double[] a,double n){
         double b=0,c=0,d=0,temp;
         for (int i=0;i<n;i++){

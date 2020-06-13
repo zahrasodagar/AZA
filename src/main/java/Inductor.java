@@ -19,6 +19,10 @@ public class Inductor extends Element {
             hold+=coeff*Math.pow(Main.t,deg);
         }
         // TODO: 20/06/07  if (hold<0) ?!
+        if (hold<0) {
+            System.out.println("Negative Inductance");
+            System.exit(0);
+        }
         return hold;
     }
 
