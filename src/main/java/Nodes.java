@@ -6,6 +6,7 @@ public abstract class Nodes {
     static ArrayList<Nodes> nodes=new ArrayList<>();
     String name;
     double v,finalV=0;
+    boolean visited=false;
     ArrayList<Element> elements= new ArrayList<>();
     HashMap<Nodes,Integer> neighbours=new HashMap<>();
     ArrayList<Double> vs=new ArrayList<>();
@@ -22,6 +23,12 @@ public abstract class Nodes {
     public double getTotalI(){
 
         return 0;
+    }
+
+    public static void resetNodes(){
+        for (Nodes node: nodes){
+            node.visited=false;
+        }
     }
 
     public static void updateNeighbourNodes(){
