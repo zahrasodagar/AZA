@@ -20,9 +20,12 @@ public abstract class Nodes {
         }
     }
 
-    public double getTotalI(){
-
-        return 0;
+    public double getTotalI(Nodes node){ //update neighbours before using this
+        double hold=0;
+        for (Element element: node.elements){
+            hold+=element.getI(node);
+        }
+        return hold;
     }
 
     public static void updateNeighbourNodes(){

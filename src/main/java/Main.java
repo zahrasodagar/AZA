@@ -34,6 +34,7 @@ public class Main {
             System.out.println("Error -1");
             System.exit(0);
         }
+        Nodes.updateNeighbourNodes();
 
     }
     public static void setTime(String t,String p){
