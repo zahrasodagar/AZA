@@ -127,7 +127,7 @@ public class InputManager {
     }
 
     public boolean checkISource(){
-        Pattern pattern=Pattern.compile("^([V|v]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
+        Pattern pattern=Pattern.compile("^([I|i]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
             String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);

@@ -23,9 +23,9 @@ public class Solve1 {
             for (Object o: Main.everything) {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
-                        Itotal1 = Nodes.getI();
+                        Itotal1 = ((Nodes) o).getTotalI();
                         ((Nodes) o).v += Main.dV;
-                        Itotal2 = Nodes.getI();
+                        Itotal2 = ((Nodes) o).getTotalI();
                         ((Nodes) o).v -= Main.dV;
                         ((Nodes) o).v = ((Nodes) o).finalV + (Math.abs(Itotal1 - Itotal2)) * Main.dV / Main.dI;
                         ((Nodes) o).visited = true;
@@ -37,7 +37,7 @@ public class Solve1 {
             temp =0;
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
-                    if(Nodes.getI()>0.01||Nodes.getI()<-0.01){
+                    if(((Nodes) o).getTotalI()>0.01||((Nodes) o).getTotalI()<-0.01){
                         temp++;
                     }
                 }

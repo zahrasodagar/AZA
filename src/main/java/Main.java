@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 public class Main {
     static ArrayList<Object> everything=new ArrayList<>();
     static double t,dt=-1,dV=-1,dI=-1;
-
     public static void main(String[] args){
+        Solve1 solve = new Solve1();
         InputManager manager=InputManager.getInstance();
         Scanner scanner=new Scanner(System.in);
         String line=""; //scanner.nextLine()
@@ -30,10 +30,17 @@ public class Main {
                 }
             }
         }
+        for (Object o: Main.everything){
+            if (o instanceof Nodes){
+                System.out.println(((Nodes) o).name);
+            }
+        }
         if (dV==-1||dI==-1||dt==-1){
             // TODO: 20/06/11 print error ...
         }
+        for (double i =0 ; i<t ; i+=dt){
 
+        }
 
 
     }
