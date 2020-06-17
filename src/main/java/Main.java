@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -5,34 +8,58 @@ import java.util.regex.Pattern;
 
 public class Main {
     static ArrayList<Object> everything=new ArrayList<>();
-    static double t,dt=-1,dV=-1,dI=-1;
+    static double time,t,dt=-1,dV=-1,dI=-1;
     public static void main(String[] args){
         InputManager manager=InputManager.getInstance();
-        Scanner scanner=new Scanner(System.in);
-        String line=""; //scanner.nextLine()
-        double time=0;
-        int nLine=1;
+        /*String current = null;
+        try {
+            current = new File( "." ).getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Current dir:"+current);
+        String currentDir = System.getProperty("user.dir");
+        //System.out.println("Current dir using System:" +currentDir);*/
+        Scanner scanner=null;
+        String path=System.getProperty("user.dir")+"\\input.txt"; //default
+        //System.out.println("Working Directory: " + System.getProperty("user.dir"));
+        /*scanner= new Scanner(System.in);
+        System.out.println("Enter your file directory path");
+        path=scanner.nextLine();*/
+        File inputFile=new File(path);
+
+        try {
+            scanner = new Scanner(inputFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line=""; //scanner.nextLine() first line khonde nashe
+        int nLine=0; //1
         Pattern pattern=Pattern.compile("\\.tran\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
-        Matcher matcher=pattern.matcher(line);
-        while (true){
+        Matcher matcher;
+        boolean tran=false;
+        while (scanner.hasNextLine()&&!tran){
             line=scanner.nextLine();
             ++nLine;
             matcher=pattern.matcher(line);
             if (matcher.find()) {
                 setTime(matcher.group(1),matcher.group(2));
+                tran=true;
                 break;
             }
             if (line.charAt(0)!='*'){
                 manager.setInput(line);
-                if (!manager.checkInputFormat()){
-                    System.out.println("Invalid Input ( line    "+nLine+" )");
-                    //return;    it's  temporary comment
+                if (!manager.checkInputFormat()) {
+                    System.out.println("Error -1 ( line "+nLine+" )");
+                    System.exit(0);
                 }
             }
         }
-        if (dV==-1||dI==-1||dt==-1){
-            // TODO: 20/06/11 print error ...
+        if (dV==-1||dI==-1||dt==-1||!tran){
+            System.out.println("Error -1");
+            System.exit(0);
         }
+        Nodes.updateNeighbourNodes();
         for (double i =0 ; i<t ; i+=dt){
             calculateVoltageAtT();
             for (Object o: Main.everything){
@@ -44,7 +71,7 @@ public class Main {
 
 
     }
-    public static void setTime(String time,String p){
+    public static void setTime(String t,String p){
         int power=0;
         if (p.equals("p"))
             power=-12;
@@ -60,7 +87,7 @@ public class Main {
             power=6;
         if (p.equals("G"))
             power=9;
-        t=Double.parseDouble(time)*Math.pow(10,power);
+        time=Double.parseDouble(t)*Math.pow(10,power);
     }
 
     ////---------------   calculate voltage of nodes in t=T
