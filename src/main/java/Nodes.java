@@ -23,7 +23,6 @@ public abstract class Nodes {
     public double getTotalI(Nodes node){
         double I=0;
         for (Element element:node.elements){
-            System.out.println(element.name);
             I+=element.getI(node);
         }
         return I;

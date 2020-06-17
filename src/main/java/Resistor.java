@@ -28,9 +28,9 @@ public class Resistor extends Element {
         double r=getR();
         double i=(node[0].v-node[1].v)/r;
         if (thisNode.equals(this.node[0]))
-            return i;
-        else
             return -i;
+        else
+            return i;
     }
 
 }

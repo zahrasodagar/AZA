@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.StreamSupport;
 
 public class Capacitor extends Element {
     HashMap<Integer, ArrayList<double[]>> c;
@@ -14,14 +13,11 @@ public class Capacitor extends Element {
 
     public double getC(){
         double hold=0;
-        System.out.println("keyset : "+c.keySet());
         for (int deg:c.keySet()){
             double coeff=0;
             for (double[] cp:c.get(deg)){
-                System.out.println("cp0 : "+cp[0]+"   cp1 : "+cp[1]);
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            System.out.println("coeff"+ coeff);
             hold+=coeff*Math.pow(Main.t,deg);
         }
         // TODO: 20/06/07  if (hold<0) ?!
@@ -44,8 +40,6 @@ public class Capacitor extends Element {
         System.out.print(node[1].v+"-");
         System.out.print(node[0].finalV+"-");
         System.out.println(node[1].finalV+"-");
-        System.out.println("C : "+c);
-        System.out.println("dV::  "+dV);
         double i=c*dV+(node[0].v-node[1].v)*dC;
         System.out.println("Ic : "+i);
         if (thisNode.equals(this.node[0]))
