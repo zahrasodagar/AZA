@@ -37,7 +37,7 @@ public class Main {
             calculateVoltageAtT();
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
-                    System.out.println(((Nodes) o).v);
+                    System.out.println("V1 : "+((Nodes) o).v);
                 }
             }
         }
@@ -87,14 +87,14 @@ public class Main {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
-                        System.out.println("V : "+((Nodes) o).v);
+                        //System.out.println("V : "+((Nodes) o).v);
                         ((Nodes) o).v += Main.dV;
-                        System.out.println("V : "+((Nodes) o).v);
+                        //System.out.println("V : "+((Nodes) o).v);
                         Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Main.dV;
-                        System.out.println("I1 : "+Itotal1);
-                        System.out.println("I2 : "+Itotal2);
-                        ((Nodes) o).v = ((Nodes) o).finalV + (Math.abs(Itotal1 - Itotal2)) * Main.dV / Main.dI;
+                        //stem.out.println("I1 : "+Itotal1);
+                        //System.out.println("I2 : "+Itotal2);
+                        ((Nodes) o).v = ((Nodes) o).v + Math.abs(Itotal1 - Itotal2) * Main.dV / Main.dI;
                         ((Nodes) o).visited = true;
                     }
                 }
@@ -102,13 +102,17 @@ public class Main {
             ////-------------         visiting all nodes
             ////-------------     total input currents of all nodes is less than 0.01 so exits from the while
             temp =0;
+            //System.out.println("temp : "+temp);
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
-                    if(((Nodes) o).getTotalI((Nodes) o)>0.01||((Nodes) o).getTotalI((Nodes) o)<-0.01){
+                    double I3=((Nodes) o).getTotalI((Nodes) o);
+                    //System.out.println("I3 : " +I3);
+                    if(I3>0.01||I3<-0.01){
                         temp++;
                     }
                 }
             }
+            //System.out.println("temp : "+temp);
             if(temp==0){
                 for (Object o: Main.everything){
                     if (o instanceof Element){
