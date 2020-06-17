@@ -30,7 +30,7 @@ public class InputManager {
         Matcher matcher=pattern.matcher(input);
 
         if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),r=matcher.group(4);
+            String name=matcher.group(1),n1=matcher.group(3),n2=matcher.group(4),r=matcher.group(5);
             Nodes node1=getNode(n1);
             Nodes node2=getNode(n2);
             HashMap <Integer,ArrayList<double[]>> resistance=getPolynomial(r);

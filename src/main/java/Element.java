@@ -17,7 +17,15 @@ public abstract class Element {
     public static void update(){ //ghable update nodes
         for (Element element:elements){
             double v=element.node[0].v-element.node[1].v,i=element.getI(element.node[0]);
-            double v0=element.vs.get(element.vs.size()-1),i0=element.is.get(element.is.size()-1);
+            double v0=0,i0=0;
+            if (element.vs.size()!=0){
+                v0=element.vs.get(element.vs.size()-1);
+                i0=element.is.get(element.is.size()-1);
+            }
+            else {
+                v0=0;
+                i0=0;
+            }
             element.vs.add(v);
             element.is.add(i);
             element.dV=(v-v0)/Main.dt;

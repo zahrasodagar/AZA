@@ -1,5 +1,6 @@
 
 public class Solve1 {
+
     ////---------------   calculate voltage of nodes in t=T
     public static void calculateVoltageAtT(){
         int temp=0;
@@ -23,9 +24,9 @@ public class Solve1 {
             for (Object o: Main.everything) {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
-                        Itotal1 = ((Nodes) o).getTotalI();
+                        Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v += Main.dV;
-                        Itotal2 = ((Nodes) o).getTotalI();
+                        Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Main.dV;
                         ((Nodes) o).v = ((Nodes) o).finalV + (Math.abs(Itotal1 - Itotal2)) * Main.dV / Main.dI;
                         ((Nodes) o).visited = true;
@@ -37,7 +38,7 @@ public class Solve1 {
             temp =0;
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
-                    if(((Nodes) o).getTotalI()>0.01||((Nodes) o).getTotalI()<-0.01){
+                    if(((Nodes) o).getTotalI((Nodes) o)>0.01||((Nodes) o).getTotalI((Nodes) o)<-0.01){
                         temp++;
                     }
                 }

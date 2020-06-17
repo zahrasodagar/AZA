@@ -20,9 +20,13 @@ public abstract class Nodes {
         }
     }
 
-    public double getTotalI(){
-
-        return 0;
+    public double getTotalI(Nodes node){
+        double I=0;
+        for (Element element:node.elements){
+            System.out.println(element.name);
+            I+=element.getI(node);
+        }
+        return I;
     }
 
     public static void resetNodes(){
