@@ -33,8 +33,8 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String line=""; //scanner.nextLine() first line khonde nashe
-        int nLine=0; //1
+        String line=scanner.nextLine(); //first line khonde nashe
+        int nLine=1; //1
         Pattern pattern=Pattern.compile("\\.tran\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
         Matcher matcher;
         boolean tran=false;
