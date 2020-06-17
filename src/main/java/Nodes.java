@@ -52,19 +52,76 @@ public abstract class Nodes {
         if (!checkGraph){
             checkGraph=true;
             for (Nodes node: nodes){
-                if (node.neighbours.size()==1){
+                if (node.neighbours.size()==1){ //yek done
                     Nodes n=((ArrayList<Nodes>) node.neighbours.keySet()).get(0);
-                    if (node.neighbours.get(n)==1){
+                    if (node.neighbours.get(n)==1){ //yek bar
                         System.out.println("Error -5");
                         System.exit(0);
                     }
                 }
-            }
+            } //halghe darim
             checkGND();
         }
+        //error -2
+        ArrayList<ISource> iSources=new ArrayList<>();
+        for (Element element:Element.elements){
+            if (element instanceof ISource)
+                iSources.add((ISource) element);
+        }
+        for (ISource iSource:iSources){
+            if (!(checkISource(iSource,iSource.getI(iSource.node[0]),iSource.node[0])&&checkISource(iSource,iSource.getI(iSource.node[1]),iSource.node[1]))){
+                System.out.println("Error -2");
+                System.exit(0);
+            }
+        }
 
-        // TODO: 20/06/12 case 1->1: print error ...
-        // TODO: 20/06/12 diode
+    }
+
+    public static boolean checkISource(Element element,double i,Nodes node){
+        ArrayList<Element> neighbours = new ArrayList<>(node.elements);
+        neighbours.remove(element);
+        if (neighbours.size()==1){
+            Element neighbour=neighbours.get(0);
+            if (neighbour instanceof ISource){
+                if (Math.abs(i+neighbour.getI(node))<0.01)
+                    return true;
+                else
+                    return false;
+            }
+            else{
+                if (neighbour instanceof Diode1){
+                    if ((i>0&&node.equals(neighbour.node[1]))||(i<0&&node.equals(neighbour.node[0])))
+                        return false;
+                }
+            }
+            return checkISource(neighbour,i,neighbour.otherNode(node));
+        }
+        // todo nazar? sade tarin form bod (ehtemalan hamino mikhan) halataye sakh bad bug mikhore
+        double hold=i;
+        ArrayList<Diode1> diodes=new ArrayList<>();
+        for (Element e:neighbours){
+            if (!((e instanceof ISource)||(e instanceof Diode1)))
+                return true; // TODO: 20/06/18 anvae khataha eg: halghe, manbae jaryan onvar etc
+            if (e instanceof ISource){
+                hold+=e.getI(node);
+            }
+            if (e instanceof Diode1)
+                diodes.add((Diode1) e);
+        }
+        if (Math.abs(hold)<0.01)
+            return true;
+        if (diodes.size()==0)
+            return false;
+        if (diodes.size()==1){
+            if ((hold>0&&node.equals(diodes.get(0).node[1]))||(hold<0&&node.equals(diodes.get(0).node[0])))
+                return false;
+            else
+                return checkISource(diodes.get(0),hold,diodes.get(0).otherNode(node));
+        }
+        return true;
+        /* TODO: 20/06/18 anvae khataha @panahande:
+            farz konim tazmini javab nist, masalan already ba hamon voltaja dadad ha dooran,
+            na ba ziyad kardan na ba kam kardan khata kam nemishe */
     }
 
     public static void checkGND(){
