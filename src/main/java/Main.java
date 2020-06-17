@@ -30,28 +30,17 @@ public class Main {
                 }
             }
         }
-        /*for (Object o: Main.everything){
-            if (o instanceof Nodes){
-                System.out.println(((Nodes) o).name);
-            }
-        }
-        System.out.println("---------------------------------");
-        for (Object o: Main.everything){
-            if (o instanceof Element){
-                System.out.println(((Element) o).name);
-            }
-        }*/
         if (dV==-1||dI==-1||dt==-1){
             // TODO: 20/06/11 print error ...
         }
-        /*for (double i =0 ; i<t ; i+=dt){
+        for (double i =0 ; i<t ; i+=dt){
             calculateVoltageAtT();
-            /*for (Object o: Main.everything){
+            for (Object o: Main.everything){
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).v);
                 }
             }
-        }*/
+        }
 
 
     }
