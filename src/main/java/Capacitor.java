@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.StreamSupport;
 
 public class Capacitor extends Element {
     HashMap<Integer, ArrayList<double[]>> c;
@@ -44,6 +45,7 @@ public class Capacitor extends Element {
         System.out.print(node[0].finalV+"-");
         System.out.println(node[1].finalV+"-");
         System.out.println("C : "+c);
+        System.out.println("dV::  "+dV);
         double i=c*dV+(node[0].v-node[1].v)*dC;
         System.out.println("Ic : "+i);
         if (thisNode.equals(this.node[0]))

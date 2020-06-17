@@ -52,6 +52,7 @@ public class InputManager {
 
         if (matcher.find()){
             String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),c=matcher.group(4);
+            /*System.out.println("Polynomial:  "+c);*/
             Nodes node1=getNode(n1);
             Nodes node2=getNode(n2);
             HashMap <Integer,ArrayList<double[]>> capacity=getPolynomial(c);
@@ -256,14 +257,13 @@ public class InputManager {
     }
 
     public HashMap <Integer,ArrayList<double[]>> getPolynomial(String input){
-        Pattern pattern=Pattern.compile("([+-]?\\d*t?[^-+]+)");
+        Pattern pattern=Pattern.compile("([+-]?\\d*t?[^-+]*)");
         Matcher matcher=pattern.matcher(input);
 
         if (matcher.find()){
             HashMap <Integer,ArrayList<double[]>> dcp=new HashMap<Integer, ArrayList<double[]>>();
-
+            String s=matcher.group();
             while (matcher.find()){
-                String s=matcher.group();
                 Pattern pattern2=Pattern.compile("^([+|-]?\\d*[\\.]?\\d*)([pnumkMGx]?)t?\\^?(\\d*)");
                 Matcher matcher2=pattern2.matcher(s);
                 if (matcher2.find()){
@@ -303,6 +303,7 @@ public class InputManager {
                     }
 
                     double[] cp={coeff,power};
+//                    System.out.println("cp:  "+cp[0]);
                     if (dcp.containsKey(deg)){
                         dcp.get(deg).add(cp);
                     }
