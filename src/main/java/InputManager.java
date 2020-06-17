@@ -256,14 +256,13 @@ public class InputManager {
     }
 
     public HashMap <Integer,ArrayList<double[]>> getPolynomial(String input){
-        Pattern pattern=Pattern.compile("([+-]?\\d*t?[^-+]+)");
+        Pattern pattern=Pattern.compile("([+-]?\\d*t?[^-+]*)");
         Matcher matcher=pattern.matcher(input);
 
         if (matcher.find()){
             HashMap <Integer,ArrayList<double[]>> dcp=new HashMap<Integer, ArrayList<double[]>>();
-
+            String s=matcher.group();
             while (matcher.find()){
-                String s=matcher.group();
                 Pattern pattern2=Pattern.compile("^([+|-]?\\d*[\\.]?\\d*)([pnumkMGx]?)t?\\^?(\\d*)");
                 Matcher matcher2=pattern2.matcher(s);
                 if (matcher2.find()){
