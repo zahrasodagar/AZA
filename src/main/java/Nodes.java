@@ -74,7 +74,38 @@ public abstract class Nodes {
                 System.exit(0);
             }
         }
+        //error -3
+        ArrayList<VSource> vSources=new ArrayList<>();
+        for (Element element:Element.elements){
+            if (element instanceof VSource)
+                vSources.add((VSource) element);
+        }
+        for (VSource vSource:vSources){
+            if (!checkVSource(vSource)){
+                System.out.println("Error -3");
+                System.exit(0);
+            }
+        }
+    }
 
+    public static boolean checkVSource(VSource vSource){
+        Nodes node1=vSource.node[0];
+        Nodes node2=vSource.node[1];
+        double v1=vSource.getV(node1);
+        ArrayList<Element> neighbours1=new ArrayList<>(node1.elements);
+        ArrayList<Element> neighbours2=new ArrayList<>(node2.elements);
+        neighbours1.remove(vSource);
+        neighbours2.remove(vSource);
+        ArrayList<VSource> sub=new ArrayList<>();
+        for (Element e:neighbours1){
+            if (e instanceof VSource) if (neighbours2.contains(e)) {
+                sub.add((VSource) e);
+                double v2=((VSource) e).getV(node1);
+                if (Math.abs(v1-v2)>0.01)
+                    return false;
+            }
+        }
+        return true;
     }
 
     public static boolean checkISource(Element element,double i,Nodes node){
