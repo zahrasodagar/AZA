@@ -38,7 +38,11 @@ public class Inductor extends Element {
     @Override
     public double getI(Nodes thisNode) {
         double l=getL(),v=node[0].v-node[1].v;
-        double i=I+v*Main.dt;
+        //System.out.println("----------------");
+        //System.out.println("V inductor : "+v);
+        //System.out.println("I inductor : "+I);
+        //System.out.println("----------------");
+        double i=I+v/l*Main.dt;
         if (thisNode.equals(this.node[0]))
             return -i;
         else

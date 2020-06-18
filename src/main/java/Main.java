@@ -66,6 +66,9 @@ public class Main {
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
                 }
+                if (o instanceof Inductor){
+                    System.out.println(((Inductor) o).name+" : "+((Inductor) o).getI(((Inductor) o).node[0]));
+                }
             }
         }
 
@@ -154,7 +157,9 @@ public class Main {
             }
             //System.out.println("temp : "+temp);
             if(temp==0){
-                for (Object o: Main.everything){
+                Element.update();
+                Nodes.updateNodes();
+                /*for (Object o: Main.everything){
                     if (o instanceof Element){
                         Element.update();
                     }
@@ -163,7 +168,7 @@ public class Main {
                     if (o instanceof Nodes){
                         Nodes.updateNodes();
                     }
-                }
+                }*/
                 break;
             }
             ////-------------     total input currents of all nodes is less than 0.01 so exit from the while
