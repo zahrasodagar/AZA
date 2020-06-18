@@ -347,6 +347,7 @@ public class InputManager {
         if (!checkName(element.name))
             return false;
         Main.everything.add(element);
+        Element.elements.add(element);
         node1.elements.add(element);
         node2.elements.add(element);
         return true;
