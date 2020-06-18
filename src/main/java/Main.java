@@ -102,7 +102,12 @@ public class Main {
                     Nodes.resetNodes();
                 }
                 if(o instanceof VSource){
-                    ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).value();
+                    if(((VSource) o).node[1].name.equals("0")){
+                        ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).value();
+                    }
+                    else {
+                        ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).value();
+                    }
                 }
             }
             for (Object o: Main.everything){
