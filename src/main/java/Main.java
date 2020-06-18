@@ -59,8 +59,13 @@ public class Main {
             System.out.println("Error -1");
             System.exit(0);
         }
-        Nodes.updateNeighbourNodes();
-        for (double i =0 ; i<t ; i+=dt){
+        /*for (Object o: Main.everything){
+            if (o instanceof Resistor){
+                System.out.println("V1 : "+((Resistor) o).getR());
+            }
+        }*/
+        //Nodes.updateNeighbourNodes();
+        for (double i =0 ; i<time ; i+=dt){
             calculateVoltageAtT();
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
@@ -94,7 +99,7 @@ public class Main {
     ////---------------   calculate voltage of nodes in t=T
     public static void calculateVoltageAtT(){
         int temp=0;
-        double Itotal1=0,Itotal2=0;
+        double Itotal1=0,Itotal2=0,Itotal4=0;
         while (true){
             ////-------------         reset all nodes
             for (Object o: Main.everything){
@@ -115,14 +120,16 @@ public class Main {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
-                        //System.out.println("V : "+((Nodes) o).v);
                         ((Nodes) o).v += Main.dV;
-                        //System.out.println("V : "+((Nodes) o).v);
                         Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Main.dV;
-                        //stem.out.println("I1 : "+Itotal1);
+                        //((Nodes) o).v -=2*Main.dV;
+                        //Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                        //((Nodes) o).v += Main.dV;
+                        //System.out.println("Node : "+((Nodes) o).name);
+                        //System.out.println("I1 : "+Itotal1);
                         //System.out.println("I2 : "+Itotal2);
-                        ((Nodes) o).v = ((Nodes) o).v + Math.abs(Itotal1 - Itotal2) * Main.dV / Main.dI;
+                        ((Nodes) o).v = ((Nodes) o).v + (Math.abs(Itotal1) - Math.abs(Itotal2))/Main.dI * Main.dV;
                         ((Nodes) o).visited = true;
                     }
                 }
