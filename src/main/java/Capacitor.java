@@ -36,12 +36,12 @@ public class Capacitor extends Element {
     @Override
     public double getI(Nodes thisNode) {
         double c=getC(),dV=((node[0].v-node[1].v)-(node[0].finalV-node[1].finalV))/Main.dt;
-        System.out.print(node[0].v+"-");
-        System.out.print(node[1].v+"-");
-        System.out.print(node[0].finalV+"-");
-        System.out.println(node[1].finalV+"-");
+        //System.out.print(node[0].v+"-");
+        //System.out.print(node[1].v+"-");
+        //System.out.print(node[0].finalV+"-");
+        //System.out.println(node[1].finalV+"-");
         double i=c*dV+(node[0].v-node[1].v)*dC;
-        System.out.println("Ic : "+i);
+        //System.out.println("Ic : "+i);
         if (thisNode.equals(this.node[0]))
             return -i;
         else

@@ -64,7 +64,7 @@ public class Main {
             calculateVoltageAtT();
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
-                    System.out.println("V1 : "+((Nodes) o).v);
+                    System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
                 }
             }
         }
@@ -101,6 +101,9 @@ public class Main {
                 if (o instanceof Nodes){
                     Nodes.resetNodes();
                 }
+                if(o instanceof VSource){
+                    ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).value();
+                }
             }
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
@@ -115,6 +118,8 @@ public class Main {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
+                        //System.out.println("-----------------------------");
+                        //System.out.println("V : "+((Nodes) o).v);
                         ((Nodes) o).v += Main.dV;
                         Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Main.dV;

@@ -4,6 +4,7 @@ import java.util.HashMap;
 public class Inductor extends Element {
     HashMap<Integer, ArrayList<double[]>> l;
     double dL;
+    double I=0;
     public Inductor(String name, Nodes node1,Nodes node2, HashMap<Integer, ArrayList<double[]>> l){
         super(name, node1, node2);
         this.l=l;
@@ -37,7 +38,7 @@ public class Inductor extends Element {
     @Override
     public double getI(Nodes thisNode) {
         double l=getL(),v=node[0].v-node[1].v;
-        double i=(v-l*dI)/dL;
+        double i=I+v*Main.dt;
         if (thisNode.equals(this.node[0]))
             return -i;
         else
