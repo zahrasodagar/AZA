@@ -1,5 +1,5 @@
 
-public class Solve1 {
+public class Solve {
 
     ////---------------   calculate voltage of nodes in t=T
     public static void calculateVoltageAtT(){
