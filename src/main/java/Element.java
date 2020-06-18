@@ -33,8 +33,10 @@ public abstract class Element {
             element.integralI+=i*Main.dt;
             if (element instanceof Capacitor)
                 ((Capacitor) element).setDC();
-            if (element instanceof Inductor)
+            if (element instanceof Inductor){
+                ((Inductor) element).I =-1* ((Inductor) element).getI(((Inductor) element).node[0]);
                 ((Inductor) element).setDL();
+            }
         }
     }
 
