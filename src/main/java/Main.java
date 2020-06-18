@@ -59,11 +59,6 @@ public class Main {
             System.out.println("Error -1");
             System.exit(0);
         }
-        /*for (Object o: Main.everything){
-            if (o instanceof Resistor){
-                System.out.println("V1 : "+((Resistor) o).getR());
-            }
-        }*/
         //Nodes.updateNeighbourNodes();
         for (double i =0 ; i<time ; i+=dt){
             calculateVoltageAtT();

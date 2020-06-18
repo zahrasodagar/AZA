@@ -280,10 +280,10 @@ public class InputManager {
         Matcher matcher=pattern.matcher(input);
 
         HashMap <Integer,ArrayList<double[]>> dcp=new HashMap<Integer, ArrayList<double[]>>();
-        while (matcher.find()){
+        while (matcher.find()&&!matcher.group().equals("")){
             String s=matcher.group();
-            Pattern pattern2=Pattern.compile("^([+|-]?\\d*[\\.]?\\d*)([pnumkMGx]?)t?\\^?(\\d*)");
-            Matcher matcher2=pattern2.matcher(s);
+                Pattern pattern2 = Pattern.compile("^([+|-]?\\d*[\\.]?\\d*)([pnumkMGx]?)t?\\^?(\\d*)");
+                Matcher matcher2 = pattern2.matcher(s);
             if (matcher2.find()){
                 int deg=0,power=0;
                 double coeff;
@@ -331,8 +331,14 @@ public class InputManager {
             else
                 return null;
             }
-        if (dcp.size()!=0)
+        if (dcp.size()!=0){
+            /*for(int deg:dcp.keySet()){
+                for(double[] cp:dcp.get(deg)){
+                    System.out.println(cp[0]+"\t"+cp[1]);
+                }
+            }*/
             return dcp;
+        }
         else
             return null;
     }

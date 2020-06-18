@@ -11,12 +11,13 @@ public class Resistor extends Element {
 
     public double getR(){
         double hold=0;
+
         for (int deg:r.keySet()){
             double coeff=0;
             for (double[] cp:r.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Main.t,deg);
+            hold+=coeff*Math.pow(Main.time,deg);
         }
         if (hold<0) {
             System.out.println("Negative Resistance");
