@@ -37,10 +37,11 @@ class HSource extends VSource {
 
     @Override
     public double getV(Nodes node) {
+        double v=a * element.is.get(element.is.size()-1);
         if (node.equals(this.node[0]))
-            return a * element.is.get(element.is.size()-1);
+            return v;
         else
-            return -a * element.is.get(element.is.size()-1);
+            return -v;
     }
 
 }
@@ -57,10 +58,11 @@ class ESource extends VSource {
 
     @Override
     public double getV(Nodes node) {
+        double v=a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
         if (node.equals(this.node[0]))
-            return a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
+            return v;
         else
-            return -a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
+            return -v;
     }
 
 }

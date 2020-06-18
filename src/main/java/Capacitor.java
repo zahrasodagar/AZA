@@ -43,8 +43,8 @@ public class Capacitor extends Element {
         double i=c*dV+(node[0].v-node[1].v)*dC;
         System.out.println("Ic : "+i);
         if (thisNode.equals(this.node[0]))
-            return i;
-        else
             return -i;
+        else
+            return i;
     }
 }
