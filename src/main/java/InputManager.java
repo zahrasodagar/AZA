@@ -34,7 +34,6 @@ public class InputManager {
             Nodes node1=getNode(n1);
             Nodes node2=getNode(n2);
             HashMap <Integer,ArrayList<double[]>> resistance=getPolynomial(r);
-
             if (resistance==null)
                 return false;
 
@@ -46,6 +45,7 @@ public class InputManager {
                 //System.out.println("Negative Resistance");
                 return false;
             }
+
             return addElement(resistor,node1,node2);
         }
         return false;
@@ -266,9 +266,11 @@ public class InputManager {
     }
 
     public boolean checkName(String name){
-        for (Element element:Element.elements){
-            if (element.name.equals(name))
-                return false;
+        for (Object object:Main.everything){
+            if(object instanceof Element){
+               if (((Element)object).name.equals(name))
+                 return false;
+            }
         }
         return true;
     }

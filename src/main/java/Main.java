@@ -70,6 +70,7 @@ public class Main {
         }
 
 
+
     }
     public static void setTime(String t,String p){
         int power=0;
