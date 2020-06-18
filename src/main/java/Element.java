@@ -11,7 +11,6 @@ public abstract class Element {
         this.name=name;
         node[0]=node1;
         node[1]=node2;
-        elements.add(this);
     }
 
     public static void update(){ //ghable update nodes
