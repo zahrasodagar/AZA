@@ -30,6 +30,7 @@ public class Resistor extends Element {
     public double getI(Nodes thisNode) {
         double r=getR();
         double i=(node[0].v-node[1].v)/r;
+        //System.out.println("IR : "+i);
         if (thisNode.equals(this.node[0]))
             return -i;
         else

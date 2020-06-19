@@ -46,7 +46,8 @@ class GSource extends ISource {
 
     @Override
     public double getI(Nodes thisNode) {
-        double i=a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
+        double i=a*(node1.v-node2.v);
+        //System.out.println("IG : "+i);
         if (thisNode.equals(node[0]))
             return i;
         else
