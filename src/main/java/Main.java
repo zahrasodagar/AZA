@@ -66,10 +66,11 @@ public class Main {
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
                 }
-                if (o instanceof Inductor){
+                /*if (o instanceof Inductor){
                     System.out.println(((Inductor) o).name+" : "+((Inductor) o).getI(((Inductor) o).node[0]));
-                }
+                }*/
             }
+            System.out.println("--------------------------");
         }
 
 
@@ -106,10 +107,21 @@ public class Main {
                 }
                 if(o instanceof VSource){
                     if(((VSource) o).node[1].name.equals("0")){
-                        ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).value();
+                        ((VSource) o).node[0].v = ((VSource) o).node[1].v-((VSource) o).getV(((VSource) o).node[0]);
                     }
                     else {
-                        ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).value();
+                        int temporary=0;
+                        for (Element element:((VSource) o).node[0].elements){
+                            if(element instanceof ISource){
+                                temporary++;
+                            }
+                        }
+                        if(temporary==0){
+                            ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).getV(((VSource) o).node[0]);
+                        }
+                        else {
+                            ((VSource) o).node[0].v = ((VSource) o).node[1].v-((VSource) o).getV(((VSource) o).node[0]);
+                        }
                     }
                 }
             }

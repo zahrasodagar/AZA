@@ -28,6 +28,9 @@ class FSource extends ISource {
         //System.out.println(element.getI(element.node[1]));
         //System.out.println(a);
         double i=a*element.getI(element.node[1]);
+        if(element instanceof ISource){
+            i=-i;
+        }
         //System.out.println("node0 : "+element.node[0].v);
         //System.out.println("node1 : "+element.node[1].v);
         //System.out.println("If : "+i);

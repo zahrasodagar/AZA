@@ -189,7 +189,7 @@ public class InputManager {
     }
 
     public boolean checkESource(){
-        Pattern pattern=Pattern.compile("^([G|g]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
+        Pattern pattern=Pattern.compile("^([E|e]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
             String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);

@@ -13,15 +13,21 @@ public class VSource extends Source {
     @Override
     public double getI(Nodes thisNode) {
         double hold=0;
-        for (Element element:node[0].elements){
-            if (!element.equals(this)){
-                hold+=element.getI(element.otherNode(node[0]));
+        if(thisNode.name.equals(node[0].name)){
+            for (Element element:node[1].elements){
+                if (!element.equals(this)){
+                    hold+=element.getI(node[1]);
+                }
             }
         }
-        if (thisNode.equals(this.node[0]))
-            return hold;
-        else
-            return -hold;
+        if(!thisNode.name.equals(node[0].name)){
+            for (Element element:node[0].elements){
+                if (!element.equals(this)){
+                    hold+=element.getI(node[0]);
+                }
+            }
+        }
+        return hold;
     }
 }
 
@@ -58,7 +64,7 @@ class ESource extends VSource {
 
     @Override
     public double getV(Nodes node) {
-        double v=a * (node1.vs.get(node1.vs.size()-1)-node2.vs.get(node2.vs.size()-1));
+        double v=a * (node1.v-node2.v);
         if (node.equals(this.node[0]))
             return v;
         else
