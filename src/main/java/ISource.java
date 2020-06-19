@@ -25,7 +25,12 @@ class FSource extends ISource {
 
     @Override
     public double getI(Nodes thisNode) {
-        double i=a * element.is.get(element.is.size()-1);
+        //System.out.println(element.getI(element.node[1]));
+        //System.out.println(a);
+        double i=a*element.getI(element.node[1]);
+        //System.out.println("node0 : "+element.node[0].v);
+        //System.out.println("node1 : "+element.node[1].v);
+        //System.out.println("If : "+i);
         if (thisNode.equals(node[0]))
             return i;
         else
