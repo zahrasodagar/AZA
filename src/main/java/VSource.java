@@ -43,7 +43,8 @@ class HSource extends VSource {
 
     @Override
     public double getV(Nodes node) {
-        double v=a * element.is.get(element.is.size()-1);
+        double v=a*element.getI(element.node[1]);
+        System.out.println("VH : "+v);
         if (node.equals(this.node[0]))
             return v;
         else
