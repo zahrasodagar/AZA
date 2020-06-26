@@ -60,6 +60,7 @@ public class Main {
             System.exit(0);
         }
         //Nodes.updateNeighbourNodes();
+        t=0;
         for (double i =0 ; i<time ; i+=dt){
             calculateVoltageAtT();
             for (Object o: Main.everything){
@@ -70,7 +71,9 @@ public class Main {
                     System.out.println(((Inductor) o).name+" : "+((Inductor) o).getI(((Inductor) o).node[0]));
                 }*/
             }
+            System.out.println("T : "+i);
             System.out.println("--------------------------");
+            t+=dt;
         }
 
 
