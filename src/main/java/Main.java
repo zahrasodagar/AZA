@@ -108,9 +108,19 @@ public class Main {
                 if (o instanceof Nodes){
                     Nodes.resetNodes();
                 }
+                if(o instanceof Diode1){
+                    if(((Diode1) o).node[1].v>((Diode1) o).node[0].v){
+                        if(((Diode1) o).node[1].name.equals("0")){
+                            ((Diode1) o).node[0].v = ((Diode1) o).node[1].v;
+                        }
+                        else {
+                            ((Diode1) o).node[1].v = ((Diode1) o).node[0].v;
+                        }
+                    }
+                }
                 if(o instanceof VSource){
                     if(((VSource) o).node[1].name.equals("0")){
-                        ((VSource) o).node[0].v = ((VSource) o).node[1].v-((VSource) o).getV(((VSource) o).node[0]);
+                        ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).getV(((VSource) o).node[0]);
                     }
                     else {
                         int temporary=0;
@@ -120,10 +130,10 @@ public class Main {
                             }
                         }
                         if(temporary==0){
-                            ((VSource) o).node[1].v = ((VSource) o).node[0].v+((VSource) o).getV(((VSource) o).node[0]);
+                            ((VSource) o).node[1].v = ((VSource) o).node[0].v-((VSource) o).getV(((VSource) o).node[0]);
                         }
                         else {
-                            ((VSource) o).node[0].v = ((VSource) o).node[1].v-((VSource) o).getV(((VSource) o).node[0]);
+                            ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).getV(((VSource) o).node[0]);
                         }
                     }
                 }
@@ -158,12 +168,48 @@ public class Main {
                 }
             }
             ////-------------         visiting all nodes
+            ////--------------------------------------
+            for (Object o: Main.everything){
+                if(o instanceof Diode1){
+                    if(((Diode1) o).node[1].v>((Diode1) o).node[0].v){
+                        if(((Diode1) o).node[1].name.equals("0")){
+                            ((Diode1) o).node[0].v = ((Diode1) o).node[1].v;
+                        }
+                        else {
+                            ((Diode1) o).node[1].v = ((Diode1) o).node[0].v;
+                        }
+                    }
+                }
+                if(o instanceof VSource){
+                    if(((VSource) o).node[1].name.equals("0")){
+                        ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).getV(((VSource) o).node[0]);
+                    }
+                    else {
+                        int temporary=0;
+                        for (Element element:((VSource) o).node[0].elements){
+                            if(element instanceof ISource){
+                                temporary++;
+                            }
+                        }
+                        if(temporary==0){
+                            ((VSource) o).node[1].v = ((VSource) o).node[0].v-((VSource) o).getV(((VSource) o).node[0]);
+                        }
+                        else {
+                            ((VSource) o).node[0].v = ((VSource) o).node[1].v+((VSource) o).getV(((VSource) o).node[0]);
+                        }
+                    }
+                }
+            }
+            ////--------------------------------------
             ////-------------     total input currents of all nodes is less than 0.01 so exits from the while
             temp =0;
             //System.out.println("temp : "+temp);
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
                     double I3=((Nodes) o).getTotalI((Nodes) o);
+                    //System.out.println("-----------------------------");
+                    //System.out.println("V : "+((Nodes) o).v);
+                    //System.out.println("Node : "+((Nodes) o).name);
                     //System.out.println("I3 : " +I3);
                     if(I3>0.01||I3<-0.01){
                         temp++;
