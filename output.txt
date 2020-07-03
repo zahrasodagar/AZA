@@ -1,0 +1,533 @@
+Time:0.0 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988065 V
+Node 3: voltage=5.939619 V
+------------
+VSource V1: voltage=10.000000 V, current=-4.005967 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011935 V, current=2.005967 A
+Resistor r3: voltage=5.988065 V, current=1.996022 A
+Resistor r4: voltage=0.048447 V, current=0.009689 A
+Diode D1: voltage=5.939619 V, current=0.000000 A
+------------
+Time:9.999999999999999E-5 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988078 V
+Node 3: voltage=5.940019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005961 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011922 V, current=2.005961 A
+Resistor r3: voltage=5.988078 V, current=1.996026 A
+Resistor r4: voltage=0.048059 V, current=0.009612 A
+Diode D1: voltage=5.940019 V, current=0.000000 A
+------------
+Time:1.9999999999999998E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988217 V
+Node 3: voltage=5.940419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005892 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011783 V, current=2.005892 A
+Resistor r3: voltage=5.988217 V, current=1.996072 A
+Resistor r4: voltage=0.047798 V, current=0.009560 A
+Diode D1: voltage=5.940419 V, current=0.000000 A
+------------
+Time:3.0E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988236 V
+Node 3: voltage=5.940819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005882 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011764 V, current=2.005882 A
+Resistor r3: voltage=5.988236 V, current=1.996079 A
+Resistor r4: voltage=0.047417 V, current=0.009483 A
+Diode D1: voltage=5.940819 V, current=0.000000 A
+------------
+Time:3.9999999999999996E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988376 V
+Node 3: voltage=5.941219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005812 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011624 V, current=2.005812 A
+Resistor r3: voltage=5.988376 V, current=1.996125 A
+Resistor r4: voltage=0.047157 V, current=0.009431 A
+Diode D1: voltage=5.941219 V, current=0.000000 A
+------------
+Time:5.0E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988387 V
+Node 3: voltage=5.941619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005807 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011613 V, current=2.005807 A
+Resistor r3: voltage=5.988387 V, current=1.996129 A
+Resistor r4: voltage=0.046768 V, current=0.009354 A
+Diode D1: voltage=5.941619 V, current=0.000000 A
+------------
+Time:6.000000000000001E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988526 V
+Node 3: voltage=5.942019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005737 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011474 V, current=2.005737 A
+Resistor r3: voltage=5.988526 V, current=1.996175 A
+Resistor r4: voltage=0.046507 V, current=0.009301 A
+Diode D1: voltage=5.942019 V, current=0.000000 A
+------------
+Time:7.000000000000001E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988547 V
+Node 3: voltage=5.942419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005727 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011453 V, current=2.005727 A
+Resistor r3: voltage=5.988547 V, current=1.996182 A
+Resistor r4: voltage=0.046128 V, current=0.009226 A
+Diode D1: voltage=5.942419 V, current=0.000000 A
+------------
+Time:8.000000000000001E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988685 V
+Node 3: voltage=5.942819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005658 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011315 V, current=2.005658 A
+Resistor r3: voltage=5.988685 V, current=1.996228 A
+Resistor r4: voltage=0.045866 V, current=0.009173 A
+Diode D1: voltage=5.942819 V, current=0.000000 A
+------------
+Time:9.000000000000002E-4 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988697 V
+Node 3: voltage=5.943219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005651 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011303 V, current=2.005651 A
+Resistor r3: voltage=5.988697 V, current=1.996232 A
+Resistor r4: voltage=0.045479 V, current=0.009096 A
+Diode D1: voltage=5.943219 V, current=0.000000 A
+------------
+Time:0.0010000000000000002 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988836 V
+Node 3: voltage=5.943619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005582 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011164 V, current=2.005582 A
+Resistor r3: voltage=5.988836 V, current=1.996279 A
+Resistor r4: voltage=0.045218 V, current=0.009044 A
+Diode D1: voltage=5.943619 V, current=0.000000 A
+------------
+Time:0.0011000000000000003 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988855 V
+Node 3: voltage=5.944019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005572 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011145 V, current=2.005572 A
+Resistor r3: voltage=5.988855 V, current=1.996285 A
+Resistor r4: voltage=0.044837 V, current=0.008967 A
+Diode D1: voltage=5.944019 V, current=0.000000 A
+------------
+Time:0.0012000000000000003 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988995 V
+Node 3: voltage=5.944419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005503 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011005 V, current=2.005503 A
+Resistor r3: voltage=5.988995 V, current=1.996332 A
+Resistor r4: voltage=0.044576 V, current=0.008915 A
+Diode D1: voltage=5.944419 V, current=0.000000 A
+------------
+Time:0.0013000000000000004 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989006 V
+Node 3: voltage=5.944819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005497 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010994 V, current=2.005497 A
+Resistor r3: voltage=5.989006 V, current=1.996335 A
+Resistor r4: voltage=0.044188 V, current=0.008838 A
+Diode D1: voltage=5.944819 V, current=0.000000 A
+------------
+Time:0.0014000000000000004 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988121 V
+Node 3: voltage=5.945019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005940 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011879 V, current=2.005940 A
+Resistor r3: voltage=5.988121 V, current=1.996040 A
+Resistor r4: voltage=0.043102 V, current=0.008620 A
+Diode D1: voltage=5.945019 V, current=0.000000 A
+------------
+Time:0.0015000000000000005 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989145 V
+Node 3: voltage=5.945219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005427 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010855 V, current=2.005427 A
+Resistor r3: voltage=5.989145 V, current=1.996382 A
+Resistor r4: voltage=0.043927 V, current=0.008785 A
+Diode D1: voltage=5.945219 V, current=0.000000 A
+------------
+Time:0.0016000000000000005 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988132 V
+Node 3: voltage=5.945419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005934 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011868 V, current=2.005934 A
+Resistor r3: voltage=5.988132 V, current=1.996044 A
+Resistor r4: voltage=0.042714 V, current=0.008543 A
+Diode D1: voltage=5.945419 V, current=0.000000 A
+------------
+Time:0.0017000000000000006 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989166 V
+Node 3: voltage=5.945619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005417 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010834 V, current=2.005417 A
+Resistor r3: voltage=5.989166 V, current=1.996389 A
+Resistor r4: voltage=0.043547 V, current=0.008709 A
+Diode D1: voltage=5.945619 V, current=0.000000 A
+------------
+Time:0.0018000000000000006 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988271 V
+Node 3: voltage=5.945819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005865 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011729 V, current=2.005865 A
+Resistor r3: voltage=5.988271 V, current=1.996090 A
+Resistor r4: voltage=0.042452 V, current=0.008490 A
+Diode D1: voltage=5.945819 V, current=0.000000 A
+------------
+Time:0.0019000000000000006 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989304 V
+Node 3: voltage=5.946019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005348 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010696 V, current=2.005348 A
+Resistor r3: voltage=5.989304 V, current=1.996435 A
+Resistor r4: voltage=0.043285 V, current=0.008657 A
+Diode D1: voltage=5.946019 V, current=0.000000 A
+------------
+Time:0.0020000000000000005 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988283 V
+Node 3: voltage=5.946219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005858 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011717 V, current=2.005858 A
+Resistor r3: voltage=5.988283 V, current=1.996094 A
+Resistor r4: voltage=0.042064 V, current=0.008413 A
+Diode D1: voltage=5.946219 V, current=0.000000 A
+------------
+Time:0.0021000000000000003 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989316 V
+Node 3: voltage=5.946419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005342 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010684 V, current=2.005342 A
+Resistor r3: voltage=5.989316 V, current=1.996439 A
+Resistor r4: voltage=0.042898 V, current=0.008580 A
+Diode D1: voltage=5.946419 V, current=0.000000 A
+------------
+Time:0.0022 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988430 V
+Node 3: voltage=5.946619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005785 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011570 V, current=2.005785 A
+Resistor r3: voltage=5.988430 V, current=1.996143 A
+Resistor r4: voltage=0.041811 V, current=0.008362 A
+Diode D1: voltage=5.946619 V, current=0.000000 A
+------------
+Time:0.0023 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989456 V
+Node 3: voltage=5.946819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005272 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010544 V, current=2.005272 A
+Resistor r3: voltage=5.989456 V, current=1.996485 A
+Resistor r4: voltage=0.042637 V, current=0.008527 A
+Diode D1: voltage=5.946819 V, current=0.000000 A
+------------
+Time:0.0024 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988441 V
+Node 3: voltage=5.947019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005779 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011559 V, current=2.005779 A
+Resistor r3: voltage=5.988441 V, current=1.996147 A
+Resistor r4: voltage=0.041423 V, current=0.008285 A
+Diode D1: voltage=5.947019 V, current=0.000000 A
+------------
+Time:0.0024999999999999996 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989475 V
+Node 3: voltage=5.947219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005263 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010525 V, current=2.005263 A
+Resistor r3: voltage=5.989475 V, current=1.996492 A
+Resistor r4: voltage=0.042256 V, current=0.008451 A
+Diode D1: voltage=5.947219 V, current=0.000000 A
+------------
+Time:0.0025999999999999994 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988581 V
+Node 3: voltage=5.947419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005710 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011419 V, current=2.005710 A
+Resistor r3: voltage=5.988581 V, current=1.996194 A
+Resistor r4: voltage=0.041162 V, current=0.008232 A
+Diode D1: voltage=5.947419 V, current=0.000000 A
+------------
+Time:0.0026999999999999993 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989614 V
+Node 3: voltage=5.947619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005193 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010386 V, current=2.005193 A
+Resistor r3: voltage=5.989614 V, current=1.996538 A
+Resistor r4: voltage=0.041996 V, current=0.008399 A
+Diode D1: voltage=5.947619 V, current=0.000000 A
+------------
+Time:0.002799999999999999 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988592 V
+Node 3: voltage=5.947819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005704 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011408 V, current=2.005704 A
+Resistor r3: voltage=5.988592 V, current=1.996197 A
+Resistor r4: voltage=0.040774 V, current=0.008155 A
+Diode D1: voltage=5.947819 V, current=0.000000 A
+------------
+Time:0.002899999999999999 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989626 V
+Node 3: voltage=5.948019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005187 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010374 V, current=2.005187 A
+Resistor r3: voltage=5.989626 V, current=1.996542 A
+Resistor r4: voltage=0.041607 V, current=0.008321 A
+Diode D1: voltage=5.948019 V, current=0.000000 A
+------------
+Time:0.0029999999999999988 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988740 V
+Node 3: voltage=5.948219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005630 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011260 V, current=2.005630 A
+Resistor r3: voltage=5.988740 V, current=1.996247 A
+Resistor r4: voltage=0.040522 V, current=0.008104 A
+Diode D1: voltage=5.948219 V, current=0.000000 A
+------------
+Time:0.0030999999999999986 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989765 V
+Node 3: voltage=5.948419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005118 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010235 V, current=2.005118 A
+Resistor r3: voltage=5.989765 V, current=1.996588 A
+Resistor r4: voltage=0.041346 V, current=0.008269 A
+Diode D1: voltage=5.948419 V, current=0.000000 A
+------------
+Time:0.0031999999999999984 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988752 V
+Node 3: voltage=5.948619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005624 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011248 V, current=2.005624 A
+Resistor r3: voltage=5.988752 V, current=1.996251 A
+Resistor r4: voltage=0.040133 V, current=0.008027 A
+Diode D1: voltage=5.948619 V, current=0.000000 A
+------------
+Time:0.0032999999999999982 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989785 V
+Node 3: voltage=5.948819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005107 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010215 V, current=2.005107 A
+Resistor r3: voltage=5.989785 V, current=1.996595 A
+Resistor r4: voltage=0.040967 V, current=0.008193 A
+Diode D1: voltage=5.948819 V, current=0.000000 A
+------------
+Time:0.003399999999999998 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988890 V
+Node 3: voltage=5.949019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005555 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011110 V, current=2.005555 A
+Resistor r3: voltage=5.988890 V, current=1.996297 A
+Resistor r4: voltage=0.039871 V, current=0.007974 A
+Diode D1: voltage=5.949019 V, current=0.000000 A
+------------
+Time:0.003499999999999998 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989923 V
+Node 3: voltage=5.949219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005038 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010077 V, current=2.005038 A
+Resistor r3: voltage=5.989923 V, current=1.996641 A
+Resistor r4: voltage=0.040705 V, current=0.008141 A
+Diode D1: voltage=5.949219 V, current=0.000000 A
+------------
+Time:0.0035999999999999977 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.988903 V
+Node 3: voltage=5.949419 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005549 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.011097 V, current=2.005549 A
+Resistor r3: voltage=5.988903 V, current=1.996301 A
+Resistor r4: voltage=0.039484 V, current=0.007897 A
+Diode D1: voltage=5.949419 V, current=0.000000 A
+------------
+Time:0.0036999999999999976 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989936 V
+Node 3: voltage=5.949619 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005032 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010064 V, current=2.005032 A
+Resistor r3: voltage=5.989936 V, current=1.996645 A
+Resistor r4: voltage=0.040317 V, current=0.008063 A
+Diode D1: voltage=5.949619 V, current=0.000000 A
+------------
+Time:0.0037999999999999974 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989049 V
+Node 3: voltage=5.949819 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005476 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010951 V, current=2.005476 A
+Resistor r3: voltage=5.989049 V, current=1.996350 A
+Resistor r4: voltage=0.039230 V, current=0.007846 A
+Diode D1: voltage=5.949819 V, current=0.000000 A
+------------
+Time:0.0038999999999999972 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.990075 V
+Node 3: voltage=5.950019 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.004962 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.009925 V, current=2.004962 A
+Resistor r3: voltage=5.990075 V, current=1.996692 A
+Resistor r4: voltage=0.040057 V, current=0.008011 A
+Diode D1: voltage=5.950019 V, current=0.000000 A
+------------
+Time:0.0039999999999999975 s
+------------
+Node 1: voltage=10.000000 V
+Node 2: voltage=5.989061 V
+Node 3: voltage=5.950219 V
+------------
+Vsource V1: voltage=10.000000 V, current=-4.005470 A
+Resistor r1: voltage=10.000000 V, current=2.000000 A
+Resistor r2: voltage=4.010939 V, current=2.005470 A
+Resistor r3: voltage=5.989061 V, current=1.996354 A
+Resistor r4: voltage=0.038842 V, current=0.007768 A
+Diode D1: voltage=5.950219 V, current=0.000000 A
+------------
