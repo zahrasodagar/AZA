@@ -236,4 +236,7 @@ public class Main {
         }
     }
 ////---------------   calculate voltage of nodes in t=T
+    public void printAll(){
+
+    }
 }

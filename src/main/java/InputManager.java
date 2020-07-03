@@ -278,7 +278,6 @@ public class InputManager {
     public HashMap <Integer,ArrayList<double[]>> getPolynomial(String input){
         Pattern pattern=Pattern.compile("([+-]?\\d*t?[^-+]*)");
         Matcher matcher=pattern.matcher(input);
-
         HashMap <Integer,ArrayList<double[]>> dcp=new HashMap<Integer, ArrayList<double[]>>();
         while (matcher.find()&&!matcher.group().equals("")){
             String s=matcher.group();
