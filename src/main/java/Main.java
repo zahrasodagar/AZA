@@ -12,7 +12,6 @@ import java.io.IOException;
 
 
 public class Main {
-    public static int counter=0;
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t,dt=-1,dV=-1,dI=-1;
     public static void main(String[] args){
@@ -79,9 +78,10 @@ public class Main {
             }
             System.out.println("T : "+i);
             System.out.println("--------------------------");
-            printAll(i);
+
             t+=dt;
         }
+        printAll();
 
 
 
@@ -243,91 +243,72 @@ public class Main {
         }
     }
 ////---------------   calculate voltage of nodes in t=T
-    public static void printAll(double time1){
-        if(counter==0){
+    public static void printAll(){
             try{
                 FileWriter fileout=new FileWriter("output.txt",false);
-                fileout.write("Time:"+time1+" s\n------------\n");
+
                 for(Object object:everything){
                     if(object instanceof Node){
-                        String nodeoutput=String.format("Node %s: voltage=%f V\n",((Node) object).name,((Node) object).v);
+                        String nodeoutput=String.format("Node %s: ",((Node) object).name);
                         fileout.write(nodeoutput);
+                        for (int i=0;i<((Node) object).vs.size();i++){
+                            fileout.write(((Node) object).vs.get(i)+"\t");
+                        }
+                        fileout.write("\n");
                     }
 
                 }
                 fileout.write("------------\n");
                 for (Object object:everything){
                     if (object instanceof ISource){
-                        String currentsourceoutput=String.format("ISource %s: voltage=%f V, current=%f A\n",((ISource) object).name,((ISource) object).node[0].v-((ISource) object).node[1].v,((ISource) object).getI(((ISource) object).node[1]));
+                        String currentsourceoutput=String.format("ISource %s: ",((ISource) object).name);
                         fileout.write(currentsourceoutput);
+                        for(int i=0;i<((ISource) object).vs.size();i++){
+                            fileout.write("("+((ISource) object).vs.get(i)+" "+((ISource) object).is.get(i)+" "+((ISource) object).vs.get(i)*((ISource) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
                     if (object instanceof VSource){
-                        String currentsourceoutput=String.format("VSource %s: voltage=%f V, current=%f A\n",((VSource) object).name,((VSource) object).node[0].v-((VSource) object).node[1].v,((VSource) object).getI(((VSource) object).node[1]));
+                        String currentsourceoutput=String.format("VSource %s: ",((VSource) object).name);
                         fileout.write(currentsourceoutput);
+                        for(int i=0;i<((VSource) object).vs.size();i++){
+                            fileout.write("("+((VSource) object).vs.get(i)+" "+((VSource) object).is.get(i)+" "+((VSource) object).vs.get(i)*((VSource) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
                     if(object instanceof Resistor){
-                        String  resistoroutput=String.format("Resistor %s: voltage=%f V, current=%f A\n",((Resistor) object).name,((Resistor) object).node[0].v-((Resistor) object).node[1].v,((Resistor) object).getI(((Resistor) object).node[1]));
+                        String  resistoroutput=String.format("Resistor %s: ",((Resistor) object).name);
                         fileout.write(resistoroutput);
+                        for(int i=0;i<((Resistor) object).vs.size();i++){
+                            fileout.write("("+((Resistor) object).vs.get(i)+" "+((Resistor) object).is.get(i)+" "+((Resistor) object).vs.get(i)*((Resistor) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
                     if(object instanceof Capacitor){
-                        String capacitoroutput=String.format("Capacitor %s: voltage=%f V, current=%f A\n",((Capacitor) object).name,((Capacitor) object).node[0].v-((Capacitor) object).node[1].v,((Capacitor) object).getI(((Capacitor) object).node[1]));
+                        String capacitoroutput=String.format("Capacitor %s: ",((Capacitor) object).name);
                         fileout.write(capacitoroutput);
+                        for(int i=0;i<((Capacitor) object).vs.size();i++){
+                            fileout.write("("+((Capacitor) object).vs.get(i)+" "+((Capacitor) object).is.get(i)+" "+((Capacitor) object).vs.get(i)*((Capacitor) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
                     if (object instanceof Inductor ){
-                        String inductoroutput=String.format("Inductor %s: voltage=%f V, current=%f A\n",((Inductor) object).name,((Inductor) object).node[0].v-((Inductor) object).node[1].v,((Inductor) object).getI(((Inductor) object).node[1]));
+                        String inductoroutput=String.format("Inductor %s: ",((Inductor) object).name);
                         fileout.write(inductoroutput);
+                        for(int i=0;i<((Inductor) object).vs.size();i++){
+                            fileout.write("("+((Inductor) object).vs.get(i)+" "+((Inductor) object).is.get(i)+" "+((Inductor) object).vs.get(i)*((Inductor) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
                     if (object instanceof Diodes){
-                        String diodeoutput=String.format("Diode %s: voltage=%f V, current=%f A\n",((Diodes) object).name,((Diodes) object).node[0].v-((Diodes) object).node[1].v,((Diodes) object).getI(((Diodes) object).node[1]));
+                        String diodeoutput=String.format("Diode %s: ",((Diodes) object).name);
                         fileout.write(diodeoutput);
+                        for(int i=0;i<((Diodes) object).vs.size();i++){
+                            fileout.write("("+((Diodes) object).vs.get(i)+" "+((Diodes) object).is.get(i)+" "+((Diodes) object).vs.get(i)*((Diodes) object).is.get(i)+")\t");
+                        }
+                        fileout.write("\n");
                     }
 
-                }
-                fileout.write("------------\n");
-                fileout.close();
-                counter++;
-            }
-            catch (IOException e){
-
-            }
-        }
-        else {
-            try{
-                FileWriter fileout=new FileWriter("output.txt",true);
-                fileout.write("Time:"+time1+" s\n------------\n");
-                for(Object object:everything){
-                    if(object instanceof Node){
-                        String nodeoutput=String.format("Node %s: voltage=%f V\n",((Node) object).name,((Node) object).v);
-                        fileout.write(nodeoutput);
-                    }
-
-                }
-                fileout.write("------------\n");
-                for (Object object:everything){
-                    if (object instanceof ISource){
-                        String currentsourceoutput=String.format("ISource %s: voltage=%f V, current=%f A\n",((ISource) object).name,((ISource) object).node[0].v-((ISource) object).node[1].v,((ISource) object).getI(((ISource) object).node[1]));
-                        fileout.write(currentsourceoutput);
-                    }
-                    if(object instanceof VSource){
-                        String voltagesourceoutput=String.format("Vsource %s: voltage=%f V, current=%f A\n",((VSource) object).name,((VSource) object).node[0].v-((VSource) object).node[1].v,((VSource) object).getI(((VSource) object).node[1]));
-                        fileout.write(voltagesourceoutput);
-                    }
-                    if(object instanceof Resistor){
-                        String  resistoroutput=String.format("Resistor %s: voltage=%f V, current=%f A\n",((Resistor) object).name,((Resistor) object).node[0].v-((Resistor) object).node[1].v,((Resistor) object).getI(((Resistor) object).node[1]));
-                        fileout.write(resistoroutput);
-                    }
-                    if(object instanceof Capacitor){
-                        String capacitoroutput=String.format("Capacitor %s: voltage=%f V, current=%f A\n",((Capacitor) object).name,((Capacitor) object).node[0].v-((Capacitor) object).node[1].v,((Capacitor) object).getI(((Capacitor) object).node[1]));
-                        fileout.write(capacitoroutput);
-                    }
-                    if (object instanceof Inductor ){
-                        String inductoroutput=String.format("Inductor %s: voltage=%f V, current=%f A\n",((Inductor) object).name,((Inductor) object).node[0].v-((Inductor) object).node[1].v,((Inductor) object).getI(((Inductor) object).node[1]));
-                        fileout.write(inductoroutput);
-                    }
-                    if (object instanceof Diodes){
-                        String diodeoutput=String.format("Diode %s: voltage=%f V, current=%f A\n",((Diodes) object).name,((Diodes) object).node[0].v-((Diodes) object).node[1].v,((Diodes) object).getI(((Diodes) object).node[1]));
-                        fileout.write(diodeoutput);
-                    }
                 }
                 fileout.write("------------\n");
                 fileout.close();
@@ -336,5 +317,5 @@ public class Main {
 
             }
         }
+
     }
-}
