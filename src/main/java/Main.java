@@ -107,7 +107,7 @@ public class Main {
 
     ////---------------   calculate voltage of nodes in t=T
     public static void calculateVoltageAtT(){
-        int temp=0;
+        double temp=0;
         double Itotal1=0,Itotal2=0,Itotal4=0;
         while (true){
             ////-------------         reset all nodes
@@ -157,6 +157,7 @@ public class Main {
             for (Object o: Main.everything) {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
+                        // TODO: 7/2/2020 Diode 2 has some problems:should be solved later
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
                         //System.out.println("-----------------------------");
                         //System.out.println("V : "+((Nodes) o).v);
@@ -169,7 +170,30 @@ public class Main {
                         //System.out.println("Node : "+((Nodes) o).name);
                         //System.out.println("I1 : "+Itotal1);
                         //System.out.println("I2 : "+Itotal2);
+                        //System.out.println("I4 : "+Itotal4);
+                        temp=((Nodes) o).v;
                         ((Nodes) o).v = ((Nodes) o).v + (Math.abs(Itotal1) - Math.abs(Itotal2))/Main.dI * Main.dV;
+                        temp=((Nodes) o).v-temp;
+                        int temporary=0;
+                        for (Element element:((Nodes) o).elements){
+                            if(element instanceof Capacitor){
+                                temporary++;
+                            }
+                        }
+                        if (temporary>0){
+                            Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                            //System.out.println("I4 : "+Itotal4);
+                            while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>0.01&&Math.abs(temp)<Math.pow(10,-13)){
+                                //System.out.println("-----------------------------");
+                                //System.out.println("V : "+((Nodes) o).v);
+                                //System.out.println("Node : "+((Nodes) o).name);
+                                //System.out.println("Temp : "+temp);
+                                //System.out.println("I4 : "+Itotal4);
+                                temp/=2;
+                                ((Nodes) o).v-=temp;
+                                Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                            }
+                        }
                         ((Nodes) o).visited = true;
                     }
                 }
