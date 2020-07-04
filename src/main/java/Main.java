@@ -270,17 +270,23 @@ public class Main {
     public static void printAll(){
             try{
                 FileWriter fileout=new FileWriter("output.txt",false);
-
+                int counter=0;
                 for(Object object:everything){
-                    if(object instanceof Node){
-                        String nodeoutput=String.format("Node %s: ",((Node) object).name);
-                        fileout.write(nodeoutput);
-                        for (int i=0;i<((Node) object).vs.size();i++){
-                            fileout.write(((Node) object).vs.get(i)+"\t");
-                        }
-                        fileout.write("\n");
-                    }
+                    if (object instanceof Node)
+                        counter++;
+                }
+                for(int j=1;j<=counter;j++){
+                    for (Object object1:everything) {
+                        if (object1 instanceof Node&&Integer.parseInt(((Node) object1).name)==j) {
 
+                            String nodeoutput = String.format("Node %s: ", ((Node) object1).name);
+                            fileout.write(nodeoutput);
+                            for (int i = 0; i < ((Node) object1).vs.size(); i++) {
+                                fileout.write(((Node) object1).vs.get(i) + "\t");
+                            }
+                            fileout.write("\n");
+                        }
+                    }
                 }
                 fileout.write("------------\n");
                 for (Object object:everything){
