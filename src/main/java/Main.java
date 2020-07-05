@@ -15,7 +15,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,18 +54,27 @@ public class Main extends Application {
         MenuItem reloadFileMenu = new MenuItem("Reload File");
         MenuItem exitMenu = new MenuItem("Exit");
 
-        openMenu.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt")
-            );
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-            File file = fileChooser.showOpenDialog(window);
-            if (file != null) {
-                path=file.getPath();
-                System.out.println(path);
-            }
-        });
+        addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
+        addMenus(menuBar,fileMenu,editMenu,helpMenu);
+        layout.getChildren().addAll(menuBar);
+
+        /////////// add toolbar here
+
+        HBox mainHBox= new HBox();
+        mainHBox.setBackground(new Background(new BackgroundFill(gray(0.865), CornerRadii.EMPTY, Insets.EMPTY)));
+        mainHBox.setPadding(new Insets(5,5,5,5));
+        layout.getChildren().add(mainHBox);
+
+        TextArea inputTextArea = new TextArea();
+        updateTextArea(inputTextArea);
+        inputTextArea.setMinHeight(560);
+
+
+        VBox circuitAndData= new VBox();
+        circuitAndData.setBackground(new Background(new BackgroundFill(gray(0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+        mainHBox.getChildren().addAll(inputTextArea,circuitAndData);
+
+        //Listeners
         newMenu.setOnAction(event -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -95,7 +103,12 @@ public class Main extends Application {
                         try {
                             newFile.createNewFile();
                             path=newPath;
-                            System.out.println(path);
+                            //System.out.println(path);
+                            try {
+                                updateTextArea(inputTextArea);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                             window.close();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -115,21 +128,23 @@ public class Main extends Application {
                 window.show();
             }
         });
-
-        addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
-        addMenus(menuBar,fileMenu,editMenu,helpMenu);
-        layout.getChildren().addAll(menuBar);
-
-        /////////// add toolbar here
-
-        HBox mainHBox= new HBox();
-        mainHBox.setBackground(new Background(new BackgroundFill(gray(0.865), CornerRadii.EMPTY, Insets.EMPTY)));
-        mainHBox.setPadding(new Insets(5,5,5,5));
-        layout.getChildren().add(mainHBox);
-
-        TextArea inputTextArea = new TextArea();
-        updateTextArea(inputTextArea);
-        inputTextArea.setMinHeight(560);
+        openMenu.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt")
+            );
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            File file = fileChooser.showOpenDialog(window);
+            if (file != null) {
+                path=file.getPath();
+                //System.out.println(path);
+                try {
+                    updateTextArea(inputTextArea);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         reloadFileMenu.setOnAction(event -> {
             try {
                 updateTextArea(inputTextArea);
@@ -137,10 +152,35 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         });
+        exitMenu.setOnAction(event -> {
+            Stage window= new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("New Project");
+            window.setMinWidth(250);
+            VBox layout1= new VBox();
+            layout1.setPadding(new Insets(10,50,10,50));
 
-        VBox circuitAndData= new VBox();
-        circuitAndData.setBackground(new Background(new BackgroundFill(gray(0.5), CornerRadii.EMPTY, Insets.EMPTY)));
-        mainHBox.getChildren().addAll(inputTextArea,circuitAndData);
+
+            Label label=new Label("Are you sure you want to exit AZA?");
+            Button yes=new Button("Yes");
+            Button cancel=new Button("No");
+
+            yes.setOnAction(event1 -> {
+                // TODO: 20/07/05 Ask to save before exit
+                System.exit(0);
+            });
+            cancel.setOnAction(event1 -> window.close());
+            layout1.setAlignment(Pos.CENTER);
+            HBox buttons= new HBox(yes,cancel);
+            buttons.setAlignment(Pos.CENTER);
+            layout1.setSpacing(9);
+            buttons.setSpacing(14);
+            layout1.getChildren().addAll(label,buttons);
+
+            Scene scene=new Scene(layout1);
+            window.setScene(scene);
+            window.show();
+        });
 
         window.setScene(mainScene);
         window.setTitle("input.txt Simulation");
@@ -168,5 +208,9 @@ public class Main extends Application {
         }
         textArea.setText(text);
 
+    }
+
+    public static void saveFile(String textArea){
+        System.out.println(textArea);
     }
 }
