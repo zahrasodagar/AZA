@@ -12,6 +12,11 @@ public class Simulator {
     static double time,t,dt=-1,dV=-1,dI=-1,i=0;
     public static void simulateFile(){
         InputManager manager=InputManager.getInstance();
+        everything.clear();
+        dt=-1;dV=-1;dI=-1;i=0;
+        Nodes.nodes.clear();
+        Element.elements.clear();
+        Nodes.checkGraph=false;
         /*String current = null;
         try {
             current = new File( "." ).getCanonicalPath();
