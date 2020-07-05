@@ -23,6 +23,7 @@ public class Resistor extends Element {
             System.out.println("Negative Resistance");
             System.exit(0);
         }
+        //System.out.println("Resistance : "+hold);
         return hold;
     }
 

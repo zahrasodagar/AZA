@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Main {
     static ArrayList<Object> everything=new ArrayList<>();
-    static double time,t,dt=-1,dV=-1,dI=-1;
+    static double time,t,dt=-1,dV=-1,dI=-1,i=0;
     public static void main(String[] args){
         InputManager manager=InputManager.getInstance();
         /*String current = null;
@@ -66,7 +66,7 @@ public class Main {
         }
         //Nodes.updateNeighbourNodes();
         t=0;
-        for (double i =0 ; i<time ; i+=dt){
+        for (i =0 ; i<time ; i+=dt){
             calculateVoltageAtT();
             for (Object o: Main.everything){
                 if (o instanceof Nodes){
@@ -183,7 +183,7 @@ public class Main {
                         if (temporary>0){
                             Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
                             //System.out.println("I4 : "+Itotal4);
-                            while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>0.01&&Math.abs(temp)<Math.pow(10,-13)){
+                            while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>Main.dI&&Math.abs(temp)<Math.pow(10,-13)){
                                 //System.out.println("-----------------------------");
                                 //System.out.println("V : "+((Nodes) o).v);
                                 //System.out.println("Node : "+((Nodes) o).name);
@@ -242,7 +242,7 @@ public class Main {
                     //System.out.println("V : "+((Nodes) o).v);
                     //System.out.println("Node : "+((Nodes) o).name);
                     //System.out.println("I3 : " +I3);
-                    if(I3>0.01||I3<-0.01){
+                    if(I3>Main.dI||I3<-Main.dI){
                         temp++;
                     }
                 }
