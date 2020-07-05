@@ -1,25 +1,19 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 
-import java.awt.Label;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
-import java.time.LocalDate;
-import java.awt.*;
-
+import java.io.File;
+import java.io.IOException;
 
 
 public class Main extends Application {
@@ -29,12 +23,14 @@ public class Main extends Application {
 
     public static void main(String[] args){
         launch(args);
-        Simulator.simulateFile();
+        //Simulator.simulateFile();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
+        VBox layout = new VBox();
+        mainScene = new Scene(layout,800,600);
 
         MenuBar menuBar = new MenuBar();
 
@@ -44,16 +40,28 @@ public class Main extends Application {
 
         MenuItem newMenu = new MenuItem("New");
         MenuItem openMenu = new MenuItem("Open");
-        MenuItem openRecentMenu = new MenuItem("Open Recent");
+        Menu openRecentMenu = new Menu("Open Recent");
         MenuItem saveMenu = new MenuItem("Save");
         MenuItem reloadFileMenu = new MenuItem("Reload File");
         MenuItem exitMenu = new MenuItem("Exit");
 
+        openMenu.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt")
+            );
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            File file = fileChooser.showOpenDialog(window);
+            if (file != null) {
+                path=file.getPath();
+                System.out.println(path);
+            }
+        });
+
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenus(menuBar,fileMenu,editMenu,helpMenu);
-        VBox layout = new VBox(menuBar);
         layout.getChildren().addAll(menuBar);
-        mainScene = new Scene(layout,800,600);
+
 
 
         window.setScene(mainScene);
@@ -63,13 +71,13 @@ public class Main extends Application {
 
     public static void addMenuItems(Menu menu, MenuItem ... items){
         for (MenuItem item: items){
-            menu.add(item);
+            menu.getItems().add(item);
         }
     }
 
     public static void addMenus(MenuBar menuBar, Menu ... menus){
         for (Menu menu: menus){
-            menuBar.add(menu);
+            menuBar.getMenus().add(menu);
         }
     }
 }
