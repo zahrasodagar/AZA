@@ -27,10 +27,10 @@ public abstract class Element {
             }
             element.vs.add(v);
             element.is.add(i);
-            element.dV=(v-v0)/Main.dt;
-            element.dI=(i-i0)/Main.dt;
-            element.integralV+=v*Main.dt;
-            element.integralI+=i*Main.dt;
+            element.dV=(v-v0)/Simulator.dt;
+            element.dI=(i-i0)/Simulator.dt;
+            element.integralV+=v*Simulator.dt;
+            element.integralI+=i*Simulator.dt;
             if (element instanceof Capacitor)
                 ((Capacitor) element).setDC();
             if (element instanceof Inductor){
