@@ -17,7 +17,7 @@ public class Resistor extends Element {
             for (double[] cp:r.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Main.t,deg);
+            hold+=coeff*Math.pow(Simulator.t,deg);
         }
         if (hold<0) {
             System.out.println("Negative Resistance");

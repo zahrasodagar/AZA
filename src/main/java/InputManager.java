@@ -38,9 +38,9 @@ public class InputManager {
                 return false;
 
             Resistor resistor=new Resistor(name,node1,node2,resistance);
-            Main.t+=Main.dt;
+            Simulator.t+=Simulator.dt;
             double hold=resistor.getR();
-            Main.t-=Main.dt;
+            Simulator.t-=Simulator.dt;
             if (hold<0){
                 //System.out.println("Negative Resistance");
                 return false;
@@ -65,9 +65,9 @@ public class InputManager {
                 return false;
 
             Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
-            Main.t+=Main.dt;
+            Simulator.t+=Simulator.dt;
             double hold=capacitor.getC();
-            Main.t-=Main.dt;
+            Simulator.t-=Simulator.dt;
             if (hold<0){
                 //System.out.println("Negative Capacity");
                 return false;
@@ -91,9 +91,9 @@ public class InputManager {
                 return false;
 
             Inductor inductor=new Inductor(name,node1,node2,inductance);
-            Main.t+=Main.dt;
+            Simulator.t+=Simulator.dt;
             double hold=inductor.getL();
-            Main.t-=Main.dt;
+            Simulator.t-=Simulator.dt;
             if (hold<0){
                 //System.out.println("Negative Inductance");
                 return false;
@@ -246,13 +246,13 @@ public class InputManager {
             double hold=a*Math.pow(10,power);
             switch (sth) {
                 case "t":
-                    Main.dt=hold;
+                    Simulator.dt=hold;
                     break;
                 case "i":
-                    Main.dI=hold;
+                    Simulator.dI=hold;
                     break;
                 case "v":
-                    Main.dV=hold;
+                    Simulator.dV=hold;
                     break;
                 default:
                     //oh shit
@@ -266,7 +266,7 @@ public class InputManager {
     }
 
     public boolean checkName(String name){
-        for (Object object:Main.everything){
+        for (Object object:Simulator.everything){
             if(object instanceof Element){
                if (((Element)object).name.equals(name))
                  return false;
@@ -345,7 +345,7 @@ public class InputManager {
     public boolean addElement(Element element, Nodes node1, Nodes node2){
         if (!checkName(element.name))
             return false;
-        Main.everything.add(element);
+        Simulator.everything.add(element);
         Element.elements.add(element);
         node1.elements.add(element);
         node2.elements.add(element);
@@ -354,7 +354,7 @@ public class InputManager {
 
     public Nodes getNode(String name){
         Nodes node=null;
-        for (Object o: Main.everything){
+        for (Object o: Simulator.everything){
             if (o instanceof Nodes){
                 if (((Nodes) o).name.equals(name))
                     node= (Nodes) o;
@@ -365,14 +365,14 @@ public class InputManager {
                 node=Ground.getInstance();
             else
                 node=new Node(name);
-            Main.everything.add(node);
+            Simulator.everything.add(node);
         }
         return node;
     }
 
     public Element getElement(String name){
         Element element=null;
-        for (Object o: Main.everything){
+        for (Object o: Simulator.everything){
             if (o instanceof Element){
                 if (((Element) o).name.equals(name))
                     element= (Element) o;

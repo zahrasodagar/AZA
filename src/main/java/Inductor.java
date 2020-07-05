@@ -17,7 +17,7 @@ public class Inductor extends Element {
             for (double[] cp:l.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Main.t,deg);
+            hold+=coeff*Math.pow(Simulator.t,deg);
         }
         if (hold<0) {
             System.out.println("Negative Inductance");
@@ -28,10 +28,10 @@ public class Inductor extends Element {
 
     public void setDL(){
         double hold=getL();
-        Main.t-=Main.dt;
+        Simulator.t-=Simulator.dt;
         hold-=getL();
-        Main.t+=Main.dt;
-        hold=hold/Main.dt;
+        Simulator.t+=Simulator.dt;
+        hold=hold/Simulator.dt;
         dL=hold;
     }
 
@@ -42,7 +42,7 @@ public class Inductor extends Element {
         //System.out.println("V inductor : "+v);
         //System.out.println("I inductor : "+I);
         //System.out.println("----------------");
-        double i=I+v/l*Main.dt;
+        double i=I+v/l*Simulator.dt;
         if (thisNode.equals(this.node[0]))
             return -i;
         else

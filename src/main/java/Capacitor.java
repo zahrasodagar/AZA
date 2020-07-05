@@ -18,7 +18,7 @@ public class Capacitor extends Element {
             for (double[] cp:c.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Main.t,deg);
+            hold+=coeff*Math.pow(Simulator.t,deg);
         }
         // TODO: 20/06/07  if (hold<0) ?!
         return hold;
@@ -26,16 +26,16 @@ public class Capacitor extends Element {
 
     public void setDC(){
         double hold=getC();
-        Main.t-=Main.dt;
+        Simulator.t-=Simulator.dt;
         hold-=getC();
-        Main.t+=Main.dt;
-        hold=hold/Main.dt;
+        Simulator.t+=Simulator.dt;
+        hold=hold/Simulator.dt;
         dC=hold;
     }
 
     @Override
     public double getI(Nodes thisNode) {
-        double c=getC(),dV=((node[0].v-node[1].v)-(node[0].finalV-node[1].finalV))/Main.dt;
+        double c=getC(),dV=((node[0].v-node[1].v)-(node[0].finalV-node[1].finalV))/Simulator.dt;
         //System.out.print(node[0].v+"-");
         //System.out.print(node[1].v+"-");
         //System.out.print(node[0].finalV+"-");
