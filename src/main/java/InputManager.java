@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: 20/07/06 System.exits to dialogues
 public class InputManager {
     private static InputManager manager;
     String input = "";
