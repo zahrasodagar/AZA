@@ -3,17 +3,27 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
 
+import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
+
+import static java.awt.Color.*;
+import static javafx.scene.paint.Color.gray;
 
 
 public class Main extends Application {
@@ -105,13 +115,32 @@ public class Main extends Application {
                 window.show();
             }
         });
-        
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenus(menuBar,fileMenu,editMenu,helpMenu);
         layout.getChildren().addAll(menuBar);
 
+        /////////// add toolbar here
 
+        HBox mainHBox= new HBox();
+        mainHBox.setBackground(new Background(new BackgroundFill(gray(0.865), CornerRadii.EMPTY, Insets.EMPTY)));
+        mainHBox.setPadding(new Insets(5,5,5,5));
+        layout.getChildren().add(mainHBox);
+
+        TextArea inputTextArea = new TextArea();
+        updateTextArea(inputTextArea);
+        inputTextArea.setMinHeight(560);
+        reloadFileMenu.setOnAction(event -> {
+            try {
+                updateTextArea(inputTextArea);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        VBox circuitAndData= new VBox();
+        circuitAndData.setBackground(new Background(new BackgroundFill(gray(0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+        mainHBox.getChildren().addAll(inputTextArea,circuitAndData);
 
         window.setScene(mainScene);
         window.setTitle("input.txt Simulation");
@@ -128,5 +157,16 @@ public class Main extends Application {
         for (Menu menu: menus){
             menuBar.getMenus().add(menu);
         }
+    }
+
+    public static void updateTextArea(TextArea textArea) throws FileNotFoundException {
+        String text="";
+        File file = new File(path);
+        Scanner scanner=new Scanner(file);
+        while (scanner.hasNextLine()){
+            text+=scanner.nextLine()+"\n";
+        }
+        textArea.setText(text);
+
     }
 }
