@@ -30,7 +30,7 @@ public class Main extends Application {
 
     public static void main(String[] args){
         launch(args);
-        //Simulator.simulateFile();
+        Simulator.simulateFile();
     }
 
     @Override
