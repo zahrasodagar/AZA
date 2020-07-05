@@ -16,9 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 import static java.awt.Color.*;
@@ -152,6 +150,13 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         });
+        saveMenu.setOnAction(event -> {
+            try {
+                saveFile(inputTextArea.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         exitMenu.setOnAction(event -> {
             Stage window= new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -200,17 +205,26 @@ public class Main extends Application {
     }
 
     public static void updateTextArea(TextArea textArea) throws FileNotFoundException {
-        String text="";
+        StringBuilder text= new StringBuilder();
         File file = new File(path);
         Scanner scanner=new Scanner(file);
         while (scanner.hasNextLine()){
-            text+=scanner.nextLine()+"\n";
+            text.append(scanner.nextLine()).append("\n");
         }
-        textArea.setText(text);
+        textArea.setText(text.toString());
 
     }
 
-    public static void saveFile(String textArea){
-        System.out.println(textArea);
+    public static void saveFile(String text) throws IOException {
+        File dataFile=new File(path);
+        FileWriter fw=new FileWriter(dataFile);
+        BufferedWriter writer = new BufferedWriter(fw);
+        String[] lines=text.split("\n");
+        for (String line:lines){
+            writer.write(line);
+            writer.newLine();
+        }
+        writer.close();
+        fw.close();
     }
 }
