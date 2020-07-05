@@ -57,6 +57,55 @@ public class Main extends Application {
                 System.out.println(path);
             }
         });
+        newMenu.setOnAction(event -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            File selectedDirectory = directoryChooser.showDialog(stage);
+            if (selectedDirectory != null) {
+                //System.out.println(selectedDirectory.getPath());
+                String newFilePath = selectedDirectory.getPath();
+
+                Stage window= new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("New Project");
+                window.setMinWidth(250);
+                VBox layout1= new VBox();
+                layout1.setPadding(new Insets(10,50,10,50));
+
+
+                Label label=new Label("Enter your project's name");
+                Button create=new Button("create");
+                Button cancel=new Button("cancel");
+                TextField textField=new TextField();
+                textField.setPromptText("project's name");
+                create.setOnAction(event1 -> {
+                    if (!textField.getText().isEmpty()){
+                        String newPath=newFilePath+"\\"+textField.getText()+".txt";
+                        File newFile= new File(newPath);
+                        try {
+                            newFile.createNewFile();
+                            path=newPath;
+                            System.out.println(path);
+                            window.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                cancel.setOnAction(event1 -> window.close());
+                layout1.setAlignment(Pos.CENTER);
+                HBox buttons= new HBox(create,cancel);
+                buttons.setAlignment(Pos.CENTER);
+                layout1.setSpacing(9);
+                buttons.setSpacing(14);
+                layout1.getChildren().addAll(label,textField,buttons);
+
+                Scene scene=new Scene(layout1);
+                window.setScene(scene);
+                window.show();
+            }
+        });
+        
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenus(menuBar,fileMenu,editMenu,helpMenu);
