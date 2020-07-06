@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,8 +23,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ControllerMainPage implements Initializable {
-    @FXML
-    public TextArea codeArea;
+    Stage window=Main.window;
+    @FXML public TextArea codeArea;
 
     public void newProject(ActionEvent actionEvent) {
         Stage stage = Main.window;
@@ -77,7 +78,17 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void openProject(ActionEvent actionEvent){
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt")
+        );
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        File file = fileChooser.showOpenDialog(window);
+        if (file != null) {
+            Main.path=file.getPath();
+            //System.out.println(path);
+            updateTextArea();
+        }
     }
 
     public void saveProject(ActionEvent actionEvent){
