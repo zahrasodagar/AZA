@@ -155,17 +155,17 @@ public class Simulator {
                     if (!((Nodes) o).visited) {
                         // TODO: 7/2/2020 Diode 2 has some problems:should be solved later
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
-                        System.out.println("-----------------------------");
-                        System.out.println("V : "+((Nodes) o).v);
+                        //System.out.println("-----------------------------");
+                        //System.out.println("V : "+((Nodes) o).v);
                         ((Nodes) o).v += Simulator.dV;
                         Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Simulator.dV;
                         //((Nodes) o).v -=2*Main.dV;
                         //Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
                         //((Nodes) o).v += Main.dV;
-                        System.out.println("Node : "+((Nodes) o).name);
-                        System.out.println("I1 : "+Itotal1);
-                        System.out.println("I2 : "+Itotal2);
+                        //System.out.println("Node : "+((Nodes) o).name);
+                        //System.out.println("I1 : "+Itotal1);
+                        //System.out.println("I2 : "+Itotal2);
                         //System.out.println("I4 : "+Itotal4);
                         temp=((Nodes) o).v;
                         ((Nodes) o).v = ((Nodes) o).v + (Math.abs(Itotal1) - Math.abs(Itotal2))/Simulator.dI * Simulator.dV;

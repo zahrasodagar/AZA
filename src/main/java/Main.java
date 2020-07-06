@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,14 +13,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
 import static java.awt.Color.*;
+import static javafx.scene.paint.Color.color;
 import static javafx.scene.paint.Color.gray;
 
 
@@ -30,16 +37,19 @@ public class Main extends Application {
 
     public static void main(String[] args){
         launch(args);
-        Simulator.simulateFile();
+        //Simulator.simulateFile();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        //ErrorBox("ERROR", "1234");
         window = stage;
         VBox layout = new VBox();
         mainScene = new Scene(layout,800,600);
 
         MenuBar menuBar = new MenuBar();
+        menuBar.setStyle("-fx-background-color: #FFF8DC;");
+
 
         Menu fileMenu = new Menu("File");
         Menu editMenu = new Menu("Edit");
@@ -396,4 +406,11 @@ public class Main extends Application {
 
     }
 
+    public static void ErrorBox(String title,String message){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.initModality(Modality.APPLICATION_MODAL);
+        a.setContentText(message);
+        a.setTitle(title);
+        a.showAndWait();
+    }
 }
