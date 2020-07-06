@@ -22,13 +22,13 @@
                      <children>
                         <LineChart fx:id="lineChart1" layoutX="93.0" layoutY="23.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart" stylesheets="@sample1.css" title="Voltage" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
                           <xAxis>
-                            <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#6490c3">
+                            <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#6490c3" fx:id="xAxis">
                                  <tickLabelFont>
                                     <Font size="16.0" />
                                  </tickLabelFont></NumberAxis>
                           </xAxis>
                           <yAxis>
-                            <NumberAxis label="Voltage(V)" side="LEFT" tickLabelFill="#3642c28d">
+                            <NumberAxis fx:id="yAxis" label="Voltage(V)" side="LEFT" tickLabelFill="#3642c28d">
                                  <tickLabelFont>
                                     <Font name="Arial" size="15.0" />
                                  </tickLabelFont></NumberAxis>
@@ -45,10 +45,10 @@
                      <children>
                         <LineChart fx:id="lineChart2" layoutX="113.0" layoutY="27.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart1" stylesheets="@sample1.css" title="Current" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
                           <xAxis>
-                            <NumberAxis label="time(s)" side="BOTTOM" />
+                            <NumberAxis label="time(s)" side="BOTTOM" fx:id="xAxis1" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis label="Current(A)" side="LEFT" />
+                            <NumberAxis fx:id="yAxis1" label="Current(A)" side="LEFT" />
                           </yAxis>
                         </LineChart>
                         <Button layoutX="1200.0" layoutY="161.0" mnemonicParsing="false" onAction="#btn1" text="Button" />
@@ -62,10 +62,10 @@
                      <children>
                         <LineChart fx:id="lineChart3" layoutX="140.0" layoutY="25.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart2" stylesheets="@sample1.css" title="Power" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
                            <xAxis>
-                              <NumberAxis label="time(s)" side="BOTTOM" />
+                              <NumberAxis label="time(s)" side="BOTTOM" fx:id="xAxis2" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis label="Power(W)" side="LEFT" />
+                              <NumberAxis fx:id="yAxis2" label="Power(W)" side="LEFT" />
                            </yAxis>
                         </LineChart>
                         <Button layoutX="1208.0" layoutY="227.0" mnemonicParsing="false" onAction="#btn2" text="Button" />
@@ -79,7 +79,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
