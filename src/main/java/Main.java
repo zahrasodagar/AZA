@@ -65,15 +65,23 @@ public class Main extends Application {
         Menu helpMenu = new Menu("Help");
 
         MenuItem newMenu = new MenuItem("New");
+        newMenu.setGraphic(new ImageView(new Image("new1.png")));
         MenuItem openMenu = new MenuItem("Open");
+        openMenu.setGraphic(new ImageView(new Image("open1.png")));
         Menu openRecentMenu = new Menu("Open Recent");
+        openRecentMenu.setGraphic(new ImageView(new Image("openrecent1.png")));
         MenuItem saveMenu = new MenuItem("Save");
+        saveMenu.setGraphic(new ImageView(new Image("save1.png")));
         MenuItem reloadFileMenu = new MenuItem("Reload File");
+        reloadFileMenu.setGraphic(new ImageView(new Image("reload1.png")));
         MenuItem exitMenu = new MenuItem("Exit");
+        exitMenu.setGraphic(new ImageView(new Image("exit1.png")));
         MenuItem addElementMenu = new MenuItem("Add Element");
+        addElementMenu.setGraphic(new ImageView(new Image("add1.png")));
         MenuItem simulateMenu = new Menu("Simulate");
-        simulateMenu.setGraphic(new ImageView(new Image("simulateIcon.png")));
+        simulateMenu.setGraphic(new ImageView(new Image("run1.png")));
         MenuItem chartMenu = new Menu("Chart");
+        chartMenu.setGraphic(new ImageView(new Image("chart1.png")));
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenuItems(editMenu,addElementMenu);
