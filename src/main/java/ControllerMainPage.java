@@ -21,10 +21,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ControllerMainPage implements Initializable {
+public class ControllerMainPage implements Initializable{
     Stage window=Main.window;
     @FXML public TextArea codeArea;
     @FXML public TextField dv,di,dt,time;
@@ -418,5 +419,13 @@ public class ControllerMainPage implements Initializable {
         updateTextArea();
       //  percentage.setVisible(false);
         //bar.setVisible(false);
+
+        /*try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }*/
+       // Main.w0.hide();
+
     }
 }
