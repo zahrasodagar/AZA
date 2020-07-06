@@ -68,7 +68,10 @@ public class Simulator {
         t=0;
 
 
-        ControllerMainPage cm=ControllerMainPage.getInstance();
+        //ControllerMainPage cm=ControllerMainPage.getInstance();
+        //cm.bar.setVisible(true);
+        //cm.percentage.setVisible(true);
+
 
         //ControllerMainPage.bar.setVisible(true);
         //ControllerMainPage.percentage.setVisible(true);
@@ -86,6 +89,7 @@ public class Simulator {
             }
             System.out.println("T : "+i);
             int p= (int) ((i*10)/time);
+           // cm.updateProgress(p);
             //ControllerMainPage.percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
             System.out.println("--------------------------");
 

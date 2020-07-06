@@ -31,7 +31,8 @@ public class ControllerMainPage implements Initializable {
     @FXML public  Label percentage;
     @FXML public ProgressBar bar;
 
-    private static ControllerMainPage controllerMainPage;
+
+/*    private static ControllerMainPage controllerMainPage;
 
     private ControllerMainPage() {
 
@@ -42,11 +43,7 @@ public class ControllerMainPage implements Initializable {
             controllerMainPage = new ControllerMainPage();
         return controllerMainPage;
     }
-
-
-
-
-
+*/
 
     public void newProject() {
         Stage stage = Main.window;
@@ -249,6 +246,10 @@ public class ControllerMainPage implements Initializable {
         fw.close();
     }
 
+    public void updateProgress(int p){
+        percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
+    }
+
     public void addElementDialogue(){
         Element element=null;
 
@@ -415,7 +416,7 @@ public class ControllerMainPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTextArea();
-        percentage.setVisible(false);
-        bar.setVisible(false);
+      //  percentage.setVisible(false);
+        //bar.setVisible(false);
     }
 }
