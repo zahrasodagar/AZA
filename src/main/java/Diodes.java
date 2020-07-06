@@ -54,9 +54,9 @@ class Diode2 extends Diodes {
     public double getI(Nodes thisNode) {
         double i=(Math.exp(40*(node[1].v-node[0].v))-1)*Math.pow(10,-12);
         if (thisNode.equals(this.node[0]))
-            return -i;
-        else
             return i;
+        else
+            return -i;
     }
 
 }

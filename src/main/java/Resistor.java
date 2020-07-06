@@ -16,10 +16,15 @@ public class Resistor extends Element {
             double coeff=0;
             for (double[] cp:r.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
+                //System.out.println("coeff : "+coeff);
             }
-            hold+=coeff*Math.pow(Simulator.t,deg);
+            //System.out.println("time : "+Simulator.i);
+            //System.out.println("test : "+Math.pow(Simulator.t,deg));
+            //System.out.println("delta hold : "+coeff*Math.pow(Simulator.t,deg));
+            hold+=coeff*Math.pow(Simulator.i,deg);
         }
         if (hold<0) {
+            //System.out.println("Resistance : "+hold);
             System.out.println("Negative Resistance");
             System.exit(0);
         }

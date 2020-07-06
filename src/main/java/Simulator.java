@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Simulator {
     static ArrayList<Object> everything=new ArrayList<>();
-    static double time,t,dt=-1,dV=-1,dI=-1,i=0;
+    static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
     public static void simulateFile(){
         InputManager manager=InputManager.getInstance();
         everything.clear();
@@ -66,7 +66,8 @@ public class Simulator {
         }
         //Nodes.updateNeighbourNodes();
         t=0;
-        for (i =0 ; i<time ; i+=dt){
+        for (i =0 ; i<=time ; i+=dt){
+            t=i;
             calculateVoltageAtT();
             for (Object o: Simulator.everything){
                 if (o instanceof Nodes){
@@ -78,8 +79,6 @@ public class Simulator {
             }
             System.out.println("T : "+i);
             System.out.println("--------------------------");
-
-            t+=dt;
         }
         printAll();
     }
@@ -156,17 +155,17 @@ public class Simulator {
                     if (!((Nodes) o).visited) {
                         // TODO: 7/2/2020 Diode 2 has some problems:should be solved later
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
-                        //System.out.println("-----------------------------");
-                        //System.out.println("V : "+((Nodes) o).v);
+                        System.out.println("-----------------------------");
+                        System.out.println("V : "+((Nodes) o).v);
                         ((Nodes) o).v += Simulator.dV;
                         Itotal2 = ((Nodes) o).getTotalI((Nodes) o);
                         ((Nodes) o).v -= Simulator.dV;
                         //((Nodes) o).v -=2*Main.dV;
                         //Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
                         //((Nodes) o).v += Main.dV;
-                        //System.out.println("Node : "+((Nodes) o).name);
-                        //System.out.println("I1 : "+Itotal1);
-                        //System.out.println("I2 : "+Itotal2);
+                        System.out.println("Node : "+((Nodes) o).name);
+                        System.out.println("I1 : "+Itotal1);
+                        System.out.println("I2 : "+Itotal2);
                         //System.out.println("I4 : "+Itotal4);
                         temp=((Nodes) o).v;
                         ((Nodes) o).v = ((Nodes) o).v + (Math.abs(Itotal1) - Math.abs(Itotal2))/Simulator.dI * Simulator.dV;

@@ -10,6 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
-
 import static java.awt.Color.*;
 import static javafx.scene.paint.Color.gray;
 

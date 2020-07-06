@@ -25,8 +25,13 @@ public abstract class Element {
                 v0=0;
                 i0=0;
             }
+            if((element instanceof ISource)||(element instanceof Diode2)){
+                element.is.add(i);
+            }
+            else {
+                element.is.add(-i);
+            }
             element.vs.add(v);
-            element.is.add(i);
             element.dV=(v-v0)/Simulator.dt;
             element.dI=(i-i0)/Simulator.dt;
             element.integralV+=v*Simulator.dt;
