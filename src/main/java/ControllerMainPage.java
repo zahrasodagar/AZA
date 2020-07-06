@@ -31,6 +31,23 @@ public class ControllerMainPage implements Initializable {
     @FXML public  Label percentage;
     @FXML public ProgressBar bar;
 
+    private static ControllerMainPage controllerMainPage;
+
+    private ControllerMainPage() {
+
+    }
+
+    public static ControllerMainPage getInstance() {
+        if (controllerMainPage == null)
+            controllerMainPage = new ControllerMainPage();
+        return controllerMainPage;
+    }
+
+
+
+
+
+
     public void newProject() {
         Stage stage = Main.window;
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -143,7 +160,6 @@ public class ControllerMainPage implements Initializable {
 
     public void draw(){
         saveProject();
-        percentage.setText("0%");
         Simulator.simulateFile();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
@@ -399,7 +415,7 @@ public class ControllerMainPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTextArea();
-        //percentage.setVisible(false);
-        //bar.setVisible(false);
+        percentage.setVisible(false);
+        bar.setVisible(false);
     }
 }

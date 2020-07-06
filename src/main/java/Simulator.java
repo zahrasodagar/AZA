@@ -66,6 +66,10 @@ public class Simulator {
         }
         //Nodes.updateNeighbourNodes();
         t=0;
+
+
+        ControllerMainPage cm=ControllerMainPage.getInstance();
+
         //ControllerMainPage.bar.setVisible(true);
         //ControllerMainPage.percentage.setVisible(true);
         //ControllerMainPage.percentage.setText("0%");
