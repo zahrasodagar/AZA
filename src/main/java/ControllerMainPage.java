@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -134,8 +136,9 @@ public class ControllerMainPage implements Initializable {
         window.show();
     }
 
-
-
+    public void addElement(ActionEvent actionEvent){
+        addElementDialogue();
+    }
 
 
 
@@ -168,6 +171,169 @@ public class ControllerMainPage implements Initializable {
         }
         writer.close();
         fw.close();
+    }
+
+    public static void addElementDialogue(){
+        Element element=null;
+
+        Stage window= new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Add Element");
+        window.setMinWidth(250);
+        VBox layout1= new VBox();
+        layout1.setPadding(new Insets(10,50,10,50));
+
+
+        javafx.scene.control.Label label=new javafx.scene.control.Label("Select the type of element");
+        ComboBox comboBox=new ComboBox();
+        comboBox.getItems().addAll("Resistor","Capacitor","Inductor","Diode 1","Diode 2",
+                "VSource DC","VSource AC", "ISource DC","ISource AC",
+                "ESource", "HSource", "GSource", "FSource");
+        Button next=new Button("Next");
+        Button cancel=new Button("Cancel");
+
+        layout1.setAlignment(Pos.CENTER);
+        HBox buttons= new HBox(next,cancel);
+        buttons.setAlignment(Pos.CENTER);
+        layout1.setSpacing(9);
+        buttons.setSpacing(14);
+        layout1.getChildren().addAll(label,comboBox,buttons);
+
+        Scene scene1=new Scene(layout1);
+
+        next.setOnAction(event1 -> {
+            if (comboBox.getValue()!=null){
+                Scene scene2=new Scene(getLayout((String) comboBox.getValue(),window));
+                window.setScene(scene2);
+            }
+        });
+        cancel.setOnAction(event1 -> window.close());
+
+        window.setScene(scene1);
+        window.show();
+
+
+        addElement(element);
+    }
+
+    public static VBox getLayout(String type, Stage window){
+        window.setTitle("New "+type);
+        String line="";
+        VBox layout= new VBox();
+        layout.setPadding(new Insets(10,50,10,50));
+
+        javafx.scene.control.Label label=new javafx.scene.control.Label("Enter the parameters");
+        Button add=new Button("Add");
+        Button cancel=new Button("Cancel");
+        GridPane grid=new GridPane();
+        layout.setAlignment(Pos.CENTER);
+        HBox buttons= new HBox(add,cancel);
+        buttons.setAlignment(Pos.CENTER);
+        layout.setSpacing(9);
+        buttons.setSpacing(14);
+        layout.getChildren().addAll(label,grid);
+        add.setOnAction(event -> {
+            InputManager manager=InputManager.getInstance();
+            manager.input=line;
+            if (manager.checkInputFormat()) // TODO: 20/07/06 DIALOGUE!!!
+                window.close();
+        });
+        cancel.setOnAction(event1 -> window.close());
+
+        javafx.scene.control.Label n=new javafx.scene.control.Label("Node 1");
+        TextField name=new TextField();
+
+        javafx.scene.control.Label n1=new javafx.scene.control.Label("Node 1");
+        TextField node1=new TextField();
+
+        javafx.scene.control.Label n2=new javafx.scene.control.Label("Node 2");
+        TextField node2=new TextField();
+
+        javafx.scene.control.Label val=new Label();
+        TextField value=new TextField();
+
+        grid.setHgap(10);
+        grid.setVgap(7);
+
+        grid.add(n,0,0);
+        grid.add(name,1,0);
+        grid.add(n1,0,1);
+        grid.add(node1,1,1);
+        grid.add(n2,0,2);
+        grid.add(node2,1,2);
+
+
+
+
+
+
+        if (type.equals("Resistor")){
+            val.setText("Resistance");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+        }
+        if (type.equals("Capacitor")){
+            val.setText("Capacity");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+        }
+        if (type.equals("Inductor")){
+            val.setText("Inductance");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+        }
+        if (type.equals("Diode 1")){
+
+        }
+        if (type.equals("Diode 2")){
+
+        }
+
+        if (type.equals("VSource DC")){
+            val.setText("Offset Value");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+
+        }
+        if (type.equals("VSource AC")){
+            val.setText("Offset Value");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+
+        }
+        if (type.equals("ISource DC")){
+            val.setText("Offset Value");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+        }
+        if (type.equals("ISource AC")){
+            val.setText("Offset Value");
+            grid.add(val,0,3);
+            grid.add(value,1,3);
+
+        }
+
+        if (type.equals("ESource")){
+
+        }
+        if (type.equals("HSource")){
+
+        }
+
+        if (type.equals("GSource")){
+
+        }
+        if (type.equals("FSource")){
+
+        }
+        layout.getChildren().addAll(buttons);
+
+
+        return layout;
+    }
+
+    public static void addElement(Element element){
+
     }
 
     @Override

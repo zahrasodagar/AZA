@@ -49,10 +49,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        window=stage;
         Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
         stage.setTitle("AZA");
         stage.setScene(new Scene(root, 800, 500));
-        window=stage;
+
         //stage.getIcons().add(new Image(System.getProperty("user.dir")+"\\AZA_logo.jpg"));
         stage.show();
 
@@ -199,6 +200,7 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         });
+
         saveMenu.setOnAction(event -> {
             try {
                 saveFile(inputTextArea.getText());
