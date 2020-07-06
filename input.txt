@@ -43,4 +43,4 @@ D1   0    3    1
 dV   1m
 dI   10m
 dT    10m
-.tran  2
+.tran  1

@@ -72,7 +72,7 @@ public class Main extends Application {
         MenuItem exitMenu = new MenuItem("Exit");
         MenuItem addElementMenu = new MenuItem("Add Element");
         MenuItem simulateMenu = new Menu("Simulate");
-        //simulateMenu.setGraphic(new ImageView(new Image("src/main/resources/simulateIcon.png")));  agha yeki address ino dorost kone man harchi mizanam ok nemishe
+        simulateMenu.setGraphic(new ImageView(new Image("simulateIcon.png")));
         MenuItem chartMenu = new Menu("Chart");
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);

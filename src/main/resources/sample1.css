@@ -11,16 +11,16 @@
 
 }
 .mychart .chart-plot-background {
-    -fx-background-color: #e2ecfe;
+    -fx-background-color: lightgray;
 }
 .mychart .chart-vertical-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart .chart-horizontal-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart .chart-alternative-row-fill {
-    -fx-fill: #99bcfd;
+    -fx-fill: darkgrey;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
@@ -41,16 +41,16 @@
 
 }
 .mychart1 .chart-plot-background {
-    -fx-background-color: #e2ecfe;
+    -fx-background-color: lightgray;
 }
 .mychart1 .chart-vertical-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart1 .chart-horizontal-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart1 .chart-alternative-row-fill {
-    -fx-fill: #99bcfd;
+    -fx-fill:darkgrey;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
@@ -71,16 +71,16 @@
 
 }
 .mychart2 .chart-plot-background {
-    -fx-background-color: #e2ecfe;
+    -fx-background-color: lightgray;
 }
 .mychart2 .chart-vertical-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart2 .chart-horizontal-grid-lines {
-    -fx-stroke: #3278fa;
+    -fx-stroke: black;
 }
 .mychart2 .chart-alternative-row-fill {
-    -fx-fill: #99bcfd;
+    -fx-fill: darkgrey;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
