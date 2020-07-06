@@ -52,15 +52,16 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
         stage.setTitle("AZA");
         stage.setScene(new Scene(root, 800, 500));
+        window=stage;
         //stage.getIcons().add(new Image(System.getProperty("user.dir")+"\\AZA_logo.jpg"));
-
         stage.show();
 
 
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
 
-        /*
         window = stage;
         mainScene = new Scene(layout,800,600);
 
