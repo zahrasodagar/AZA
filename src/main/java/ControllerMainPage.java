@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -102,7 +103,35 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void exitAZA(ActionEvent actionEvent){
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("New Project");
+        window.setMinWidth(250);
+        VBox layout1= new VBox();
+        layout1.setMinSize(300, 100);
+        layout1.setPadding(new Insets(10,50,10,50));
 
+
+        javafx.scene.control.Label label=new javafx.scene.control.Label("Are you sure you want to exit AZA?");
+        javafx.scene.control.Button yes=new javafx.scene.control.Button("Yes");
+        javafx.scene.control.Button cancel=new Button("No");
+
+        //yes.(e -> yes.setStyle(String.valueOf(color(1, 0.1,0.1 ))));
+
+        yes.setOnAction(event1 -> {
+            // TODO: 20/07/05 Ask to save before exit
+            System.exit(0);
+        });
+        cancel.setOnAction(event1 -> window.close());
+        layout1.setAlignment(Pos.CENTER);
+        HBox buttons= new HBox(yes,cancel);
+        buttons.setAlignment(Pos.CENTER);
+        layout1.setSpacing(9);
+        buttons.setSpacing(14);
+        layout1.getChildren().addAll(label,buttons);
+
+        Scene scene=new Scene(layout1);
+        window.setScene(scene);
+        window.show();
     }
 
 
