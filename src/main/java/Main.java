@@ -34,8 +34,9 @@ import static javafx.scene.paint.Color.gray;
 
 public class Main extends Application {
     static String path=System.getProperty("user.dir")+"\\input.txt"; //default
-    Stage window;
-    Scene mainScene;
+    static Stage window;
+    static Scene mainScene;
+    static VBox layout = new VBox();
 
     public Main() throws FileNotFoundException {
     }
@@ -47,11 +48,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //ErrorBox("ERROR", "1234");
         window = stage;
-        VBox layout = new VBox();
-        //layout.setBackground(new Background(new BackgroundFill(gray(0.5), CornerRadii.EMPTY, Insets.EMPTY)));
-        //layout.setStyle("-fx-background-color: rgba(98,107,142,0.93);");
         mainScene = new Scene(layout,800,600);
 
         MenuBar menuBar = new MenuBar();
@@ -78,14 +75,19 @@ public class Main extends Application {
         exitMenu.setGraphic(new ImageView(new Image("exit1.png")));
         MenuItem addElementMenu = new MenuItem("Add Element");
         addElementMenu.setGraphic(new ImageView(new Image("add1.png")));
-        MenuItem simulateMenu = new Menu("Simulate");
+        MenuItem drawCircuitMenu = new MenuItem("Draw circuit");
+        drawCircuitMenu.setGraphic(new ImageView(new Image("draw1.png")));
+        MenuItem simulateMenu = new MenuItem("Simulate");
         simulateMenu.setGraphic(new ImageView(new Image("run1.png")));
-        MenuItem chartMenu = new Menu("Chart");
+        Menu chartMenu = new Menu("Chart");
         chartMenu.setGraphic(new ImageView(new Image("chart1.png")));
+        MenuItem nodesMenu = new MenuItem("Nodes");
+        MenuItem elementsMenu = new MenuItem("Elements");
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenuItems(editMenu,addElementMenu);
-        addMenuItems(simulationMenu, simulateMenu,chartMenu);
+        addMenuItems(chartMenu, nodesMenu,elementsMenu);
+        addMenuItems(simulationMenu, drawCircuitMenu,simulateMenu,chartMenu);
         addMenus(menuBar,fileMenu,editMenu,simulationMenu,helpMenu);
         layout.getChildren().addAll(menuBar);
 
@@ -93,7 +95,6 @@ public class Main extends Application {
 
         HBox mainHBox= new HBox();
         mainHBox.setBackground(new Background(new BackgroundFill(gray(0.865), CornerRadii.EMPTY, Insets.EMPTY)));
-        //mainHBox.setStyle("-fx-background-color: rgba(98,107,142,0.93);");
         mainHBox.setPadding(new Insets(5,5,5,5));
         layout.getChildren().add(mainHBox);
 
@@ -197,12 +198,15 @@ public class Main extends Application {
             window.setTitle("New Project");
             window.setMinWidth(250);
             VBox layout1= new VBox();
+            layout1.setMinSize(300, 100);
             layout1.setPadding(new Insets(10,50,10,50));
 
 
             Label label=new Label("Are you sure you want to exit AZA?");
             Button yes=new Button("Yes");
             Button cancel=new Button("No");
+
+            //yes.(e -> yes.setStyle(String.valueOf(color(1, 0.1,0.1 ))));
 
             yes.setOnAction(event1 -> {
                 // TODO: 20/07/05 Ask to save before exit
@@ -224,11 +228,11 @@ public class Main extends Application {
             addElementDialogue();
         });
         simulateMenu.setOnAction(event -> {
-            ErrorBox("t", "t");
-            Simulator.simulateFile();
+            ErrorBox("Error", "temporary is disable");
+            //Simulator.simulateFile();
         });
-        chartMenu.setOnAction(event -> {
-            //
+        drawCircuitMenu.setOnAction(e -> {
+            DrawCircuit();
         });
 
         window.setScene(mainScene);
@@ -442,5 +446,9 @@ public class Main extends Application {
         a.setContentText(message);
         a.setTitle(title);
         a.showAndWait();
+    }
+
+    public static void DrawCircuit(){
+
     }
 }
