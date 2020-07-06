@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -60,9 +60,9 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dv" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="dv" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
-                                <Insets top="8.0" />
+                                <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
                         <Label text="    ΔI: ">
@@ -70,9 +70,9 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="di" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="di" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
-                                <Insets top="8.0" />
+                                <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
                         <Label text="    Δt: ">
@@ -80,9 +80,9 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="dt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
-                                <Insets top="8.0" />
+                                <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
                         <Label text="    Analysis Duration: ">
@@ -90,18 +90,18 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="time" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="35.0">
+                        <TextField fx:id="time" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="40.0">
                             <HBox.margin>
-                                <Insets top="8.0" />
+                                <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Draw">
+                        <Button mnemonicParsing="false" onAction="#draw" onMouseClicked="#draw" text="Draw">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Run">
+                        <Button mnemonicParsing="false" onAction="#run" onMouseClicked="#run" text="Run">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
@@ -126,7 +126,7 @@
                     <content>
                         <HBox>
                             <children>
-                                <TextArea fx:id="codeArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
+                                <TextArea fx:id="codeArea" minWidth="-Infinity" prefHeight="434.0" prefWidth="310.0" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets bottom="3.0" left="5.0" right="3.0" top="3.0" />
                                     </HBox.margin>
@@ -183,13 +183,13 @@
                 <Separator prefWidth="200.0" />
                 <HBox BorderPane.alignment="CENTER">
                     <children>
-                        <Region minHeight="-Infinity" prefHeight="32.0" prefWidth="912.0" HBox.hgrow="ALWAYS" />
-                        <Label prefHeight="27.0" prefWidth="55.0" text="100%">
+                        <Region minHeight="-Infinity" prefHeight="32.0" prefWidth="776.0" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="percentage" prefHeight="27.0" prefWidth="60.0" text="100%">
                             <HBox.margin>
                                 <Insets right="2.0" />
                             </HBox.margin>
                         </Label>
-                        <ProgressBar prefHeight="27.0" prefWidth="193.0" progress="0.0">
+                        <ProgressBar fx:id="bar" prefHeight="27.0" prefWidth="193.0" progress="0.0">
                             <HBox.margin>
                                 <Insets bottom="3.0" right="6.0" top="2.0" />
                             </HBox.margin>

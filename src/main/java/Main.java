@@ -52,7 +52,7 @@ public class Main extends Application {
         window=stage;
         Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
         stage.setTitle("AZA");
-        stage.setScene(new Scene(root, 800, 500));
+        stage.setScene(new Scene(root, 1000, 600));
 
         //stage.getIcons().add(new Image(System.getProperty("user.dir")+"\\AZA_logo.jpg"));
         stage.show();

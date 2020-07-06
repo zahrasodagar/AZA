@@ -1,21 +1,20 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.stage.*;
 
 import java.awt.*;
 import java.io.*;
@@ -29,9 +28,10 @@ public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
     @FXML public TextArea codeArea;
     @FXML public TextField dv,di,dt,time;
+    @FXML public  Label percentage;
+    @FXML public ProgressBar bar;
 
-
-    public void newProject(ActionEvent actionEvent) {
+    public void newProject() {
         Stage stage = Main.window;
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -82,7 +82,7 @@ public class ControllerMainPage implements Initializable {
         }
     }
 
-    public void openProject(ActionEvent actionEvent){
+    public void openProject(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt")
@@ -96,19 +96,19 @@ public class ControllerMainPage implements Initializable {
         }
     }
 
-    public void saveProject(ActionEvent actionEvent){
+    public void saveProject(){
         try {
-            saveFile(codeArea.getText());
+            saveFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadProject(ActionEvent actionEvent){
+    public void reloadProject(){
         updateTextArea();
     }
 
-    public void exitAZA(ActionEvent actionEvent){
+    public void exitAZA(){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("New Project");
@@ -139,6 +139,32 @@ public class ControllerMainPage implements Initializable {
         Scene scene=new Scene(layout1);
         window.setScene(scene);
         window.show();
+    }
+
+    public void draw(){
+        saveProject();
+        percentage.setText("0%");
+        Simulator.simulateFile();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Diagrams");
+        Controller.scene=new Scene(root1, 800, 500);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(Controller.scene);
+        stage.show();
+    }
+
+    public void run(){
+        saveProject();
+        Simulator.simulateFile();
     }
 
     public void addElement(ActionEvent actionEvent){
@@ -193,7 +219,8 @@ public class ControllerMainPage implements Initializable {
         }
     }
 
-    public void saveFile(String text) throws IOException {
+    public void saveFile() throws IOException {
+        String text=codeArea.getText();
         File dataFile=new File(Main.path);
         FileWriter fw=new FileWriter(dataFile);
         BufferedWriter writer = new BufferedWriter(fw);
@@ -372,5 +399,7 @@ public class ControllerMainPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTextArea();
+        //percentage.setVisible(false);
+        //bar.setVisible(false);
     }
 }

@@ -66,6 +66,9 @@ public class Simulator {
         }
         //Nodes.updateNeighbourNodes();
         t=0;
+        //ControllerMainPage.bar.setVisible(true);
+        //ControllerMainPage.percentage.setVisible(true);
+        //ControllerMainPage.percentage.setText("0%");
         for (i =0 ; i<=time ; i+=dt){
             t=i;
             calculateVoltageAtT();
@@ -78,7 +81,10 @@ public class Simulator {
                 }*/
             }
             System.out.println("T : "+i);
+            int p= (int) ((i*10)/time);
+            //ControllerMainPage.percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
             System.out.println("--------------------------");
+
         }
         printAll();
     }
