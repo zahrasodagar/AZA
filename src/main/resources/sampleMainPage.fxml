@@ -122,7 +122,32 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Project 1">
+            <Tab text="Project 1">
+               <content>
+                  <HBox>
+                     <children>
+                        <TextArea fx:id="codeArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="5.0" right="3.0" top="3.0" />
+                           </HBox.margin>
+                        </TextArea>
+                        <Separator orientation="VERTICAL" prefHeight="541.0" prefWidth="4.0" />
+                        <GridPane prefHeight="541.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </children>
+                  </HBox>
+               </content>
+            </Tab>
+          <Tab text="Project 2">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
@@ -149,31 +174,6 @@
                   </VBox>
                </content>
           </Tab>
-            <Tab text="Project 2">
-               <content>
-                  <HBox>
-                     <children>
-                        <TextArea minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="243.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="3.0" left="5.0" right="3.0" top="3.0" />
-                           </HBox.margin>
-                        </TextArea>
-                        <Separator orientation="VERTICAL" prefHeight="541.0" prefWidth="4.0" />
-                        <GridPane prefHeight="541.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </children>
-                  </HBox>
-               </content>
-            </Tab>
         </tabs>
       </TabPane>
    </center>

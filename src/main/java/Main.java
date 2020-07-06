@@ -47,11 +47,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
         stage.setTitle("AZA");
         stage.setScene(new Scene(root, 800, 500));
-        stage.getIcons().add(new Image("C:\\Users\\AHS\\Documents\\Uni\\SUT\\SUT 98-99 2\\OOP (EE)\\aza\\AZA_logo.jpg"));
-        
+        //stage.getIcons().add(new Image(System.getProperty("user.dir")+"\\AZA_logo.jpg"));
+
         stage.show();
 
-        /*
+/*
         //ErrorBox("ERROR", "1234");
         window = stage;
         VBox layout = new VBox();
