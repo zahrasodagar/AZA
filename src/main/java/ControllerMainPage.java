@@ -15,9 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -92,7 +90,11 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void saveProject(ActionEvent actionEvent){
-
+        try {
+            saveFile(codeArea.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reloadProject(ActionEvent actionEvent){
@@ -124,6 +126,19 @@ public class ControllerMainPage implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveFile(String text) throws IOException {
+        File dataFile=new File(Main.path);
+        FileWriter fw=new FileWriter(dataFile);
+        BufferedWriter writer = new BufferedWriter(fw);
+        String[] lines=text.split("\n");
+        for (String line:lines){
+            writer.write(line);
+            writer.newLine();
+        }
+        writer.close();
+        fw.close();
     }
 
     @Override
