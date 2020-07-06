@@ -15,7 +15,7 @@ public class Diagram extends Application {
     static String path=System.getProperty("user.dir")+"\\input.txt"; //default
     @Override
     public void start(Stage stage) throws Exception {
-        Simulator.simulateFile();
+        //Simulator.simulateFile();
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root, 1300, 800));

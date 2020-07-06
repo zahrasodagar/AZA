@@ -34,7 +34,6 @@ import static javafx.scene.paint.Color.gray;
 
 public class Main extends Application {
     static String path=System.getProperty("user.dir")+"\\input.txt"; //default
-    //ImageView run = new ImageView(new Image(new FileInputStream("resources/simulateIcon.png")));
     Stage window;
     Scene mainScene;
 
@@ -73,7 +72,7 @@ public class Main extends Application {
         MenuItem exitMenu = new MenuItem("Exit");
         MenuItem addElementMenu = new MenuItem("Add Element");
         MenuItem simulateMenu = new Menu("Simulate");
-        //simulateMenu.setGraphic(run);
+        //simulateMenu.setGraphic(new ImageView(new Image("src/main/resources/simulateIcon.png")));  agha yeki address ino dorost kone man harchi mizanam ok nemishe
         MenuItem chartMenu = new Menu("Chart");
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
