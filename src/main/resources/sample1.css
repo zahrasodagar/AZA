@@ -1,0 +1,91 @@
+.mychart .chart-series-line{
+    -fx-stroke-width: 3px;
+}
+.mychart .default-color0.chart-series-line{
+    -fx-stroke: #ff1123;
+}
+.mychart .default-color0.chart-line-symbol{
+    -fx-background-color: #ff1123;
+    -fx-background-radius: 1px;
+    -fx-padding: 1px;
+
+}
+.mychart .chart-plot-background {
+    -fx-background-color: #e2ecfe;
+}
+.mychart .chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart .chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart .chart-alternative-row-fill {
+    -fx-fill: #99bcfd;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.mychart .chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+.mychart1 .chart-series-line{
+    -fx-stroke-width: 3px;
+}
+.mychart1 .default-color0.chart-series-line{
+    -fx-stroke: #ff1123;
+}
+.mychart1 .default-color0.chart-line-symbol{
+    -fx-background-color: #ff1123;
+    -fx-background-radius: 1px;
+    -fx-padding: 1px;
+
+}
+.mychart1 .chart-plot-background {
+    -fx-background-color: #e2ecfe;
+}
+.mychart1 .chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart1 .chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart1 .chart-alternative-row-fill {
+    -fx-fill: #99bcfd;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.mychart1 .chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+.mychart2 .chart-series-line{
+    -fx-stroke-width: 3px;
+}
+.mychart2 .default-color0.chart-series-line{
+    -fx-stroke: #ff1123;
+}
+.mychart2 .default-color0.chart-line-symbol{
+    -fx-background-color: #ff1123;
+    -fx-background-radius: 1px;
+    -fx-padding: 1px;
+
+}
+.mychart2 .chart-plot-background {
+    -fx-background-color: #e2ecfe;
+}
+.mychart2 .chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart2 .chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.mychart2 .chart-alternative-row-fill {
+    -fx-fill: #99bcfd;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.mychart2 .chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+
