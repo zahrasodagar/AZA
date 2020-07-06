@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane prefHeight="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1300.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+        <tabs>
+          <Tab text="Voltage">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="lineChart1" layoutX="93.0" layoutY="23.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart" stylesheets="@sample1.css" title="Voltage" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
+                          <xAxis>
+                            <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#6490c3">
+                                 <tickLabelFont>
+                                    <Font size="16.0" />
+                                 </tickLabelFont></NumberAxis>
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Voltage(V)" side="LEFT" tickLabelFill="#3642c28d">
+                                 <tickLabelFont>
+                                    <Font name="Arial" size="15.0" />
+                                 </tickLabelFont></NumberAxis>
+                          </yAxis>
+                        </LineChart>
+                        <Button layoutX="1200.0" layoutY="121.0" mnemonicParsing="false" onAction="#btn" text="Button" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Current">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="821.0" prefWidth="1300.0">
+                     <children>
+                        <LineChart fx:id="lineChart2" layoutX="113.0" layoutY="27.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart1" stylesheets="@sample1.css" title="Current" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
+                          <xAxis>
+                            <NumberAxis label="time(s)" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Current(A)" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <Button layoutX="1200.0" layoutY="161.0" mnemonicParsing="false" onAction="#btn1" text="Button" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Power">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="lineChart3" layoutX="140.0" layoutY="25.0" legendSide="RIGHT" prefHeight="694.0" prefWidth="1038.0" styleClass="mychart2" stylesheets="@sample1.css" title="Power" titleSide="BOTTOM" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
+                           <xAxis>
+                              <NumberAxis label="time(s)" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Power(W)" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <Button layoutX="1208.0" layoutY="227.0" mnemonicParsing="false" onAction="#btn2" text="Button" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
