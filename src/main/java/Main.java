@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -22,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
@@ -32,8 +34,12 @@ import static javafx.scene.paint.Color.gray;
 
 public class Main extends Application {
     static String path=System.getProperty("user.dir")+"\\input.txt"; //default
+    //ImageView run = new ImageView(new Image(new FileInputStream("resources/simulateIcon.png")));
     Stage window;
     Scene mainScene;
+
+    public Main() throws FileNotFoundException {
+    }
 
     public static void main(String[] args){
         launch(args);
@@ -45,14 +51,18 @@ public class Main extends Application {
         //ErrorBox("ERROR", "1234");
         window = stage;
         VBox layout = new VBox();
+        //layout.setBackground(new Background(new BackgroundFill(gray(0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+        //layout.setStyle("-fx-background-color: rgba(98,107,142,0.93);");
         mainScene = new Scene(layout,800,600);
 
         MenuBar menuBar = new MenuBar();
-        menuBar.setStyle("-fx-background-color: #FFF8DC;");
+        menuBar.setStyle("-fx-background-color: #fcffc2;");
+
 
 
         Menu fileMenu = new Menu("File");
         Menu editMenu = new Menu("Edit");
+        Menu simulationMenu = new Menu("Simulation");
         Menu helpMenu = new Menu("Help");
 
         MenuItem newMenu = new MenuItem("New");
@@ -62,16 +72,21 @@ public class Main extends Application {
         MenuItem reloadFileMenu = new MenuItem("Reload File");
         MenuItem exitMenu = new MenuItem("Exit");
         MenuItem addElementMenu = new MenuItem("Add Element");
+        MenuItem simulateMenu = new Menu("Simulate");
+        //simulateMenu.setGraphic(run);
+        MenuItem chartMenu = new Menu("Chart");
 
         addMenuItems(fileMenu,newMenu,openMenu,openRecentMenu,saveMenu,reloadFileMenu,exitMenu);
         addMenuItems(editMenu,addElementMenu);
-        addMenus(menuBar,fileMenu,editMenu,helpMenu);
+        addMenuItems(simulationMenu, simulateMenu,chartMenu);
+        addMenus(menuBar,fileMenu,editMenu,simulationMenu,helpMenu);
         layout.getChildren().addAll(menuBar);
 
         /////////// add toolbar here
 
         HBox mainHBox= new HBox();
         mainHBox.setBackground(new Background(new BackgroundFill(gray(0.865), CornerRadii.EMPTY, Insets.EMPTY)));
+        //mainHBox.setStyle("-fx-background-color: rgba(98,107,142,0.93);");
         mainHBox.setPadding(new Insets(5,5,5,5));
         layout.getChildren().add(mainHBox);
 
@@ -201,6 +216,13 @@ public class Main extends Application {
         addElementMenu.setOnAction(event -> {
             addElementDialogue();
         });
+        simulateMenu.setOnAction(event -> {
+            ErrorBox("t", "t");
+            Simulator.simulateFile();
+        });
+        chartMenu.setOnAction(event -> {
+            //
+        });
 
         window.setScene(mainScene);
         window.setTitle("input.txt Simulation");
@@ -210,6 +232,7 @@ public class Main extends Application {
     public static void addMenuItems(Menu menu, MenuItem ... items){
         for (MenuItem item: items){
             menu.getItems().add(item);
+            menu.getItems().add(new SeparatorMenuItem());
         }
     }
 
