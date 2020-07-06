@@ -96,7 +96,7 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void reloadProject(ActionEvent actionEvent){
-
+        updateTextArea();
     }
 
     public void exitAZA(ActionEvent actionEvent){
