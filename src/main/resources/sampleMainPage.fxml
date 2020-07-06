@@ -53,14 +53,14 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <HBox spacing="2.0">
+                <HBox maxHeight="-Infinity" prefHeight="5.0" prefWidth="1280.0" spacing="2.0">
                     <children>
                         <Label text="ΔV: ">
                             <HBox.margin>
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="dv" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
                             <HBox.margin>
                                 <Insets top="8.0" />
                             </HBox.margin>
@@ -70,7 +70,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="di" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
                             <HBox.margin>
                                 <Insets top="8.0" />
                             </HBox.margin>
@@ -80,7 +80,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
+                        <TextField fx:id="dt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="35.0">
                             <HBox.margin>
                                 <Insets top="8.0" />
                             </HBox.margin>
@@ -90,7 +90,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="35.0">
+                        <TextField fx:id="time" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="35.0">
                             <HBox.margin>
                                 <Insets top="8.0" />
                             </HBox.margin>

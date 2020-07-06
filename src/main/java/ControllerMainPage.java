@@ -22,10 +22,14 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
     @FXML public TextArea codeArea;
+    @FXML public TextField dv,di,dt,time;
+
 
     public void newProject(ActionEvent actionEvent) {
         Stage stage = Main.window;
@@ -105,6 +109,7 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void exitAZA(ActionEvent actionEvent){
+        Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("New Project");
         window.setMinWidth(250);
@@ -152,7 +157,35 @@ public class ControllerMainPage implements Initializable {
         try {
             Scanner scanner=new Scanner(file);
             while (scanner.hasNextLine()){
-                text.append(scanner.nextLine()).append("\n");
+                String hold=scanner.nextLine();
+                text.append(hold).append("\n");
+                Pattern pattern=Pattern.compile("^d([IiVvTt])\\s+((\\d+\\.?\\d*)([pnumkMGx]?))$");
+                Matcher matcher=pattern.matcher(hold);
+                if (matcher.find()){
+                    String sth=matcher.group(1).toLowerCase();
+                    switch (sth) {
+                        case "t":
+                            dt.setText(matcher.group(2));
+                            break;
+                        case "i":
+                            di.setText(matcher.group(2));
+                            break;
+                        case "v":
+                            dv.setText(matcher.group(2));
+                            break;
+                        default:
+                            //oh shit
+                            break;
+                    }
+
+                }
+
+                pattern=Pattern.compile("\\.tran\\s+((\\d+\\.?\\d*)([pnumkMGx]?))$");
+                matcher=pattern.matcher(hold);
+                if (matcher.find()){
+                    time.setText(matcher.group(1));
+                }
+
             }
             codeArea.setText(text.toString());
         } catch (FileNotFoundException e) {
@@ -160,7 +193,7 @@ public class ControllerMainPage implements Initializable {
         }
     }
 
-    public static void saveFile(String text) throws IOException {
+    public void saveFile(String text) throws IOException {
         File dataFile=new File(Main.path);
         FileWriter fw=new FileWriter(dataFile);
         BufferedWriter writer = new BufferedWriter(fw);
@@ -173,7 +206,7 @@ public class ControllerMainPage implements Initializable {
         fw.close();
     }
 
-    public static void addElementDialogue(){
+    public void addElementDialogue(){
         Element element=null;
 
         Stage window= new Stage();
@@ -216,7 +249,7 @@ public class ControllerMainPage implements Initializable {
         addElement(element);
     }
 
-    public static VBox getLayout(String type, Stage window){
+    public VBox getLayout(String type, Stage window){
         window.setTitle("New "+type);
         String line="";
         VBox layout= new VBox();
@@ -332,7 +365,7 @@ public class ControllerMainPage implements Initializable {
         return layout;
     }
 
-    public static void addElement(Element element){
+    public void addElement(Element element){
 
     }
 
