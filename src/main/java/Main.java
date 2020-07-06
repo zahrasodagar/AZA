@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,6 +43,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //Simulator.simulateFile();
+        Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
+        stage.setTitle("AZA");
+        stage.setScene(new Scene(root, 800, 500));
+        stage.getIcons().add(new Image("C:\\Users\\AHS\\Documents\\Uni\\SUT\\SUT 98-99 2\\OOP (EE)\\aza\\AZA_logo.jpg"));
+        
+        stage.show();
+
+        /*
         //ErrorBox("ERROR", "1234");
         window = stage;
         VBox layout = new VBox();
@@ -204,7 +214,7 @@ public class Main extends Application {
 
         window.setScene(mainScene);
         window.setTitle("input.txt Simulation");
-        window.show();
+        window.show();*/
     }
 
     public static void addMenuItems(Menu menu, MenuItem ... items){
