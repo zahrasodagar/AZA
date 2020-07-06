@@ -21,7 +21,12 @@ public class Capacitor extends Element {
             hold+=coeff*Math.pow(Simulator.i,deg);
             //System.out.println("hold : "+hold+"\ntime : "+Simulator.t);
         }
-        // TODO: 20/06/07  if (hold<0) ?!
+        if (hold<=0) {
+            //System.out.println("Resistance : "+hold);
+            Main.ErrorBox("ERROR",name+" value is negative at "+Simulator.i+" second" );
+            System.out.println("Negative Capacity");
+            System.exit(0);
+        }
         return hold;
     }
 

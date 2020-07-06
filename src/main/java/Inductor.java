@@ -19,7 +19,9 @@ public class Inductor extends Element {
             }
             hold+=coeff*Math.pow(Simulator.i,deg);
         }
-        if (hold<0) {
+        if (hold<=0) {
+            //System.out.println("Resistance : "+hold);
+            Main.ErrorBox("ERROR",name+" value is negative at "+Simulator.i+" second" );
             System.out.println("Negative Inductance");
             System.exit(0);
         }
