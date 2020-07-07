@@ -55,7 +55,7 @@ public class ControllerMainPage implements Initializable {
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
 
-
+//////
 /*    private static ControllerMainPage controllerMainPage;
 
     private ControllerMainPage() {
@@ -70,6 +70,7 @@ public class ControllerMainPage implements Initializable {
 */
 
     public void newProject() {
+        hidePercentage();
         Stage stage = Main.window;
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -121,6 +122,7 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void openProject(){
+        hidePercentage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt")
@@ -180,9 +182,7 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void draw(){
-        saveProject();
-        Brain.simulateFile();
-
+        run();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root1 = null;
         try {
@@ -201,11 +201,22 @@ public class ControllerMainPage implements Initializable {
 
     public void run(){
         saveProject();
-        Brain.simulateFile();
+        percentage.setVisible(true);
+        percentage.setText("0.0"+"%");
+        bar.setProgress(0);
+        bar.setVisible(true);
+        Brain.simulateFile(percentage,bar);
+        percentage.setText("100"+"%");
+        bar.setProgress(1);
     }
 
     public void addElement(ActionEvent actionEvent){
         addElementDialogue();
+    }
+
+    public void hidePercentage(){
+        bar.setVisible(false);
+        percentage.setVisible(false);
     }
 
 
@@ -274,10 +285,10 @@ public class ControllerMainPage implements Initializable {
         fw.close();
     }
 
-    public void updateProgress(int p){
+   /* public void updateProgress(int p){
         percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
     }
-
+*/
     public void addElementDialogue(){
         Element element=null;
 
@@ -444,8 +455,8 @@ public class ControllerMainPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTextArea();
-        //  percentage.setVisible(false);
-        //bar.setVisible(false);
+        percentage.setVisible(false);
+        bar.setVisible(false);
 
         /*try {
             TimeUnit.SECONDS.sleep(5);

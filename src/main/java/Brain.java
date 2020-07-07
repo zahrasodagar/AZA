@@ -33,7 +33,8 @@ public class Brain {
 
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
-    public static void simulateFile(){
+    public static void simulateFile(Label percentage,ProgressBar bar){
+
         InputManager manager=InputManager.getInstance();
         everything.clear();
         dt=-1;dV=-1;dI=-1;i=0;
@@ -91,14 +92,6 @@ public class Brain {
         t=0;
 
 
-        //ControllerMainPage cm=ControllerMainPage.getInstance();
-        //cm.bar.setVisible(true);
-        //cm.percentage.setVisible(true);
-
-
-        //ControllerMainPage.bar.setVisible(true);
-        //ControllerMainPage.percentage.setVisible(true);
-        //ControllerMainPage.percentage.setText("0%");
         for (i =0 ; i<=time ; i+=dt){
             t=i;
             calculateVoltageAtT();
@@ -112,8 +105,8 @@ public class Brain {
             }
             System.out.println("T : "+i);
             int p= (int) ((i*10)/time);
-            // cm.updateProgress(p);
-            //ControllerMainPage.percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
+            percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
+            bar.setProgress(p/1000);
             System.out.println("--------------------------");
 
         }
