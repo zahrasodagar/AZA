@@ -32,41 +32,41 @@ public class Controller {
         lineChart1.getData().clear();
         xAxis.setAutoRanging(false);
         XYChart.Series<Number,Number> series=new XYChart.Series<Number, Number>();
-        for (double i=0;i<Simulator.time/Simulator.dt;i++){
-            series.getData().add(new XYChart.Data<Number, Number>(i*Simulator.dt,((Resistor)Simulator.everything.get(5)).vs.get(((int)i))));
+        for (double i=0;i<Brain.time/Brain.dt;i++){
+            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor)Brain.everything.get(5)).vs.get(((int)i))));
         }
         xAxis.setLowerBound(0);
-        xAxis.setUpperBound(Simulator.time);
-        xAxis.setTickUnit(Simulator.time/10);
+        xAxis.setUpperBound(Brain.time);
+        xAxis.setTickUnit(Brain.time/10);
         lineChart1.getData().add(series);
-        series.setName("V:"+((Resistor)Simulator.everything.get(5)).name);
+        series.setName("V:"+((Resistor)Brain.everything.get(5)).name);
     }
 
     public void btn1(ActionEvent actionEvent){
         lineChart2.getData().clear();
         xAxis1.setAutoRanging(false);
         XYChart.Series<Number,Number> series=new XYChart.Series<Number, Number>();
-        for (double i=0;i<Simulator.time/Simulator.dt;i++){
-            series.getData().add(new XYChart.Data<Number, Number>(i*Simulator.dt,((Resistor)Simulator.everything.get(5)).is.get(((int)i))));
+        for (double i=0;i<Brain.time/Brain.dt;i++){
+            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor)Brain.everything.get(5)).is.get(((int)i))));
         }
         xAxis1.setLowerBound(0);
-        xAxis1.setUpperBound(Simulator.time);
-        xAxis1.setTickUnit(Simulator.time/10);
+        xAxis1.setUpperBound(Brain.time);
+        xAxis1.setTickUnit(Brain.time/10);
         lineChart2.getData().add(series);
-        series.setName("I:"+((Resistor)Simulator.everything.get(5)).name);
+        series.setName("I:"+((Resistor)Brain.everything.get(5)).name);
     }
     public void btn2(ActionEvent actionEvent){
         lineChart3.getData().clear();
         xAxis2.setAutoRanging(false);
         XYChart.Series<Number,Number> series=new XYChart.Series<Number, Number>();
-        for (double i=0;i<Simulator.time/Simulator.dt;i++){
-            series.getData().add(new XYChart.Data<Number, Number>(i*Simulator.dt,((Resistor)Simulator.everything.get(5)).vs.get(((int)i))*((Resistor)Simulator.everything.get(5)).is.get(((int)i))));
+        for (double i=0;i<Brain.time/Brain.dt;i++){
+            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor)Brain.everything.get(5)).vs.get(((int)i))*((Resistor)Brain.everything.get(5)).is.get(((int)i))));
         }
         xAxis2.setLowerBound(0);
-        xAxis2.setUpperBound(Simulator.time);
-        xAxis2.setTickUnit(Simulator.time/10);
+        xAxis2.setUpperBound(Brain.time);
+        xAxis2.setTickUnit(Brain.time/10);
         lineChart3.getData().add(series);
-        series.setName("P:"+((Resistor)Simulator.everything.get(5)).name);
+        series.setName("P:"+((Resistor)Brain.everything.get(5)).name);
     }
 
 

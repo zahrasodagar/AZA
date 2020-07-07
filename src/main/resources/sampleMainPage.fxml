@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Brain">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -60,7 +60,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dv" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="dvtf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
@@ -70,7 +70,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="di" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="ditf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
@@ -80,7 +80,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="dttf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
@@ -90,7 +90,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="time" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="40.0">
+                        <TextField fx:id="timetf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="40.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>

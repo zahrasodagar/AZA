@@ -17,11 +17,11 @@ public class Inductor extends Element {
             for (double[] cp:l.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Simulator.i,deg);
+            hold+=coeff*Math.pow(Brain.i,deg);
         }
         if (hold<=0) {
             //System.out.println("Resistance : "+hold);
-            Main.ErrorBox("ERROR",name+" value is negative at "+Simulator.i+" second" );
+            Main.ErrorBox("ERROR",name+" value is negative at "+Brain.i+" second" );
             System.out.println("Negative Inductance");
             System.exit(0);
         }
@@ -30,10 +30,10 @@ public class Inductor extends Element {
 
     public void setDL(){
         double hold=getL();
-        Simulator.t-=Simulator.dt;
+        Brain.t-=Brain.dt;
         hold-=getL();
-        Simulator.t+=Simulator.dt;
-        hold=hold/Simulator.dt;
+        Brain.t+=Brain.dt;
+        hold=hold/Brain.dt;
         dL=hold;
     }
 
@@ -44,7 +44,7 @@ public class Inductor extends Element {
         //System.out.println("V inductor : "+v);
         //System.out.println("I inductor : "+I);
         //System.out.println("----------------");
-        double i=I+v/l*Simulator.dt;
+        double i=I+v/l*Brain.dt;
         if (thisNode.equals(this.node[0]))
             return -i;
         else
