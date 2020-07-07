@@ -55,7 +55,7 @@ public class ControllerMainPage implements Initializable {
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
 
-
+/////
 /*    private static ControllerMainPage controllerMainPage;
 
     private ControllerMainPage() {
