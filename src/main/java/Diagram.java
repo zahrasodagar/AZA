@@ -18,7 +18,7 @@ public class Diagram extends Application {
         Simulator.simulateFile();
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Hello World");
-        Controller.scene=new Scene(root, 1300, 800);
+        Controller.scene=new Scene(root, 1500, 800);
         stage.setScene(Controller.scene);
         stage.show();
     }
