@@ -7,7 +7,7 @@ public abstract class Source extends Element {
     }
 
     public double value(){
-        return offset+amplitude*Math.sin(2*Math.PI*frequency*Simulator.i+phase);
+        return offset+amplitude*Math.sin(2*Math.PI*frequency*Brain.i+phase);
     }
 
 }

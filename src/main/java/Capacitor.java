@@ -18,12 +18,12 @@ public class Capacitor extends Element {
             for (double[] cp:c.get(deg)){
                 coeff+=cp[0]*Math.pow(10,cp[1]);
             }
-            hold+=coeff*Math.pow(Simulator.i,deg);
+            hold+=coeff*Math.pow(Brain.i,deg);
             //System.out.println("hold : "+hold+"\ntime : "+Simulator.t);
         }
         if (hold<=0) {
             //System.out.println("Resistance : "+hold);
-            Main.ErrorBox("ERROR",name+" value is negative at "+Simulator.i+" second" );
+            Main.ErrorBox("ERROR",name+" value is negative at "+Brain.i+" second" );
             System.out.println("Negative Capacity");
             System.exit(0);
         }
@@ -31,21 +31,21 @@ public class Capacitor extends Element {
     }
 
     public void setDC(){
-        if(Simulator.i==0){
+        if(Brain.i==0){
             dC=0;
             return;
         }
         double hold=getC();
-        Simulator.i-=Simulator.dt;
+        Brain.i-=Brain.dt;
         hold-=getC();
-        Simulator.i+=Simulator.dt;
-        hold=hold/Simulator.dt;
+        Brain.i+=Brain.dt;
+        hold=hold/Brain.dt;
         dC=hold;
     }
 
     @Override
     public double getI(Nodes thisNode) {
-        double c=getC(),dV=((node[0].v-node[1].v)-(node[0].finalV-node[1].finalV))/Simulator.dt;
+        double c=getC(),dV=((node[0].v-node[1].v)-(node[0].finalV-node[1].finalV))/Brain.dt;
         //System.out.print(node[0].v+"-");
         //System.out.print(node[1].v+"-");
         //System.out.print(node[0].finalV+"-");

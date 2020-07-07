@@ -39,9 +39,9 @@ public class InputManager {
                 return false;
 
             Resistor resistor=new Resistor(name,node1,node2,resistance);
-            Simulator.t+=Simulator.dt;
+            Brain.t+=Brain.dt;
             double hold=resistor.getR();
-            Simulator.t-=Simulator.dt;
+            Brain.t-=Brain.dt;
             if (hold<0){
                 //System.out.println("Negative Resistance");
                 return false;
@@ -66,9 +66,9 @@ public class InputManager {
                 return false;
 
             Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
-            Simulator.t+=Simulator.dt;
+            Brain.t+=Brain.dt;
             double hold=capacitor.getC();
-            Simulator.t-=Simulator.dt;
+            Brain.t-=Brain.dt;
             if (hold<0){
                 //System.out.println("Negative Capacity");
                 return false;
@@ -92,9 +92,9 @@ public class InputManager {
                 return false;
 
             Inductor inductor=new Inductor(name,node1,node2,inductance);
-            Simulator.t+=Simulator.dt;
+            Brain.t+=Brain.dt;
             double hold=inductor.getL();
-            Simulator.t-=Simulator.dt;
+            Brain.t-=Brain.dt;
             if (hold<0){
                 //System.out.println("Negative Inductance");
                 return false;
@@ -247,13 +247,13 @@ public class InputManager {
             double hold=a*Math.pow(10,power);
             switch (sth) {
                 case "t":
-                    Simulator.dt=hold;
+                    Brain.dt=hold;
                     break;
                 case "i":
-                    Simulator.dI=hold;
+                    Brain.dI=hold;
                     break;
                 case "v":
-                    Simulator.dV=hold;
+                    Brain.dV=hold;
                     break;
                 default:
                     //oh shit
@@ -267,7 +267,7 @@ public class InputManager {
     }
 
     public boolean checkName(String name){
-        for (Object object:Simulator.everything){
+        for (Object object:Brain.everything){
             if(object instanceof Element){
                if (((Element)object).name.equals(name))
                  return false;
@@ -346,7 +346,7 @@ public class InputManager {
     public boolean addElement(Element element, Nodes node1, Nodes node2){
         if (!checkName(element.name))
             return false;
-        Simulator.everything.add(element);
+        Brain.everything.add(element);
         Element.elements.add(element);
         node1.elements.add(element);
         node2.elements.add(element);
@@ -355,7 +355,7 @@ public class InputManager {
 
     public Nodes getNode(String name){
         Nodes node=null;
-        for (Object o: Simulator.everything){
+        for (Object o: Brain.everything){
             if (o instanceof Nodes){
                 if (((Nodes) o).name.equals(name))
                     node= (Nodes) o;
@@ -366,14 +366,14 @@ public class InputManager {
                 node=Ground.getInstance();
             else
                 node=new Node(name);
-            Simulator.everything.add(node);
+            Brain.everything.add(node);
         }
         return node;
     }
 
     public Element getElement(String name){
         Element element=null;
-        for (Object o: Simulator.everything){
+        for (Object o: Brain.everything){
             if (o instanceof Element){
                 if (((Element) o).name.equals(name))
                     element= (Element) o;
