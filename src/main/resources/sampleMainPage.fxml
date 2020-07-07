@@ -8,79 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="1002.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
-    <ImageView fx:id="newImage">
-        <image >
-            <Image url="@new1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="openImage">
-        <image >
-            <Image url="@open1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="openRecentImage">
-        <image >
-            <Image url="@openrecent1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="exitImage">
-        <image >
-            <Image url="@exit1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="addImage">
-        <image >
-            <Image url="@add1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="settingImage">
-        <image >
-            <Image url="@setting1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="nightModeImage">
-        <image >
-            <Image url="@nightMode1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="saveImage">
-        <image >
-            <Image url="@save1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="reloadImage">
-        <image >
-            <Image url="@reload1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="editImage">
-        <image >
-            <Image url="@edit1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="deleteImage">
-        <image >
-            <Image url="@delete1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="helpImage">
-        <image >
-            <Image url="@help1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="updateImage">
-        <image >
-            <Image url="@update1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="aboutImage">
-        <image >
-            <Image url="@about1.png" requestedHeight="20" requestedWidth="20" />
-        </image>
-    </ImageView>
-
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -88,39 +16,39 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#newProject" text="New" graphic="$newImage" />
-                                <MenuItem mnemonicParsing="false" onAction="#openProject" text="Open" graphic="$openImage" />
-                                <Menu mnemonicParsing="false" text="Open Recent" graphic="$openRecentImage">
+                                <MenuItem mnemonicParsing="false" onAction="#newProject" text="New" />
+                                <MenuItem mnemonicParsing="false" onAction="#openProject" text="Open" />
+                                <Menu mnemonicParsing="false" text="Open Recent">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="input" />
                                     </items>
                                 </Menu>
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <Menu mnemonicParsing="false" text="Settings" graphic="$settingImage" >
+                                <Menu mnemonicParsing="false" text="Settings">
                                     <items>
-                                        <CheckMenuItem mnemonicParsing="false" text="Night Mode" graphic="$nightModeImage" />
+                                        <CheckMenuItem mnemonicParsing="false" text="Night Mode" />
                                     </items>
                                 </Menu>
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" graphic="$saveImage" />
-                                <MenuItem mnemonicParsing="false" onAction="#reloadProject" text="Reload" graphic="$reloadImage"/>
+                                <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
+                                <MenuItem mnemonicParsing="false" onAction="#reloadProject" text="Reload" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#exitAZA" text="Exit" graphic="$exitImage"/>
+                                <MenuItem mnemonicParsing="false" onAction="#exitAZA" text="Exit" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#addElement" text="Add Element" graphic="$addImage"/>
-                                <MenuItem mnemonicParsing="false" text="Edit Element" graphic="$editImage"/>
-                                <MenuItem mnemonicParsing="false" text="Delete Element" graphic="$deleteImage"/>
+                                <MenuItem mnemonicParsing="false" onAction="#addElement" text="Add Element" />
+                                <MenuItem mnemonicParsing="false" text="Edit Element" />
+                                <MenuItem mnemonicParsing="false" text="Delete Element" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Help" graphic="$helpImage"/>
+                                <MenuItem mnemonicParsing="false" text="Help" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" text="Check for Updates" graphic="$updateImage"/>
-                                <MenuItem mnemonicParsing="false" text="About" graphic="$aboutImage"/>
+                                <MenuItem mnemonicParsing="false" text="Check for Updates" />
+                                <MenuItem mnemonicParsing="false" text="About" />
                             </items>
                         </Menu>
                     </menus>
@@ -198,13 +126,13 @@
                     <content>
                         <HBox>
                             <children>
-                                <TextArea fx:id="codeArea" minWidth="-Infinity" onKeyPressed="#hidePercentage" prefHeight="434.0" prefWidth="310.0" HBox.hgrow="ALWAYS">
+                                <TextArea fx:id="codeArea" maxWidth="-Infinity" onKeyPressed="#hidePercentage" prefHeight="211.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets bottom="3.0" left="5.0" right="3.0" top="3.0" />
                                     </HBox.margin>
                                 </TextArea>
                                 <Separator orientation="VERTICAL" prefHeight="541.0" prefWidth="4.0" />
-                                <GridPane prefHeight="541.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                                <GridPane prefHeight="217.0" prefWidth="354.0" HBox.hgrow="ALWAYS">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -255,13 +183,13 @@
                 <Separator prefWidth="200.0" />
                 <HBox BorderPane.alignment="CENTER">
                     <children>
-                        <Region minHeight="-Infinity" prefHeight="32.0" prefWidth="776.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="percentage" prefHeight="27.0" prefWidth="60.0" text="100%">
+                        <Region minHeight="-Infinity" prefHeight="32.0" prefWidth="607.0" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="percentage" prefHeight="27.0" prefWidth="68.0" text="100%">
                             <HBox.margin>
                                 <Insets right="2.0" />
                             </HBox.margin>
                         </Label>
-                        <ProgressBar fx:id="bar" prefHeight="27.0" prefWidth="193.0" progress="0.0">
+                        <ProgressBar fx:id="bar" prefHeight="27.0" prefWidth="109.0" progress="0.0">
                             <HBox.margin>
                                 <Insets bottom="3.0" right="6.0" top="2.0" />
                             </HBox.margin>
