@@ -170,7 +170,7 @@ public class ControllerMainPage implements Initializable{
         Stage stage = new Stage();
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Diagrams");
-        Controller.scene=new Scene(root1, 800, 500);
+        Controller.scene=new Scene(root1, 1500, 800);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(Controller.scene);
         stage.show();
