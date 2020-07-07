@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.IOException;
 public class Diagram extends Application {
-    static String path=System.getProperty("user.dir")+"\\input.txt"; //default
+
     @Override
     public void start(Stage stage) throws Exception {
         Simulator.simulateFile();
