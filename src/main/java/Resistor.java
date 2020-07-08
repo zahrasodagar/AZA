@@ -26,7 +26,7 @@ public class Resistor extends Element {
         if (hold<=0) {
             //System.out.println("Resistance : "+hold);
             Main.ErrorBox("ERROR",name+" value is negative at "+Brain.i+" second" );
-            System.out.println("Negative Resistance");
+            //System.out.println("Negative Resistance");
             System.exit(0);
         }
         //System.out.println("Resistance : "+hold);

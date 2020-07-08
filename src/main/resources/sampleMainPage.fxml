@@ -8,7 +8,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMainPage">
     <ImageView fx:id="newImage">
         <image>
-            <Image requestedHeight="20" requestedWidth="20" url="@new1.png" />
+            <Image requestedHeight="20" requestedWidth="20" url="@new2.png" />
         </image>
     </ImageView>
     <ImageView fx:id="openImage">
@@ -87,7 +87,7 @@
                            <graphic>
                               <ImageView fx:id="newImage0">
                                  <image>
-                                    <Image requestedHeight="20" requestedWidth="20" url="@new1.png" />
+                                    <Image requestedHeight="20" requestedWidth="20" url="@new2.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
@@ -116,11 +116,6 @@
                                     <items>
                                         <CheckMenuItem mnemonicParsing="false" text="Night Mode">
                                  <graphic>
-                                    <ImageView fx:id="nightModeImage0">
-                                       <image>
-                                          <Image requestedHeight="20" requestedWidth="20" url="@nightMode1.png" />
-                                       </image>
-                                    </ImageView>
                                  </graphic></CheckMenuItem>
                                     </items>
                            <graphic>
