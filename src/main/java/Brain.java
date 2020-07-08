@@ -104,9 +104,12 @@ public class Brain {
                 }*/
             }
             System.out.println("T : "+i);
-            int p= (int) ((i*10)/time);
+            if (((int)(i/dt)%25==0))
+            {int p=  (int) ((i*10)/time);
             percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
             bar.setProgress(p/1000);
+            System.out.println(p/1000);
+            }
             System.out.println("--------------------------");
 
         }
