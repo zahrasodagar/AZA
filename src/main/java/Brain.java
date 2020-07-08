@@ -95,6 +95,7 @@ public class Brain {
         for (i =0 ; i<=time ; i+=dt){
             t=i;
             calculateVoltageAtT();
+            checkVSource();
             for (Object o: Brain.everything){
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
@@ -374,6 +375,27 @@ public class Brain {
         }
         catch (IOException e){
 
+        }
+    }
+
+    public static void checkVSource() {
+        for (Object object : Brain.everything) {
+            if (object instanceof VSource) {
+                for (Object object2 : Brain.everything){
+                    if((object2 instanceof VSource)&&(((VSource) object2).node[0]==((VSource) object).node[0])&&(((VSource) object2).node[1]==((VSource) object).node[1])){
+                        if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[0]))>dV){
+                            Main.ErrorBox("ERROR -3","At least two VSource with different voltage are parallel at "+i+"th second" );
+                            System.exit(0);
+                        }
+                    }
+                    if((object2 instanceof VSource)&&(((VSource) object2).node[1]==((VSource) object).node[0])&&(((VSource) object2).node[0]==((VSource) object).node[1])){
+                        if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[1]))>dV){
+                            Main.ErrorBox("ERROR -3","At least two VSource with different voltage are parallel at "+i+"th second" );
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
         }
     }
 }

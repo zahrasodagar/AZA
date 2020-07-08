@@ -21,7 +21,7 @@ public class Inductor extends Element {
         }
         if (hold<=0) {
             //System.out.println("Resistance : "+hold);
-            Main.ErrorBox("ERROR",name+" value is negative at "+Brain.i+" second" );
+            Main.ErrorBox("ERROR -1",name+" value is negative at "+Brain.i+" second" );
             System.out.println("Negative Inductance");
             System.exit(0);
         }
