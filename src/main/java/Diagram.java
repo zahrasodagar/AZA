@@ -22,7 +22,6 @@ public class Diagram extends Application {
         stage.setScene(Controller.scene);
         stage.show();
     }
-    public static void main(String[] args){
-        launch(args);
+    public static void main(String[] args){ launch(args);
     }
 }

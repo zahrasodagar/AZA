@@ -148,7 +148,7 @@ public class ControllerMainPage implements Initializable {
         updateTextArea();
     }
 
-    public void exitAZA(){
+    public void exitAZA() throws IOException {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("New Project");
@@ -162,7 +162,7 @@ public class ControllerMainPage implements Initializable {
         javafx.scene.control.Button yes=new javafx.scene.control.Button("Yes");
         javafx.scene.control.Button cancel=new Button("No");
 
-        //yes.(e -> yes.setStyle(String.valueOf(color(1, 0.1,0.1 ))));
+
 
         yes.setOnAction(event1 -> {
             // TODO: 20/07/05 Ask to save before exit

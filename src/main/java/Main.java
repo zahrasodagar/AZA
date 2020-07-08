@@ -56,7 +56,7 @@ public class Main extends Application {
 
     public static void main(String[] args){
         launch(args);
-        //Simulator.simulateFile();
+        //Brain.simulateFile();
     }
 
     @Override
