@@ -139,6 +139,7 @@ public class Brain {
     public static void calculateVoltageAtT(){
         double temp=0;
         double Itotal1=0,Itotal2=0,Itotal4=0;
+        int counter=0;
         while (true){
             ////-------------         reset all nodes
             for (Object o: Brain.everything){
@@ -184,6 +185,7 @@ public class Brain {
             }
             ////-------------         reset all nodes
             ////-------------         visiting all nodes
+            counter++;
             for (Object o: Brain.everything) {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
@@ -202,18 +204,37 @@ public class Brain {
                         //System.out.println("I2 : "+Itotal2);
                         //System.out.println("I4 : "+Itotal4);
                         temp=((Nodes) o).v;
+                        if(counter%10000==0||counter%10000==1){
+                            //System.out.println("-----------------------------");
+                            //System.out.println("V : "+((Nodes) o).v);
+                            ((Nodes) o).v += Brain.dV;
+                            //System.out.println("Node : "+((Nodes) o).name);
+                            //System.out.println("I1 : "+Itotal1);
+                            //System.out.println("I2 : "+Itotal2);
+                            for (Object object : everything){
+                                if (object instanceof Element){
+                                   // System.out.println(((Element) object).name+" I : "+((Element) object).getI(((Element) object).node[0]));
+                                }
+                            }
+                        }
                         ((Nodes) o).v = ((Nodes) o).v + (Math.abs(Itotal1) - Math.abs(Itotal2))/Brain.dI * Brain.dV;
+                        if(counter%10000==0||counter%10000==1){
+                            //System.out.println("V : "+((Nodes) o).v);
+                        }
                         temp=((Nodes) o).v-temp;
-                        int temporary=0;
+                        int temporary=0,temporary1=0;
                         for (Element element:((Nodes) o).elements){
                             if(element instanceof Capacitor){
                                 temporary++;
+                            }
+                            if (element instanceof Diode2){
+                                temporary1++;
                             }
                         }
                         if (temporary>0){
                             Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
                             //System.out.println("I4 : "+Itotal4);
-                            while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>Brain.dI&&Math.abs(temp)<Math.pow(10,-13)){
+                            while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>Brain.dI&&Math.abs(temp)>Math.pow(10,-13)){
                                 //System.out.println("-----------------------------");
                                 //System.out.println("V : "+((Nodes) o).v);
                                 //System.out.println("Node : "+((Nodes) o).name);
@@ -222,6 +243,51 @@ public class Brain {
                                 temp/=2;
                                 ((Nodes) o).v-=temp;
                                 Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                            }
+                        }
+                        if (temporary1>0){
+                            int x,y=0;
+                            double w;
+                            if (temp>0)
+                                x=1;
+                            else
+                                x=-1;
+                            Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                            w=Itotal4;
+                            if(Math.abs(Itotal4)>Math.abs(Itotal1)){
+                                //System.out.println("I4 : "+Itotal4);
+                                while ((Math.abs(Itotal4)>Math.abs(Itotal1))&&Math.abs(Itotal4)>Brain.dI&&Math.abs(temp)>dV){
+                                    //System.out.println("-----------------------------");
+                                    //System.out.println("V : "+((Nodes) o).v);
+                                    //System.out.println("Node : "+((Nodes) o).name);
+                                    //System.out.println("Temp : "+temp);
+                                    //System.out.println("I4 : "+Itotal4);
+                                    temp/=2;
+                                    ((Nodes) o).v-=temp;
+                                    Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                                }
+                            }
+                            else {
+                                ((Nodes) o).v+=x*dV;
+                                Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                                if (counter%10000==0||counter%10000==1){
+                                    //System.out.println("I4 : "+Itotal4);
+                                    //System.out.println("x : "+x);
+                                }
+                                while (Math.abs(Itotal4)>Brain.dI&&Math.abs(w)>Math.abs(Itotal4)){
+                                    y++;
+                                    w=Itotal4;
+                                    ((Nodes) o).v+=x*dV;
+                                    //System.out.println("-----------------------------");
+                                    //System.out.println("V : "+((Nodes) o).v);
+                                    //System.out.println("Node : "+((Nodes) o).name);
+                                    //System.out.println("Temp : "+temp);
+                                    if (y%10000==0){
+                                        //System.out.println("I4 : "+Itotal4);
+                                    }
+                                    Itotal4 = ((Nodes) o).getTotalI((Nodes) o);
+                                }
+                                ((Nodes) o).v-=x*dV;
                             }
                         }
                         ((Nodes) o).visited = true;

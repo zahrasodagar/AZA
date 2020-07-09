@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class Diagram extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Brain.simulateFile();
+        Brain.simulateFile(new Label(),new ProgressBar());
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Hello World");
         Controller.scene=new Scene(root, 1500, 800);
