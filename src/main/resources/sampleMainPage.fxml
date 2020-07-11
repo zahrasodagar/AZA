@@ -294,7 +294,7 @@
                                     </HBox.margin>
                                 </TextArea>
                                 <Separator orientation="VERTICAL" prefHeight="541.0" prefWidth="4.0" />
-                        <AnchorPane prefHeight="258.0" prefWidth="547.0" />
+                        <Pane fx:id="pane" prefHeight="258.0" prefWidth="547.0" />
                             </children>
                         </HBox>
                     </content>

@@ -14,6 +14,8 @@ import javafx.scene.*;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +66,7 @@ public class ControllerMainPage implements Initializable {
     public static String currentname;
     public static String powername;
 
+    @FXML public Pane pane;
     @FXML public Tab outputTab;
     @FXML public TextArea codeArea,outputArea;
     @FXML public TextField dvtf,ditf,dttf,timetf;
@@ -418,9 +421,17 @@ public class ControllerMainPage implements Initializable {
                 for (Nodes node2:Nodes.nodes){
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
+                        for (Element element:hold) {
+                            Image image1=new Image(element.imageAddress, 50, 50, false, false);
+                            ImageView image=new ImageView(image1);
+                            pane.getChildren().add(image);
+                            image.relocate(10,20);
+
+                        }
                     }
                 }
         }
+
     }
 
     public void addElement(ActionEvent actionEvent){

@@ -1,6 +1,9 @@
 public class VSource extends Source {
     public VSource(String name,Nodes node1, Nodes node2, double offset,double amplitude,double frequency,double phase){
-        super(name,node1,node2,offset,amplitude,frequency,phase);
+        super(name,node1,node2,offset,amplitude,frequency,phase,"vs");
+    }
+    public VSource(String name,Nodes node1, Nodes node2){
+        super(name,node1,node2,0,0,0,0,"dvs");
     }
 
     public double getV(Nodes node){

@@ -1,6 +1,6 @@
 public abstract class Diodes extends Element {
     public Diodes(String name, Nodes node1,Nodes node2){
-        super(name, node1, node2);
+        super(name, node1, node2,"diode");
     }
 
 }
