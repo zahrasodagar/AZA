@@ -418,6 +418,8 @@ public class ControllerMainPage implements Initializable {
         drawn.clear();
         int[] xy=getXY();
         Nodes gnd=null;
+        double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+
         for (Nodes node1:Nodes.nodes){
             ArrayList<Element> hold;
             if (!(node1 instanceof Ground)) {
@@ -450,6 +452,9 @@ public class ControllerMainPage implements Initializable {
                 for (Nodes node2:Nodes.nodes){
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
+                        int parallel=hold.size(),round=0;
+
+
                         for (Element element:hold) {
                             if (!checkList.get(element)){
 
@@ -459,7 +464,6 @@ public class ControllerMainPage implements Initializable {
                                 drawn.add(image);
 
                                 int n2=Integer.parseInt(node2.name);
-                                double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
                                 double[] xy1=new double[2],xy2=new double[2];
 
                                 xy2[0]=50+horSteps*((n2-1)%6+1-xy[0]);
@@ -469,7 +473,10 @@ public class ControllerMainPage implements Initializable {
                                 xy1[1]=50+verSteps*((xy[3]));
                                 xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
 
-                                image.relocate((xy1[0]+xy2[0])/2-30,(xy1[1]+xy2[1])/2-30);
+                                double shift=-30*parallel+60*round+30;
+
+                                image.relocate((xy1[0]+xy2[0])/2-30+shift,(xy1[1]+xy2[1])/2-30);
+                                // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
                                 if (element.node[0] instanceof Ground)
                                     image.setRotate(90*2);
                                 //System.out.println(pane.getWidth());
@@ -477,6 +484,7 @@ public class ControllerMainPage implements Initializable {
                                 //System.out.println(element.name);
 
                                 checkList.replace(element,true);
+                                ++round;
                             }
                         }
                     }
