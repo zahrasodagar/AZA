@@ -428,13 +428,17 @@ public class ControllerMainPage implements Initializable {
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
                         for (Element element:hold) {
-                            Image image1=new Image(element.imageAddress, 50, 50, false, false);
+                            double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
+
+                            Image image1=new Image(element.imageAddress, 60, 60, false, false);
                             ImageView image=new ImageView(image1);
                             pane.getChildren().add(image);
                             drawn.add(image);
 
-                            double[] centre=getCentre(Integer.parseInt(node1.name),Integer.parseInt(node2.name),xy);
-                            image.relocate(centre[0],centre[1]);
+                            image.relocate(centre[0]-30,centre[1]-30);
+                            image.setRotate(90*centre[2]);
+                            System.out.println(pane.getWidth());
+                            System.out.println(pane.getHeight());
                             //System.out.println(centre[0]);
                             //System.out.println(centre[1]);
                         }
@@ -483,8 +487,22 @@ public class ControllerMainPage implements Initializable {
         centre[0]=(xy1[0]+xy2[0])/2;
         centre[1]=(xy1[1]+xy2[1])/2;
 
-        System.out.println(centre[0]);
-        System.out.println(centre[1]);
+
+        if (xy1[0]==xy2[0]){
+            if (xy1[1]<xy2[1])
+                centre[2]=0;
+            else
+                centre[2]=2;
+        }
+        else{
+            if (xy1[0]<xy2[0])
+                centre[2]=1;
+            else
+                centre[2]=3;
+        }
+
+        //System.out.println(centre[0]);
+        //System.out.println(centre[1]);
         return centre;
     }
 
