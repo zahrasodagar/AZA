@@ -407,44 +407,83 @@ public class ControllerMainPage implements Initializable {
         percentage.setText("100"+"%");
         bar.setProgress(1);
         /////////////////////////
-        /*HashMap <Element,Boolean> checkList=new HashMap<>();
+        HashMap <Element,Boolean> checkList=new HashMap<>();
         for (Element element:Element.elements){
             checkList.put(element,false);
         }
-        for (Element element: checkList.keySet()){
-            if (!checkList.get(element)){
 
-            }
-        }*/
         for (ImageView img:drawn){
             img.setVisible(false);
         }
         drawn.clear();
         int[] xy=getXY();
+        Nodes gnd=null;
         for (Nodes node1:Nodes.nodes){
             ArrayList<Element> hold;
-            if (!(node1 instanceof Ground))
+            if (!(node1 instanceof Ground)) {
                 for (Nodes node2:Nodes.nodes){
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
                         for (Element element:hold) {
-                            double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
+                            if (!checkList.get(element)){
+                                double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
 
-                            Image image1=new Image(element.imageAddress, 60, 60, false, false);
-                            ImageView image=new ImageView(image1);
-                            pane.getChildren().add(image);
-                            drawn.add(image);
+                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image=new ImageView(image1);
+                                pane.getChildren().add(image);
+                                drawn.add(image);
 
-                            image.relocate(centre[0]-30,centre[1]-30);
-                            image.setRotate(90*centre[2]);
-                            System.out.println(pane.getWidth());
-                            System.out.println(pane.getHeight());
-                            //System.out.println(centre[0]);
-                            //System.out.println(centre[1]);
+                                image.relocate(centre[0]-30,centre[1]-30);
+                                image.setRotate(90*centre[2]);
+                                //System.out.println(pane.getWidth());
+                                //System.out.println(pane.getHeight());
+                                System.out.println(element.name);
+                                System.out.println(centre[0]);
+                                System.out.println(centre[1]);
+                                checkList.replace(element,true);
+                            }
                         }
                     }
                 }
+            }
+            else {
+                for (Nodes node2:Nodes.nodes){
+                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
+                        hold=Nodes.getParallelElements(node1,node2);
+                        for (Element element:hold) {
+                            if (!checkList.get(element)){
+
+                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image=new ImageView(image1);
+                                pane.getChildren().add(image);
+                                drawn.add(image);
+
+                                int n2=Integer.parseInt(node2.name);
+                                double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+                                double[] xy1=new double[2],xy2=new double[2];
+
+                                xy2[0]=50+horSteps*((n2-1)%6+1-xy[0]);
+                                xy1[0]=xy2[0];
+
+
+                                xy1[1]=50+verSteps*((xy[3]));
+                                xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+
+                                image.relocate((xy1[0]+xy2[0])/2-30,(xy1[1]+xy2[1])/2-30);
+                                if (element.node[0] instanceof Ground)
+                                    image.setRotate(90*2);
+                                //System.out.println(pane.getWidth());
+                                //System.out.println(pane.getHeight());
+                                //System.out.println(element.name);
+
+                                checkList.replace(element,true);
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
     }
 
