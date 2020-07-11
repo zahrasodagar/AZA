@@ -92,7 +92,7 @@ public class Brain {
         t=0;
 
 
-        for (i =0 ; i<=time ; i+=dt){
+        for (i =0 ; i<time ; i+=dt){
             t=i;
             calculateVoltageAtT();
             checkVSource();
@@ -106,10 +106,18 @@ public class Brain {
             }
             System.out.println("T : "+i);
             if (((int)(i/dt)%25==0))
-            {int p=  (int) ((i*10)/time);
-            percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
-            bar.setProgress(p/1000);
-            System.out.println(p/1000);
+            {
+                bar.setVisible(true);
+                percentage.setVisible(true);
+                double p=   ((i)/time);
+            String settext = String.format("%.1f",p);
+            percentage.setText(settext+"%");
+            bar.setProgress(p);
+                try {
+                    TimeUnit.MILLISECONDS.sleep(500);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
             System.out.println("--------------------------");
 

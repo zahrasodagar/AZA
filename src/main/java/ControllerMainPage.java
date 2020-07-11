@@ -1,12 +1,23 @@
+import com.sun.javafx.scene.control.LabeledText;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,12 +42,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,11 +60,16 @@ import java.util.regex.Pattern;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
+    public static String voltagename;
+    public static String currentname;
+    public static String powername;
     @FXML
     public TextArea codeArea;
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
+
+
 
 //////
 /*    private static ControllerMainPage controllerMainPage;
@@ -180,24 +196,211 @@ public class ControllerMainPage implements Initializable {
         window.setScene(scene);
         window.show();
     }
+    public void listshow1() throws Exception {
+        final ObservableList<String> names =
+                FXCollections.observableArrayList();
+        final ObservableList<String> data =
+                FXCollections.observableArrayList();
+        final ListView listView = new ListView(data);
+        listView.setPrefSize(200, 250);
 
-    public void draw(){
-        run();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        Parent root1 = null;
-        try {
-            root1 = (Parent) fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+        for (int i=0;i<Brain.everything.size();i++) {
+            if (Brain.everything.get(i) instanceof Node){
+                data.add("Node "+((Node) Brain.everything.get(i)).name+":V");
+            }
+            if(Brain.everything.get(i) instanceof ISource){
+                data.add("ISource "+((ISource) Brain.everything.get(i)).name+":V");
+            }
+            if(Brain.everything.get(i) instanceof VSource){
+                data.add("VSource "+((VSource) Brain.everything.get(i)).name+":V");
+            }
+            if(Brain.everything.get(i) instanceof Resistor){
+                data.add("Resistor "+((Resistor) Brain.everything.get(i)).name+":V");
+            }
+            if(Brain.everything.get(i) instanceof Capacitor){
+                data.add("Capacitor "+((Capacitor) Brain.everything.get(i)).name+":V");
+            }
+            if(Brain.everything.get(i) instanceof Inductor){
+                data.add("Inductor "+((Inductor) Brain.everything.get(i)).name+":V");
+            }
         }
-        Stage stage = new Stage();
+        listView.setItems(data);
+        listView.setPrefSize(300,250);
+
+        Stage stage=new Stage();
+        StackPane root = new StackPane();
+        root.getChildren().add(listView);
+        stage.setScene(new Scene(root, 200, 250));
+        stage.show();
+        initActions1(listView,stage);
+    }
+    public void initActions1(ListView<String> list,Stage stage1) throws IOException,Exception{
+        list.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent arg0) {
+                //Check wich list index is selected then set txtContent value for that index
+
+                if(arg0.getClickCount()>1){
+                    voltagename=list.getSelectionModel().getSelectedItem();
+                    list.setVisible(false);
+                    stage1.close();
+                    Parent root1= null;
+                    try {
+                        root1 = FXMLLoader.load(getClass().getResource("sample.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Diagrams");
-        Controller.scene=new Scene(root1, 1500, 800);
+        Scene scene=new Scene(root1, 1500, 800);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(Controller.scene);
+        stage.setScene(scene);
         stage.show();
+
+                }
+
+            }
+
+        });
     }
+    public void listshow2() throws Exception {
+        final ObservableList<String> names =
+                FXCollections.observableArrayList();
+        final ObservableList<String> data =
+                FXCollections.observableArrayList();
+        final ListView listView = new ListView(data);
+        listView.setPrefSize(200, 250);
+
+
+
+        for (int i=0;i<Brain.everything.size();i++) {
+            if (Brain.everything.get(i) instanceof Element) {
+                if (Brain.everything.get(i) instanceof Node) {
+                    data.add("Node " + ((Node) Brain.everything.get(i)).name + ":I");
+                }
+                if (Brain.everything.get(i) instanceof ISource) {
+                    data.add("ISource " + ((ISource) Brain.everything.get(i)).name + ":I");
+                }
+                if (Brain.everything.get(i) instanceof VSource) {
+                    data.add("VSource " + ((VSource) Brain.everything.get(i)).name + ":I");
+                }
+                if (Brain.everything.get(i) instanceof Resistor) {
+                    data.add("Resistor " + ((Resistor) Brain.everything.get(i)).name + ":I");
+                }
+                if (Brain.everything.get(i) instanceof Capacitor) {
+                    data.add("Capacitor " + ((Capacitor) Brain.everything.get(i)).name + ":I");
+                }
+                if (Brain.everything.get(i) instanceof Inductor) {
+                    data.add("Inductor " + ((Inductor) Brain.everything.get(i)).name + ":I");
+                }
+            }
+        }
+        listView.setItems(data);
+        listView.setPrefSize(300,250);
+
+        Stage stage=new Stage();
+        StackPane root = new StackPane();
+        root.getChildren().add(listView);
+        stage.setScene(new Scene(root, 200, 250));
+        stage.show();
+        initActions2(listView,stage);
+    }
+    public void initActions2(ListView<String> list,Stage stage1) throws IOException,Exception{
+        list.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent arg0) {
+                //Check wich list index is selected then set txtContent value for that index
+
+                if(arg0.getClickCount()>1){
+                    currentname=list.getSelectionModel().getSelectedItem();
+                    list.setVisible(false);
+                    stage1.close();
+
+                }
+
+            }
+
+        });
+    }
+    public void listshow3() throws Exception {
+        final ObservableList<String> names =
+                FXCollections.observableArrayList();
+        final ObservableList<String> data =
+                FXCollections.observableArrayList();
+        final ListView listView = new ListView(data);
+        listView.setPrefSize(200, 250);
+
+
+
+        for (int i=0;i<Brain.everything.size();i++) {
+            if (Brain.everything.get(i) instanceof Element) {
+                if (Brain.everything.get(i) instanceof Node) {
+                    data.add("Node " + ((Node) Brain.everything.get(i)).name + ":P");
+                }
+                if (Brain.everything.get(i) instanceof ISource) {
+                    data.add("ISource " + ((ISource) Brain.everything.get(i)).name + ":P");
+                }
+                if (Brain.everything.get(i) instanceof VSource) {
+                    data.add("VSource " + ((VSource) Brain.everything.get(i)).name + ":P");
+                }
+                if (Brain.everything.get(i) instanceof Resistor) {
+                    data.add("Resistor " + ((Resistor) Brain.everything.get(i)).name + ":P");
+                }
+                if (Brain.everything.get(i) instanceof Capacitor) {
+                    data.add("Capacitor " + ((Capacitor) Brain.everything.get(i)).name + ":P");
+                }
+                if (Brain.everything.get(i) instanceof Inductor) {
+                    data.add("Inductor " + ((Inductor) Brain.everything.get(i)).name + ":P");
+                }
+            }
+        }
+        listView.setItems(data);
+        listView.setPrefSize(300,250);
+
+        Stage stage=new Stage();
+        StackPane root = new StackPane();
+        root.getChildren().add(listView);
+        stage.setScene(new Scene(root, 200, 250));
+        stage.show();
+        initActions3(listView,stage);
+    }
+    public void initActions3(ListView<String> list,Stage stage1) throws IOException,Exception{
+        list.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent arg0) {
+                //Check wich list index is selected then set txtContent value for that index
+
+                if(arg0.getClickCount()>1){
+                    powername=list.getSelectionModel().getSelectedItem();
+                    list.setVisible(false);
+                    stage1.close();
+
+                }
+
+            }
+
+        });
+    }
+    public void draw() throws IOException,Exception {
+        run();
+        listshow1();
+        listshow2();
+        listshow3();
+//        Parent root1= FXMLLoader.load(getClass().getResource("sample.fxml"));
+//        Stage stage = new Stage();
+//
+//        //stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setTitle("Diagrams");
+//        Scene scene=new Scene(root1, 1500, 800);
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.setScene(scene);
+//        stage.show();
+    }
+
 
     public void run(){
         saveProject();

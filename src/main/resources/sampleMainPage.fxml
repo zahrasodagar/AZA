@@ -256,12 +256,12 @@
                             </HBox.margin>
                         </TextField>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#draw" onMouseClicked="#draw" text="Draw">
+                        <Button mnemonicParsing="false" onAction="#draw"  text="Draw">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#run" onMouseClicked="#run" text="Run">
+                        <Button mnemonicParsing="false" onAction="#run"  text="Run">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>

@@ -20,8 +20,7 @@ public class Diagram extends Application {
         Brain.simulateFile(new Label(),new ProgressBar());
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Hello World");
-        Controller.scene=new Scene(root, 1500, 800);
-        stage.setScene(Controller.scene);
+        stage.setScene(new Scene(root,1500,600));
         stage.show();
     }
     public static void main(String[] args){ launch(args);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.chart.*?>
@@ -18,9 +19,9 @@
         <tabs>
           <Tab text="Voltage">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-image: url(&quot;images.jpg&quot;);">
                      <children>
-                        <LineChart fx:id="lineChart1" layoutX="64.0" layoutY="53.0" legendSide="RIGHT" prefHeight="669.0" prefWidth="1279.0" scaleX="0.952" styleClass="mychart" stylesheets="@sample1.css" title="Voltage" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="143.0">
+                        <LineChart fx:id="lineChart1" createSymbols="false" layoutX="64.0" layoutY="53.0" prefHeight="669.0" prefWidth="1279.0" scaleX="0.952" styleClass="mychart" stylesheets="@sample1.css" title="Voltage" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="143.0">
                           <xAxis>
                             <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#3644c28c" fx:id="xAxis">
                                  <tickLabelFont>
@@ -34,16 +35,15 @@
                                  </tickLabelFont></NumberAxis>
                           </yAxis>
                         </LineChart>
-                        <Button layoutX="1400.0" layoutY="163.0" mnemonicParsing="false" onAction="#btn" text="Button" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab text="Current">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="821.0" prefWidth="1300.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="821.0" prefWidth="1300.0" style="-fx-background-image: url(&quot;images.jpg&quot;);">
                      <children>
-                        <LineChart fx:id="lineChart2" layoutX="64.0" layoutY="53.0" legendSide="RIGHT" prefHeight="669.0" prefWidth="1279.0" styleClass="mychart1" stylesheets="@sample1.css" title="Current" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="157.0">
+                        <LineChart fx:id="lineChart2" createSymbols="false" layoutX="64.0" layoutY="53.0" prefHeight="669.0" prefWidth="1279.0" styleClass="mychart1" stylesheets="@sample1.css" title="Current" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="157.0">
                           <xAxis>
                             <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#3644c28c" fx:id="xAxis1">
                                  <tickLabelFont>
@@ -57,16 +57,15 @@
                                  </tickLabelFont></NumberAxis>
                           </yAxis>
                         </LineChart>
-                        <Button layoutX="1400.0" layoutY="163.0" mnemonicParsing="false" onAction="#btn1" text="Button" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
             <Tab text="Power">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-image: url(&quot;images.jpg&quot;);">
                      <children>
-                        <LineChart fx:id="lineChart3" layoutX="64.0" layoutY="53.0" legendSide="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="1279.0" scaleX="0.93975" styleClass="mychart2" stylesheets="@sample1.css" title="Power" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="120.0">
+                        <LineChart fx:id="lineChart3" createSymbols="false" layoutX="64.0" layoutY="53.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="1279.0" scaleX="0.93975" styleClass="mychart2" stylesheets="@sample1.css" title="Power" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="120.0">
                            <xAxis>
                               <NumberAxis label="time(s)" side="BOTTOM" tickLabelFill="#3644c28c" fx:id="xAxis2">
                                  <tickLabelFont>
@@ -80,7 +79,6 @@
                                  </tickLabelFont></NumberAxis>
                            </yAxis>
                         </LineChart>
-                        <Button layoutX="1400.0" layoutY="163.0" mnemonicParsing="false" onAction="#btn2" text="Button" />
                      </children>
                   </AnchorPane>
                </content>
@@ -92,11 +90,13 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Traces">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Add Trace" />
+                  <MenuItem mnemonicParsing="false" text="Delete Trace" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
