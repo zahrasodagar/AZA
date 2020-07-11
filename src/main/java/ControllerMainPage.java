@@ -46,6 +46,7 @@ import javafx.stage.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.ShortLookupTable;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -61,7 +62,7 @@ import java.util.regex.Pattern;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
-   // public static ArrayList<>
+    public static ArrayList<ImageView> drawn=new ArrayList<>();
     public static String voltagename;
     public static String currentname;
     public static String powername;
@@ -415,6 +416,11 @@ public class ControllerMainPage implements Initializable {
 
             }
         }*/
+        for (ImageView img:drawn){
+            img.setVisible(false);
+        }
+        drawn.clear();
+        int[] xy=getXY();
         for (Nodes node1:Nodes.nodes){
             ArrayList<Element> hold;
             if (!(node1 instanceof Ground))
@@ -425,13 +431,61 @@ public class ControllerMainPage implements Initializable {
                             Image image1=new Image(element.imageAddress, 50, 50, false, false);
                             ImageView image=new ImageView(image1);
                             pane.getChildren().add(image);
-                            image.relocate(10,20);
+                            drawn.add(image);
 
+                            double[] centre=getCentre(Integer.parseInt(node1.name),Integer.parseInt(node2.name),xy);
+                            image.relocate(centre[0],centre[1]);
+                            //System.out.println(centre[0]);
+                            //System.out.println(centre[1]);
                         }
                     }
                 }
         }
 
+    }
+
+    public int[] getXY(){
+        int [] holdMax=new int[2];
+        int [] holdMin=new int[2];
+        int [] hold=new int[4];
+        holdMax[0]=1;holdMin[0]=6;
+        for (Nodes node:Nodes.nodes){
+            if (!(node instanceof Ground)){
+                int n=Integer.parseInt(node.name);
+                if ((n-1)%6+1>holdMax[0])
+                    holdMax[0]=(n-1)%6+1;
+                if ((n-1)%6+1<holdMin[0])
+                    holdMin[0]=(n-1)%6+1;
+                if ((n-1)/6+1>holdMax[1])
+                    holdMax[1]=(n-1)/6+1;
+            }
+        }
+        hold[0]=holdMin[0];hold[1]=holdMin[1];
+        hold[2]=holdMax[0];hold[3]=holdMax[1];
+        return hold;
+    }
+
+    public double[] getCentre(int n1,int n2,int[] xy){
+        double[] centre=new double[4];
+        double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double[] xy1=new double[2],xy2=new double[2];
+        xy1[0]=50+horSteps*((n1-1)%6+1-xy[0]);
+        xy2[0]=50+horSteps*((n2-1)%6+1-xy[0]);
+
+        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
+        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+/*
+        System.out.println(xy1[0]);
+        System.out.println(xy1[1]);
+        System.out.println(xy2[0]);
+        System.out.println(xy2[1]);*/
+
+        centre[0]=(xy1[0]+xy2[0])/2;
+        centre[1]=(xy1[1]+xy2[1])/2;
+
+        System.out.println(centre[0]);
+        System.out.println(centre[1]);
+        return centre;
     }
 
     public void addElement(ActionEvent actionEvent){
