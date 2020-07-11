@@ -68,7 +68,7 @@ public class Main extends Application {
         Scene scene=new Scene(vBox,500,316);
 
         w0.setScene(scene);
-        w0.show();
+       // w0.show();
        /* for (int i=0;i<=8;++i){
             FileInputStream input = new FileInputStream(System.getProperty("user.dir")+"\\loadingImgs\\loading"+i+".jpg");
             Image image=new Image(input);
@@ -87,7 +87,7 @@ public class Main extends Application {
         BackgroundImage backgroundimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         vBox.setBackground(background);
-        w0.show();
+       // w0.show();
         w0.setAlwaysOnTop(true);
         scene.setOnMouseMoved(mouseHandler);
 
@@ -105,7 +105,7 @@ public class Main extends Application {
         stage.getIcons().add(image1);
         w0.getIcons().add(image1);
 
-        //stage.show();
+        stage.show();
 
         //w0.hide();
 

@@ -1,4 +1,3 @@
-import com.sun.javafx.scene.control.LabeledText;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -60,30 +59,16 @@ import java.util.regex.Pattern;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
+   // public static ArrayList<>
     public static String voltagename;
     public static String currentname;
     public static String powername;
-    @FXML
-    public TextArea codeArea;
+
+    @FXML public Tab outputTab;
+    @FXML public TextArea codeArea,outputArea;
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
-
-
-
-//////
-/*    private static ControllerMainPage controllerMainPage;
-
-    private ControllerMainPage() {
-
-    }
-
-    public static ControllerMainPage getInstance() {
-        if (controllerMainPage == null)
-            controllerMainPage = new ControllerMainPage();
-        return controllerMainPage;
-    }
-*/
 
     public void newProject() {
         hidePercentage();
@@ -196,6 +181,7 @@ public class ControllerMainPage implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
     public void listshow1() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -236,6 +222,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions1(listView,stage);
     }
+
     public void initActions1(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -267,6 +254,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void listshow2() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -309,6 +297,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions2(listView,stage);
     }
+
     public void initActions2(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -326,6 +315,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void listshow3() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -368,6 +358,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions3(listView,stage);
     }
+
     public void initActions3(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -385,6 +376,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void draw() throws IOException,Exception {
         run();
         listshow1();
@@ -401,7 +393,6 @@ public class ControllerMainPage implements Initializable {
 //        stage.show();
     }
 
-
     public void run(){
         saveProject();
         percentage.setVisible(true);
@@ -411,6 +402,25 @@ public class ControllerMainPage implements Initializable {
         Brain.simulateFile(percentage,bar);
         percentage.setText("100"+"%");
         bar.setProgress(1);
+        /////////////////////////
+        /*HashMap <Element,Boolean> checkList=new HashMap<>();
+        for (Element element:Element.elements){
+            checkList.put(element,false);
+        }
+        for (Element element: checkList.keySet()){
+            if (!checkList.get(element)){
+
+            }
+        }*/
+        for (Nodes node1:Nodes.nodes){
+            ArrayList<Element> hold;
+            if (!(node1 instanceof Ground))
+                for (Nodes node2:Nodes.nodes){
+                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
+                        hold=Nodes.getParallelElements(node1,node2);
+                    }
+                }
+        }
     }
 
     public void addElement(ActionEvent actionEvent){
