@@ -67,8 +67,9 @@ public class ControllerMainPage implements Initializable {
     public static String currentname;
     public static String powername;
 
+    @FXML public TabPane tabPane;
     @FXML public Pane pane;
-    @FXML public Tab outputTab;
+    @FXML public Tab outputTab,inputTab;
     @FXML public TextArea codeArea,outputArea;
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
@@ -398,6 +399,7 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void run(){
+        tabPane.getSelectionModel().select(inputTab);
         saveProject();
         percentage.setVisible(true);
         percentage.setText("0.0"+"%");
@@ -406,6 +408,7 @@ public class ControllerMainPage implements Initializable {
         Brain.simulateFile(percentage,bar);
         percentage.setText("100"+"%");
         bar.setProgress(1);
+        updateOutputTextArea();
         /////////////////////////
         HashMap <Element,Boolean> checkList=new HashMap<>();
         for (Element element:Element.elements){
@@ -585,7 +588,7 @@ public class ControllerMainPage implements Initializable {
 
         if (nc != 1) {
             gndLoc[0] = pane.getWidth()/2;
-            // TODO: 20/07/12 bug za 
+            // TODO: 20/07/12 bug za
 
         }
         image.relocate(gndLoc[0]-30,gndLoc[1]+1);
@@ -662,6 +665,27 @@ public class ControllerMainPage implements Initializable {
 
 
 
+    public void outputListener(){
+        run();
+        tabPane.getSelectionModel().select(outputTab);
+    }
+
+    public void updateOutputTextArea()  {
+
+        StringBuilder text= new StringBuilder();
+        File file = new File(Main.outputPath);
+        try {
+            Scanner scanner=new Scanner(file);
+            while (scanner.hasNextLine()){
+                String hold=scanner.nextLine();
+                text.append(hold).append("\n");
+
+            }
+            outputArea.setText(text.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void updateTextArea()  {
