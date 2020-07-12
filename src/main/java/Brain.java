@@ -197,7 +197,6 @@ public class Brain {
             for (Object o: Brain.everything) {
                 if (o instanceof Nodes) {
                     if (!((Nodes) o).visited) {
-                        // TODO: 7/2/2020 Diode 2 has some problems:should be solved later
                         Itotal1 = ((Nodes) o).getTotalI((Nodes) o);
                         //System.out.println("-----------------------------");
                         //System.out.println("V : "+((Nodes) o).v);
