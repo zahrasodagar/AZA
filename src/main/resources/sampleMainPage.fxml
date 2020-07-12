@@ -268,7 +268,7 @@
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Output">
+                        <Button mnemonicParsing="false" onMouseClicked="#outputListener" text="Output">
                             <HBox.margin>
                                 <Insets right="10.0" />
                             </HBox.margin>
@@ -282,9 +282,9 @@
         </VBox>
     </top>
     <center>
-        <TabPane prefHeight="288.0" prefWidth="480.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="tabPane" prefHeight="288.0" prefWidth="480.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <Tab text="Project Input">
+                <Tab fx:id="inputTab" text="Project Input">
                     <content>
                         <HBox prefHeight="136.0" prefWidth="450.0">
                             <children>
@@ -329,7 +329,7 @@
                                 <Insets right="2.0" />
                             </HBox.margin>
                         </Label>
-                        <ProgressBar fx:id="bar" prefHeight="27.0" prefWidth="109.0" progress="0.0">
+                        <ProgressBar fx:id="bar" prefHeight="27.0" prefWidth="114.0" progress="0.0">
                             <HBox.margin>
                                 <Insets bottom="3.0" right="6.0" top="2.0" />
                             </HBox.margin>
