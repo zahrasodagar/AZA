@@ -423,7 +423,8 @@ public class ControllerMainPage implements Initializable {
         lines.clear();
         int[] xy=getXY();
         Nodes gnd=null;
-        //double []
+        int nc=0;
+        double [] gndLoc=new double[2];
         double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
 
         for (Nodes node1:Nodes.nodes){
@@ -488,10 +489,13 @@ public class ControllerMainPage implements Initializable {
                 }
             }
             else {
+                gnd=node1;
                 for (Nodes node2:Nodes.nodes){
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
                         int parallel=hold.size(),round=0;
+                        if (parallel!=0)
+                            ++nc;
 
                         double[] xy1=new double[2],xy2=new double[2];
                         int n2=Integer.parseInt(node2.name);
@@ -510,7 +514,8 @@ public class ControllerMainPage implements Initializable {
                         for (Element element:hold) {
                             if (!checkList.get(element)){
 
-
+                                gndLoc[0]=xy1[0];
+                                gndLoc[1]=xy1[1];
                                 double shift=-30*parallel+60*round+30;
 
                                 Line line= new Line(xy1[0]+shift,xy1[1],xy2[0]+shift,xy2[1]);
@@ -549,8 +554,44 @@ public class ControllerMainPage implements Initializable {
         }
 
 
+        if (nc!=1){
+
+            for (Element element:gnd.elements){
+                System.out.println(element.name);
+                Nodes node=element.otherNode(gnd);
+
+                double[] xy2=new double[2];
+                int n=Integer.parseInt(node.name);
+                xy2[0]=100+horSteps*((n-1)%6+1-xy[0]);
+                xy2[1]=50+verSteps*((xy[3]-((n-1)/6+1)));
+                Line line= new Line(gndLoc[0],gndLoc[1],xy2[0],gndLoc[1]);
+                lines.add(line);
+                pane.getChildren().add(line);
+            }
+
+        }
+        FileInputStream imageAddress=null;
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"gnd"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Image image1=new Image(imageAddress, 60, 60, false, false);
+        ImageView image=new ImageView(image1);
+        pane.getChildren().add(image);
+        drawn.add(image);
 
 
+
+
+        if (nc==1){
+            image.relocate(gndLoc[0]-30,gndLoc[1]-30);
+        }
+        else {
+            gndLoc[0]=100+horSteps*(3.5-xy[0]);
+            image.relocate(gndLoc[0]-30,gndLoc[1]-30);
+        }
     }
 
     public int[] getXY(){
