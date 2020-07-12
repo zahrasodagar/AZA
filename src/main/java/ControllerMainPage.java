@@ -43,10 +43,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.*;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.ShortLookupTable;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -59,10 +57,12 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.stage.Stage;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
     public static ArrayList<ImageView> drawn=new ArrayList<>();
+    public static ArrayList<Line> lines=new ArrayList<>();
     public static String voltagename;
     public static String currentname;
     public static String powername;
@@ -415,10 +415,15 @@ public class ControllerMainPage implements Initializable {
         for (ImageView img:drawn){
             img.setVisible(false);
         }
+        for (Line line:lines){
+            line.setVisible(false);
+            // TODO: 20/07/12 shit?
+        }
         drawn.clear();
+        lines.clear();
         int[] xy=getXY();
         Nodes gnd=null;
-        double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
 
         for (Nodes node1:Nodes.nodes){
             ArrayList<Element> hold;
@@ -426,16 +431,39 @@ public class ControllerMainPage implements Initializable {
                 for (Nodes node2:Nodes.nodes){
                     if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
                         hold=Nodes.getParallelElements(node1,node2);
+
+                        int n1=Integer.parseInt(node1.name);
+                        int n2=Integer.parseInt(node2.name);
+
+                        double[] xy1=new double[2],xy2=new double[2];
+                        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
+                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+
+                        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
+                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+                        int parallel=hold.size(),round=0;
+
                         for (Element element:hold) {
                             if (!checkList.get(element)){
                                 double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
+                                double shift=-30*parallel+60*round+30;
+                                int isHor=0,isVer=0;
+                                if ((int)(centre[2])%2==0)
+                                    isHor=1;
+                                else
+                                    isVer=1;
+                                Line line= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                lines.add(line);
+                                pane.getChildren().add(line);
 
                                 Image image1=new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image=new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
 
-                                image.relocate(centre[0]-30,centre[1]-30);
+
+
+                                image.relocate(centre[0]-30+isHor*shift,centre[1]-30+isVer*shift);
                                 image.setRotate(90*centre[2]);
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
@@ -443,6 +471,7 @@ public class ControllerMainPage implements Initializable {
                                 System.out.println(centre[0]);
                                 System.out.println(centre[1]);
                                 checkList.replace(element,true);
+                                ++round;
                             }
                         }
                     }
@@ -454,26 +483,35 @@ public class ControllerMainPage implements Initializable {
                         hold=Nodes.getParallelElements(node1,node2);
                         int parallel=hold.size(),round=0;
 
+                        double[] xy1=new double[2],xy2=new double[2];
+                        int n2=Integer.parseInt(node2.name);
+                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+                        xy1[0]=xy2[0];
+
+
+                        xy1[1]=50+verSteps*((xy[3]));
+                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+
+
+
+                       // line.relocate(xy1[0],xy1[1]);
+
 
                         for (Element element:hold) {
                             if (!checkList.get(element)){
+
+
+                                double shift=-30*parallel+60*round+30;
+
+                                Line line= new Line(xy1[0]+shift,xy1[1],xy2[0]+shift,xy2[1]);
+                                lines.add(line);
+                                pane.getChildren().add(line);
+
 
                                 Image image1=new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image=new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
-
-                                int n2=Integer.parseInt(node2.name);
-                                double[] xy1=new double[2],xy2=new double[2];
-
-                                xy2[0]=50+horSteps*((n2-1)%6+1-xy[0]);
-                                xy1[0]=xy2[0];
-
-
-                                xy1[1]=50+verSteps*((xy[3]));
-                                xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
-
-                                double shift=-30*parallel+60*round+30;
 
                                 image.relocate((xy1[0]+xy2[0])/2-30+shift,(xy1[1]+xy2[1])/2-30);
                                 // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
@@ -518,10 +556,10 @@ public class ControllerMainPage implements Initializable {
 
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
-        double horSteps=(pane.getWidth()-100)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
         double[] xy1=new double[2],xy2=new double[2];
-        xy1[0]=50+horSteps*((n1-1)%6+1-xy[0]);
-        xy2[0]=50+horSteps*((n2-1)%6+1-xy[0]);
+        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
+        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
 
         xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
         xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
