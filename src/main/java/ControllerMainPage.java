@@ -423,6 +423,7 @@ public class ControllerMainPage implements Initializable {
         lines.clear();
         int[] xy=getXY();
         Nodes gnd=null;
+        //double []
         double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
 
         for (Nodes node1:Nodes.nodes){
@@ -452,9 +453,18 @@ public class ControllerMainPage implements Initializable {
                                     isHor=1;
                                 else
                                     isVer=1;
+
                                 Line line= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy2[0]+isHor*shift,xy2[1]+isVer*shift);
                                 lines.add(line);
                                 pane.getChildren().add(line);
+
+                                Line line1= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy1[0],xy1[1]);
+                                lines.add(line1);
+                                pane.getChildren().add(line1);
+
+                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                lines.add(line2);
+                                pane.getChildren().add(line2);
 
                                 Image image1=new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image=new ImageView(image1);
@@ -507,6 +517,14 @@ public class ControllerMainPage implements Initializable {
                                 lines.add(line);
                                 pane.getChildren().add(line);
 
+                                Line line1= new Line(xy1[0]+shift,xy1[1],xy1[0],xy1[1]);
+                                lines.add(line1);
+                                pane.getChildren().add(line1);
+
+                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+shift,xy2[1]);
+                                lines.add(line2);
+                                pane.getChildren().add(line2);
+
 
                                 Image image1=new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image=new ImageView(image1);
@@ -529,6 +547,8 @@ public class ControllerMainPage implements Initializable {
                 }
             }
         }
+
+
 
 
     }
