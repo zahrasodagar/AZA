@@ -583,15 +583,12 @@ public class ControllerMainPage implements Initializable {
         drawn.add(image);
 
 
+        if (nc != 1) {
+            gndLoc[0] = pane.getWidth()/2;
+            // TODO: 20/07/12 bug za 
 
-
-        if (nc==1){
-            image.relocate(gndLoc[0]-30,gndLoc[1]-30);
         }
-        else {
-            gndLoc[0]=100+horSteps*(3.5-xy[0]);
-            image.relocate(gndLoc[0]-30,gndLoc[1]-30);
-        }
+        image.relocate(gndLoc[0]-30,gndLoc[1]+1);
     }
 
     public int[] getXY(){
