@@ -258,6 +258,15 @@ public abstract class Nodes {
         return nodes;
     }
 
+
+    public static ArrayList<Element> getParallelElements(Nodes node1,Nodes node2){
+        ArrayList<Element> parallels=new ArrayList<>();
+        for (Element element: node1.elements){
+            if (node2.elements.contains(element))
+                parallels.add(element);
+        }
+        return parallels;
+    }
 }
 
 class Node extends Nodes {

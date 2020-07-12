@@ -1,6 +1,9 @@
 class ISource extends Source {
     public ISource(String name,Nodes node1, Nodes node2, double offset,double amplitude,double frequency,double phase){
-        super(name,node1,node2,offset,amplitude,frequency,phase);
+        super(name,node1,node2,offset,amplitude,frequency,phase,"is");
+    }
+    public ISource(String name,Nodes node1, Nodes node2){
+        super(name,node1,node2,0,0,0,0,"dis");
     }
 
     @Override
@@ -18,7 +21,7 @@ class FSource extends ISource {
     Element element;
     double a;
     public FSource(String name,Nodes node1,Nodes node2,Element element, double a){
-        super(name,node1,node2,0,0,0,0);
+        super(name,node1,node2);
         this.element=element;
         this.a=a;
     }
@@ -46,7 +49,7 @@ class GSource extends ISource {
     Nodes node1,node2;
     double a;
     public GSource(String name,Nodes node1,Nodes node2,Nodes node21,Nodes node22, double a){
-        super(name,node1,node2,0,0,0,0);
+        super(name,node1,node2);
         this.node1=node21;
         this.node2=node22;
         this.a=a;
