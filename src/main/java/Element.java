@@ -1,3 +1,9 @@
+import javafx.scene.image.Image;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 public abstract class Element {
     static ArrayList<Element> elements=new ArrayList<>();
@@ -6,8 +12,18 @@ public abstract class Element {
     ArrayList<Double> vs=new ArrayList<>();
     ArrayList<Double> is=new ArrayList<>();
     double integralV=0,integralI=0,dV=0,dI=0;
+    FileInputStream imageAddress;
 
-    public Element(String name,Nodes node1,Nodes node2){
+
+    public Element(String name,Nodes node1,Nodes node2,String address){
+
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+address+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
         this.name=name;
         node[0]=node1;
         node[1]=node2;

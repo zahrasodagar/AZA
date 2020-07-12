@@ -7,7 +7,7 @@ public class Capacitor extends Element {
 
     // TODO: 20/06/12 dc
     public Capacitor(String name, Nodes node1,Nodes node2, HashMap<Integer, ArrayList<double[]>> c){
-        super(name, node1, node2);
+        super(name, node1, node2,"capacitor");
         this.c=c;
     }
 

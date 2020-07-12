@@ -5,7 +5,7 @@ public class Resistor extends Element {
     HashMap <Integer, ArrayList<double[]>> r;
 
     public Resistor(String name, Nodes node1,Nodes node2, HashMap <Integer,ArrayList<double[]>> r){
-        super(name, node1, node2);
+        super(name, node1, node2,"resistor");
         this.r=r;
     }
 

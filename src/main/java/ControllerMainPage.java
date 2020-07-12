@@ -1,4 +1,3 @@
-import com.sun.javafx.scene.control.LabeledText;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,6 +14,8 @@ import javafx.scene.*;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -42,9 +43,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.*;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -57,33 +57,23 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.stage.Stage;
 
 public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
+    public static ArrayList<ImageView> drawn=new ArrayList<>();
+    public static ArrayList<Line> lines=new ArrayList<>();
     public static String voltagename;
     public static String currentname;
     public static String powername;
-    @FXML
-    public TextArea codeArea;
+
+    @FXML public TabPane tabPane;
+    @FXML public Pane pane;
+    @FXML public Tab outputTab,inputTab;
+    @FXML public TextArea codeArea,outputArea;
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
-
-
-
-//////
-/*    private static ControllerMainPage controllerMainPage;
-
-    private ControllerMainPage() {
-
-    }
-
-    public static ControllerMainPage getInstance() {
-        if (controllerMainPage == null)
-            controllerMainPage = new ControllerMainPage();
-        return controllerMainPage;
-    }
-*/
 
     public void newProject() {
         hidePercentage();
@@ -196,6 +186,7 @@ public class ControllerMainPage implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
     public void listshow1() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -236,6 +227,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions1(listView,stage);
     }
+
     public void initActions1(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -267,6 +259,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void listshow2() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -309,6 +302,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions2(listView,stage);
     }
+
     public void initActions2(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -326,6 +320,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void listshow3() throws Exception {
         final ObservableList<String> names =
                 FXCollections.observableArrayList();
@@ -368,6 +363,7 @@ public class ControllerMainPage implements Initializable {
         stage.show();
         initActions3(listView,stage);
     }
+
     public void initActions3(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -385,6 +381,7 @@ public class ControllerMainPage implements Initializable {
 
         });
     }
+
     public void draw() throws IOException,Exception {
         run();
         listshow1();
@@ -401,8 +398,8 @@ public class ControllerMainPage implements Initializable {
 //        stage.show();
     }
 
-
     public void run(){
+        tabPane.getSelectionModel().select(inputTab);
         saveProject();
         percentage.setVisible(true);
         percentage.setText("0.0"+"%");
@@ -411,6 +408,248 @@ public class ControllerMainPage implements Initializable {
         Brain.simulateFile(percentage,bar);
         percentage.setText("100"+"%");
         bar.setProgress(1);
+        updateOutputTextArea();
+        /////////////////////////
+        HashMap <Element,Boolean> checkList=new HashMap<>();
+        for (Element element:Element.elements){
+            checkList.put(element,false);
+        }
+
+        for (ImageView img:drawn){
+            img.setVisible(false);
+        }
+        for (Line line:lines){
+            line.setVisible(false);
+            // TODO: 20/07/12 shit?
+        }
+        drawn.clear();
+        lines.clear();
+        int[] xy=getXY();
+        Nodes gnd=null;
+        int nc=0;
+        double [] gndLoc=new double[2];
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+
+        for (Nodes node1:Nodes.nodes){
+            ArrayList<Element> hold;
+            if (!(node1 instanceof Ground)) {
+                for (Nodes node2:Nodes.nodes){
+                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
+                        hold=Nodes.getParallelElements(node1,node2);
+
+                        int n1=Integer.parseInt(node1.name);
+                        int n2=Integer.parseInt(node2.name);
+
+                        double[] xy1=new double[2],xy2=new double[2];
+                        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
+                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+
+                        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
+                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+                        int parallel=hold.size(),round=0;
+
+                        for (Element element:hold) {
+                            if (!checkList.get(element)){
+                                double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
+                                double shift=-30*parallel+60*round+30;
+                                int isHor=0,isVer=0;
+                                if ((int)(centre[2])%2==0)
+                                    isHor=1;
+                                else
+                                    isVer=1;
+
+                                Line line= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                lines.add(line);
+                                pane.getChildren().add(line);
+
+                                Line line1= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy1[0],xy1[1]);
+                                lines.add(line1);
+                                pane.getChildren().add(line1);
+
+                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                lines.add(line2);
+                                pane.getChildren().add(line2);
+
+                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image=new ImageView(image1);
+                                pane.getChildren().add(image);
+                                drawn.add(image);
+
+
+
+                                image.relocate(centre[0]-30+isHor*shift,centre[1]-30+isVer*shift);
+                                image.setRotate(90*centre[2]);
+                                //System.out.println(pane.getWidth());
+                                //System.out.println(pane.getHeight());
+                                System.out.println(element.name);
+                                System.out.println(centre[0]);
+                                System.out.println(centre[1]);
+                                checkList.replace(element,true);
+                                ++round;
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                gnd=node1;
+                for (Nodes node2:Nodes.nodes){
+                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
+                        hold=Nodes.getParallelElements(node1,node2);
+                        int parallel=hold.size(),round=0;
+                        if (parallel!=0)
+                            ++nc;
+
+                        double[] xy1=new double[2],xy2=new double[2];
+                        int n2=Integer.parseInt(node2.name);
+                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+                        xy1[0]=xy2[0];
+
+
+                        xy1[1]=50+verSteps*((xy[3]));
+                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+
+
+
+                       // line.relocate(xy1[0],xy1[1]);
+
+
+                        for (Element element:hold) {
+                            if (!checkList.get(element)){
+
+                                gndLoc[0]=xy1[0];
+                                gndLoc[1]=xy1[1];
+                                double shift=-30*parallel+60*round+30;
+
+                                Line line= new Line(xy1[0]+shift,xy1[1],xy2[0]+shift,xy2[1]);
+                                lines.add(line);
+                                pane.getChildren().add(line);
+
+                                Line line1= new Line(xy1[0]+shift,xy1[1],xy1[0],xy1[1]);
+                                lines.add(line1);
+                                pane.getChildren().add(line1);
+
+                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+shift,xy2[1]);
+                                lines.add(line2);
+                                pane.getChildren().add(line2);
+
+
+                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image=new ImageView(image1);
+                                pane.getChildren().add(image);
+                                drawn.add(image);
+
+                                image.relocate((xy1[0]+xy2[0])/2-30+shift,(xy1[1]+xy2[1])/2-30);
+                                // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
+                                if (element.node[0] instanceof Ground)
+                                    image.setRotate(90*2);
+                                //System.out.println(pane.getWidth());
+                                //System.out.println(pane.getHeight());
+                                //System.out.println(element.name);
+
+                                checkList.replace(element,true);
+                                ++round;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (nc!=1){
+
+            for (Element element:gnd.elements){
+                System.out.println(element.name);
+                Nodes node=element.otherNode(gnd);
+
+                double[] xy2=new double[2];
+                int n=Integer.parseInt(node.name);
+                xy2[0]=100+horSteps*((n-1)%6+1-xy[0]);
+                xy2[1]=50+verSteps*((xy[3]-((n-1)/6+1)));
+                Line line= new Line(gndLoc[0],gndLoc[1],xy2[0],gndLoc[1]);
+                lines.add(line);
+                pane.getChildren().add(line);
+            }
+
+        }
+        FileInputStream imageAddress=null;
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"gnd"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Image image1=new Image(imageAddress, 60, 60, false, false);
+        ImageView image=new ImageView(image1);
+        pane.getChildren().add(image);
+        drawn.add(image);
+
+
+        if (nc != 1) {
+            gndLoc[0] = pane.getWidth()/2;
+            // TODO: 20/07/12 bug za
+
+        }
+        image.relocate(gndLoc[0]-30,gndLoc[1]+1);
+    }
+
+    public int[] getXY(){
+        int [] holdMax=new int[2];
+        int [] holdMin=new int[2];
+        int [] hold=new int[4];
+        holdMax[0]=1;holdMin[0]=6;
+        for (Nodes node:Nodes.nodes){
+            if (!(node instanceof Ground)){
+                int n=Integer.parseInt(node.name);
+                if ((n-1)%6+1>holdMax[0])
+                    holdMax[0]=(n-1)%6+1;
+                if ((n-1)%6+1<holdMin[0])
+                    holdMin[0]=(n-1)%6+1;
+                if ((n-1)/6+1>holdMax[1])
+                    holdMax[1]=(n-1)/6+1;
+            }
+        }
+        hold[0]=holdMin[0];hold[1]=holdMin[1];
+        hold[2]=holdMax[0];hold[3]=holdMax[1];
+        return hold;
+    }
+
+    public double[] getCentre(int n1,int n2,int[] xy){
+        double[] centre=new double[4];
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double[] xy1=new double[2],xy2=new double[2];
+        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
+        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+
+        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
+        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+/*
+        System.out.println(xy1[0]);
+        System.out.println(xy1[1]);
+        System.out.println(xy2[0]);
+        System.out.println(xy2[1]);*/
+
+        centre[0]=(xy1[0]+xy2[0])/2;
+        centre[1]=(xy1[1]+xy2[1])/2;
+
+
+        if (xy1[0]==xy2[0]){
+            if (xy1[1]<xy2[1])
+                centre[2]=0;
+            else
+                centre[2]=2;
+        }
+        else{
+            if (xy1[0]<xy2[0])
+                centre[2]=1;
+            else
+                centre[2]=3;
+        }
+
+        //System.out.println(centre[0]);
+        //System.out.println(centre[1]);
+        return centre;
     }
 
     public void addElement(ActionEvent actionEvent){
@@ -426,6 +665,27 @@ public class ControllerMainPage implements Initializable {
 
 
 
+    public void outputListener(){
+        run();
+        tabPane.getSelectionModel().select(outputTab);
+    }
+
+    public void updateOutputTextArea()  {
+
+        StringBuilder text= new StringBuilder();
+        File file = new File(Main.outputPath);
+        try {
+            Scanner scanner=new Scanner(file);
+            while (scanner.hasNextLine()){
+                String hold=scanner.nextLine();
+                text.append(hold).append("\n");
+
+            }
+            outputArea.setText(text.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void updateTextArea()  {

@@ -6,7 +6,7 @@ public class Inductor extends Element {
     double dL;
     double I=0;
     public Inductor(String name, Nodes node1,Nodes node2, HashMap<Integer, ArrayList<double[]>> l){
-        super(name, node1, node2);
+        super(name, node1, node2,"inductor");
         this.l=l;
     }
 
