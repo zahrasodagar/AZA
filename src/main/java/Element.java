@@ -11,6 +11,8 @@ public abstract class Element {
     Nodes[] node=new Nodes[2];
     ArrayList<Double> vs=new ArrayList<>();
     ArrayList<Double> is=new ArrayList<>();
+    ArrayList<Double> ps=new ArrayList<>();
+
     double integralV=0,integralI=0,dV=0,dI=0;
     FileInputStream imageAddress;
 
