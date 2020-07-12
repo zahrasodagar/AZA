@@ -182,7 +182,7 @@ public class Controller implements Initializable {
     }
     public String unitfinder(double number){
         String unit=new String();
-        if(number==Math.pow(10,12)){
+        if(number>=Math.pow(10,12)){
             unit="T";
         }
         else if(number==Math.pow(10,9)){
@@ -203,9 +203,13 @@ public class Controller implements Initializable {
         else if(number==Math.pow(10,-9)){
             unit="n";
         }
-        else if(number<Math.pow(10,-9)){
+        else if(number==Math.pow(10,-12)){
             unit="p";
         }
+        else if(number<Math.pow(10,-12)){
+            unit="f";
+        }
+
         return  unit;
     }
     public void addCurrent(String currentorder,XYChart.Series<Number,Number> series){
