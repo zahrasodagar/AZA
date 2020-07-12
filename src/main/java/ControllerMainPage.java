@@ -428,7 +428,7 @@ public class ControllerMainPage implements Initializable {
         Nodes gnd=null;
         int nc=0;
         double [] gndLoc=new double[2];
-        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()+20)/(xy[3]+1);
 
         for (Nodes node1:Nodes.nodes){
             ArrayList<Element> hold;
@@ -556,6 +556,7 @@ public class ControllerMainPage implements Initializable {
             }
         }
 
+        double hold=0,c=0;
 
         if (nc!=1){
 
@@ -570,9 +571,12 @@ public class ControllerMainPage implements Initializable {
                 Line line= new Line(gndLoc[0],gndLoc[1],xy2[0],gndLoc[1]);
                 lines.add(line);
                 pane.getChildren().add(line);
+                ++c;
+                hold+=xy2[0];
             }
-
+            hold/=c;
         }
+
         FileInputStream imageAddress=null;
         try {
             imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"gnd"+".jpg");
@@ -587,7 +591,7 @@ public class ControllerMainPage implements Initializable {
 
 
         if (nc != 1) {
-            gndLoc[0] = pane.getWidth()/2;
+            gndLoc[0] = hold;
             // TODO: 20/07/12 bug za
 
         }
@@ -617,7 +621,7 @@ public class ControllerMainPage implements Initializable {
 
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
-        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()+20)/(xy[3]+1);
         double[] xy1=new double[2],xy2=new double[2];
         xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
         xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
