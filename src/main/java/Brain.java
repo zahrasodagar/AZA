@@ -79,23 +79,26 @@ public class Brain {
             if (line.charAt(0)!='*'){
                 manager.setInput(line);
                 if (!manager.checkInputFormat()) {
-                    System.out.println("Error -1 ( line "+nLine+" )");
+                    Main.ErrorBox("ERROR -1"," line "+nLine );
+                    //System.out.println("Error -1 ( line "+nLine+" )");
                     System.exit(0);
                 }
             }
         }
         if (dV==-1||dI==-1||dt==-1||!tran){
-            System.out.println("Error -1");
+            Main.ErrorBox("ERROR -1"," dT, dV or dI has not been initialized ");
+            //System.out.println("Error -1");
             System.exit(0);
         }
         //Nodes.updateNeighbourNodes();
         t=0;
 
-
+        checkISourceVSource();
         for (i =0 ; i<time ; i+=dt){
             t=i;
             calculateVoltageAtT();
             checkVSource();
+            checkISourse();
             for (Object o: Brain.everything){
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
@@ -451,15 +454,100 @@ public class Brain {
                 for (Object object2 : Brain.everything){
                     if((object2 instanceof VSource)&&(((VSource) object2).node[0]==((VSource) object).node[0])&&(((VSource) object2).node[1]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[0]))>dV){
-                            Main.ErrorBox("ERROR -3","At least two VSource with different voltage are parallel at "+i+"th second" );
+                            Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel at "+i+"th second" );
                             System.exit(0);
                         }
                     }
                     if((object2 instanceof VSource)&&(((VSource) object2).node[1]==((VSource) object).node[0])&&(((VSource) object2).node[0]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[1]))>dV){
-                            Main.ErrorBox("ERROR -3","At least two VSource with different voltage are parallel at "+i+"th second" );
+                            Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel at "+i+"th second" );
                             System.exit(0);
                         }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void checkISourse(){
+        for (Object object : Brain.everything) {
+            if (object instanceof ISource) {
+                int k=0,tt=0;
+                for (Object object2 : ((ISource) object).node[0].elements){
+                    tt++;
+                    if (object2 instanceof ISource){
+                        k++;
+                    }
+                }
+                if(tt==k){
+                    if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
+                        Main.ErrorBox("ERROR -2"," ISources are series at "+i+"th second");
+                        System.exit(0);
+                    }
+                }
+                k=0;
+                tt=0;
+                for (Object object2 : ((ISource) object).node[1].elements){
+                    tt++;
+                    if (object2 instanceof ISource){
+                        k++;
+                    }
+                }
+                if(tt==k){
+                    if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
+                        Main.ErrorBox("ERROR -2"," ISources are series at "+i+"th second");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkISourceVSource(){
+        for (Object object : Brain.everything) {
+            if ((object instanceof VSource)&&!(object instanceof HSource)&&!(object instanceof ESource)) {
+                for (Object object2 : Brain.everything){
+                    if((object2 instanceof VSource)&&!(object2 instanceof HSource)&&!(object2 instanceof ESource)&&(((VSource) object2).node[0]==((VSource) object).node[0])&&(((VSource) object2).node[1]==((VSource) object).node[1])){
+                        if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[0]))>dV){
+                            Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel ");
+                            System.exit(0);
+                        }
+                    }
+                    if((object2 instanceof VSource)&&!(object2 instanceof HSource)&&!(object2 instanceof ESource)&&(((VSource) object2).node[1]==((VSource) object).node[0])&&(((VSource) object2).node[0]==((VSource) object).node[1])){
+                        if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[1]))>dV){
+                            Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel ");
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+            if ((object instanceof ISource)&&!(object instanceof GSource)&&!(object instanceof FSource)) {
+                int k=0,tt=0;
+                for (Object object2 : ((ISource) object).node[0].elements){
+                    tt++;
+                    if ((object2 instanceof ISource)&&!(object2 instanceof GSource)&&!(object2 instanceof FSource)){
+                        k++;
+                    }
+                }
+                if(tt==k){
+                    if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
+                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        System.exit(0);
+                    }
+                }
+                k=0;
+                tt=0;
+                for (Object object2 : ((ISource) object).node[1].elements){
+                    tt++;
+                    if ((object2 instanceof ISource)&&!(object2 instanceof GSource)&&!(object2 instanceof FSource)){
+                        k++;
+                    }
+                }
+                if(tt==k){
+                    if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
+                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        System.exit(0);
                     }
                 }
             }

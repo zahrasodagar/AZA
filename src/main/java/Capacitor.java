@@ -5,7 +5,6 @@ public class Capacitor extends Element {
     HashMap<Integer, ArrayList<double[]>> c;
     double dC=0;
 
-    // TODO: 20/06/12 dc
     public Capacitor(String name, Nodes node1,Nodes node2, HashMap<Integer, ArrayList<double[]>> c){
         super(name, node1, node2,"capacitor");
         this.c=c;
@@ -24,7 +23,7 @@ public class Capacitor extends Element {
         if (hold<=0) {
             //System.out.println("Resistance : "+hold);
             Main.ErrorBox("ERROR -1",name+" value is negative at "+Brain.i+" second" );
-            System.out.println("Negative Capacity");
+            //System.out.println("Negative Capacity");
             System.exit(0);
         }
         return hold;
