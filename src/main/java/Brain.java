@@ -113,11 +113,7 @@ public class Brain {
             String settext = String.format("%.1f",p);
             percentage.setText(settext+"%");
             bar.setProgress(p);
-                try {
-                    TimeUnit.MILLISECONDS.sleep(500);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+
             }
             System.out.println("--------------------------");
 
@@ -378,9 +374,8 @@ public class Brain {
                 if (object instanceof Node)
                     counter++;
             }
-            for(int j=1;j<=counter;j++){
                 for (Object object1:everything) {
-                    if (object1 instanceof Node&&Integer.parseInt(((Node) object1).name)==j) {
+                    if (object1 instanceof Node) {
 
                         String nodeoutput = String.format("Node %s: ", ((Node) object1).name);
                         fileout.write(nodeoutput);
@@ -390,7 +385,6 @@ public class Brain {
                         fileout.write("\n");
                     }
                 }
-            }
             fileout.write("------------\n");
             for (Object object:everything){
                 if (object instanceof ISource){
