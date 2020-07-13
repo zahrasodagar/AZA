@@ -93,12 +93,12 @@ public class Brain {
         //Nodes.updateNeighbourNodes();
         t=0;
 
-        checkISourceVSource();
+        //checkISourceVSource();
         for (i =0 ; i<time ; i+=dt){
             t=i;
             calculateVoltageAtT();
-            checkVSource();
-            checkISourse();
+            //checkVSource();
+            //checkISourse();
             for (Object o: Brain.everything){
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);

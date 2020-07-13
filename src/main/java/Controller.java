@@ -40,6 +40,12 @@ public class Controller implements Initializable {
     @FXML LineChart<Number,Number> lineChart1;
     @FXML LineChart<Number,Number> lineChart2;
     @FXML LineChart<Number,Number> lineChart3;
+    public void deletetraces1(){
+        lineChart1.getData().clear();
+        lineChart3.getData().clear();
+        lineChart2.getData().clear();
+    }
+
     public void addExtratrace(){
 
         ObservableList<String> data= FXCollections.observableArrayList();
@@ -104,6 +110,7 @@ public class Controller implements Initializable {
             }
         });
     }
+
     public void addExtraVoltagetrace(){
         String[] token=selecteditem.split("[: ]+");
         String unit=new String();
@@ -251,7 +258,7 @@ public class Controller implements Initializable {
                 }
             }
         }
-        series.setName("   V:"+token[1]);
+        series.setName("  V:"+token[1]+"  ");
         lineChart1.getData().add(series);
         yAxis.setLabel("Voltage("+unit+"V)");
     }
@@ -387,7 +394,7 @@ public class Controller implements Initializable {
                 }
             }
         }
-        series.setName("  I:"+token[1]);
+        series.setName("  I:"+token[1]+"  ");
         lineChart2.getData().add(series);
         yAxis1.setLabel("Current("+unit+"A)");
     }
@@ -427,15 +434,13 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order2==Math.pow(10,-9));
-                        System.out.println(order2);
                         unit=unitfinder(order2);
                     }
                 }
             }
 
 
-        series.setName("  P:"+token[1]);
+        series.setName("  P:"+token[1]+"  ");
         lineChart3.getData().add(series);
         yAxis2.setLabel("Power("+unit+"W)");
     }
@@ -579,8 +584,7 @@ public class Controller implements Initializable {
                 }
             }
         }
-        series.setName("    V:"+token[1]);
-        System.out.println(unit);
+        series.setName("  V:"+token[1]+"  ");
         yAxis.setLabel("Voltage("+unit+"V)");
     }
     public double orderfinder(double number){
@@ -708,7 +712,7 @@ public class Controller implements Initializable {
                 }
             }
         }
-        series.setName("  I:"+token[1]);
+        series.setName("  I:"+token[1]+"  ");
         yAxis1.setLabel("Current("+unit+"A)");
     }
     public void addPower(String powereorder,XYChart.Series<Number,Number> series){
@@ -721,7 +725,7 @@ public class Controller implements Initializable {
                         order2= orderfinder(maximumfinder(((Element) object).ps));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
                             series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Element) object).ps.get((int)i)/orderfinder(maximumfinder(((Element) object).ps))));
-                            unit=unitfinder(orderfinder(maximumfinder(((Element) object).is))*orderfinder(maximumfinder(((Element) object).vs)));
+                            unit=unitfinder(orderfinder(maximumfinder(((Element) object).ps)));
                         }
                     }
                 }
@@ -775,7 +779,7 @@ public class Controller implements Initializable {
 //                }
 //            }
 
-        series.setName("  P:"+token[1]);
+        series.setName("  P:"+token[1]+"  ");
         yAxis2.setLabel("Power("+unit+"W)");
 
     }
@@ -785,7 +789,7 @@ public class Controller implements Initializable {
     public void saveAs(ActionEvent actionEvent) {
         Stage stage=new Stage();
         FileChooser fileChooser = new FileChooser();
-        WritableImage image = lineChart1.snapshot(new SnapshotParameters(),new WritableImage(1100,800));
+        WritableImage image = lineChart1.snapshot(new SnapshotParameters(),new WritableImage(1300,800));
         fileChooser.setInitialDirectory(new File("C:\\Users\\228al\\Desktop"));
         File file = fileChooser.showSaveDialog(stage);
         try{

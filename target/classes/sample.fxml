@@ -96,7 +96,7 @@
           <Menu mnemonicParsing="false" text="Traces">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#addExtratrace" text="Add Trace" />
-                  <MenuItem mnemonicParsing="false" text="Delete Trace" />
+                  <MenuItem mnemonicParsing="false" onAction="#deletetraces1" text="Delete Trace" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

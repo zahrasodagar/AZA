@@ -41,10 +41,21 @@
     -fx-background-color:  transparent;
     -fx-padding: 20px;
 }
+.mychart1 .axis-label {
+    -fx-text-fill: #4682b4;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-style: italic;
+}
+.mychart2 .axis-label {
+    -fx-text-fill: #4682b4;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-style: italic;
+}
 
 
 
 .mychart .chart-legend-item{
+    -fx-text-fill: #11ffbc;
     -fx-font-size: 20px;
 }
 .mychart .chart-legend-item-symbol{
@@ -105,28 +116,9 @@
 .mychart1 .chart-series-line{
     -fx-stroke-width: 2px;
 }
-.mychart1 .default-color0.chart-series-line{
-    -fx-stroke: #ff1123;
-}
 
-.mychart1 .default-color1.chart-series-line{
-    -fx-stroke: #50ff11;
-}
-.mychart1 .default-color2.chart-series-line{
-    -fx-stroke: #cb11ff;
-}
-.mychart1 .default-color3.chart-series-line{
-    -fx-stroke: #1160ff;
-}
-.mychart1 .default-color4.chart-series-line{
-    -fx-stroke: #fff311;
-}
-.mychart1 .default-color5.chart-series-line{
-    -fx-stroke: #11ffff;
-}
 
-.mychart1 .default-color0.chart-legend-item-symbol{
-    -fx-background-color: #ff1123;
+.mychart1 .chart-legend-item-symbol{
     -fx-background-radius: 0;
     -fx-scale-x: 4;
     -fx-scale-y: 0.2;
@@ -138,38 +130,9 @@
 
 
 
-.mychart1 .chart-legend-item{
+.mychart1 .chart-legend-item {
     -fx-font-size: 20px;
-}
-.mychart1 .default-color1.chart-legend-item-symbol{
-    -fx-background-color: #50ff11;
-    -fx-background-radius: 0;
-    -fx-scale-x: 4;
-    -fx-scale-y: 0.2;
-}
-.mychart1 .default-color2.chart-legend-item-symbol{
-    -fx-background-color: #cb11ff;
-    -fx-background-radius: 0;
-    -fx-scale-x: 4;
-    -fx-scale-y: 0.2;
-}
-.mychart1 .default-color3.chart-legend-item-symbol{
-    -fx-background-color: #1160ff;
-    -fx-background-radius: 0;
-    -fx-scale-x: 4;
-    -fx-scale-y: 0.2;
-}
-.mychart1 .default-color4.chart-legend-item-symbol{
-    -fx-background-color: #fff311;
-    -fx-background-radius: 0;
-    -fx-scale-x: 4;
-    -fx-scale-y: 0.2;
-}
-.mychart1 .default-color5.chart-legend-item-symbol{
-    -fx-background-color: #11ffff;
-    -fx-background-radius: 0;
-    -fx-scale-x: 4;
-    -fx-scale-y: 0.2;
+    -fx-text-fill: #11ffbc;
 }
 
 .mychart1 .chart-plot-background {
@@ -193,19 +156,10 @@
 .mychart2 .chart-series-line{
     -fx-stroke-width: 2px;
 }
-.mychart2 .default-color0.chart-series-line{
-    -fx-stroke: #ff1123;
-}
-.mychart2 .default-color0.chart-legend-item-symbol{
-    -fx-background-color: #ff1123;
+
+.mychart2 .chart-legend-item-symbol{
     -fx-background-radius: 0;
-    -fx-scale-x: 5;
-    -fx-scale-y: 0.2;
-}
-.mychart2 .default-color1.chart-legend-item-symbol{
-    -fx-background-color: #ff1123;
-    -fx-background-radius: 0;
-    -fx-scale-x: 5;
+    -fx-scale-x: 4;
     -fx-scale-y: 0.2;
 }
 .mychart2 .chart-legend {
@@ -216,12 +170,10 @@
 
 
 .mychart2 .chart-legend-item{
-    -fx-text-fill: #ff1123;
+    -fx-text-fill: #11ffbc;
     -fx-font-size: 20px;
 }
-.mychart2 .default-color1.chart-series-line{
-    -fx-stroke: #ff1123;
-}
+
 
 .mychart2 .chart-plot-background {
     -fx-background-color: lightgray;
