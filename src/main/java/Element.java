@@ -11,6 +11,7 @@ public abstract class Element {
     Nodes[] node=new Nodes[2];
     ArrayList<Double> vs=new ArrayList<>();
     ArrayList<Double> is=new ArrayList<>();
+    ArrayList<Double> ps = new ArrayList<>();
     double integralV=0,integralI=0,dV=0,dI=0;
     FileInputStream imageAddress;
 
@@ -43,9 +44,11 @@ public abstract class Element {
             }
             if((element instanceof ISource)||(element instanceof Diode2)){
                 element.is.add(-i);
+                element.ps.add(-i*v);
             }
             else {
                 element.is.add(i);
+                element.ps.add(i*v);
             }
             element.vs.add(v);
             element.dV=(v-v0)/Brain.dt;
