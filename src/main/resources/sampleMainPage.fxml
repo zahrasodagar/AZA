@@ -166,7 +166,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Edit Element">
+                                <MenuItem mnemonicParsing="false" onAction="#editElementDialogue" text="Edit Element">
                            <graphic>
                               <ImageView fx:id="editImage0">
                                  <image>
