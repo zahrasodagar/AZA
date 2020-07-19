@@ -679,7 +679,50 @@ public class ControllerMainPage implements Initializable {
         hidePercentage();
         if (checkIsPathEmpty()){
             codeArea.setText("");
+            return;
         }
+        dttf.setText("");
+        timetf.setText("");
+        ditf.setText("");
+        dvtf.setText("");
+        StringBuilder text= new StringBuilder();
+
+
+            String t=codeArea.getText();
+            String[] lines=t.split("\n");
+            for (String l:lines){
+                String hold=l;
+                text.append(hold).append("\n");
+                Pattern pattern=Pattern.compile("^d([IiVvTt])\\s+((\\d+\\.?\\d*)([pnumkMGx]?))$");
+                Matcher matcher=pattern.matcher(hold);
+                if (matcher.find()){
+                    String sth=matcher.group(1).toLowerCase();
+                    switch (sth) {
+                        case "t":
+                            dttf.setText(matcher.group(2));
+                            break;
+                        case "i":
+                            ditf.setText(matcher.group(2));
+                            break;
+                        case "v":
+                            dvtf.setText(matcher.group(2));
+                            break;
+                        default:
+                            //oh shit
+                            break;
+                    }
+                    System.out.println(matcher.group(2));
+
+                }
+
+                pattern=Pattern.compile("\\.tran\\s+((\\d+\\.?\\d*)([pnumkMGx]?))$");
+                matcher=pattern.matcher(hold);
+                if (matcher.find()){
+                    timetf.setText(matcher.group(1));
+                }
+
+            }
+
     }
 
     public void hidePercentage(){
@@ -773,12 +816,6 @@ public class ControllerMainPage implements Initializable {
         fw.close();
     }
     }
-
-    /*
-    public void updateProgress(int p){
-        percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
-    }
-    */
 
     public void editElementDialogue(){
         if (checkIsPathEmpty())
@@ -1706,6 +1743,133 @@ public class ControllerMainPage implements Initializable {
         layout.getChildren().addAll(buttons);
 
         return layout;
+    }
+
+    public void updateDV(){
+
+        String hold="", text="";
+
+        boolean flag=false;
+        String t=codeArea.getText();
+        String[] lines=t.split("\n");
+        for (String l:lines){
+            hold=l;
+            if (hold.contains("dV ")||hold.contains("dv ")) {
+                hold="dV\t"+dvtf.getText();
+                flag=true;
+            }
+            if (hold.contains(".tran"))
+                break;
+            text+=hold+"\n";
+        }
+        if (!flag){
+            String temp="dV\t"+dvtf.getText();
+            text+=temp+"\n";
+        }
+        if (hold.contains(".tran"))
+            text+=hold+"\n";
+
+
+        File file=new File(Main.path);
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] line=text.split("\n");
+            for (String l:line){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
+    }
+
+    public void updateDI(){
+        String hold="", text="";
+
+        boolean flag=false;
+        String t=codeArea.getText();
+        String[] lines=t.split("\n");
+        for (String l:lines){
+            hold=l;
+            if (hold.contains("dI ")||hold.contains("di ")) {
+                hold="dI\t"+ditf.getText();
+                flag=true;
+            }
+            if (hold.contains(".tran"))
+                break;
+            text+=hold+"\n";
+        }
+        if (!flag){
+            String temp="dI\t"+ditf.getText();
+            text+=temp+"\n";
+        }
+        if (hold.contains(".tran"))
+            text+=hold+"\n";
+
+
+        File file=new File(Main.path);
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] line=text.split("\n");
+            for (String l:line){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
+    }
+
+    public void updateDT(){
+        String hold="", text="";
+
+        boolean flag=false;
+        String t=codeArea.getText();
+        String[] lines=t.split("\n");
+        for (String l:lines){
+            hold=l;
+            if (hold.contains("dT ")||hold.contains("dt ")) {
+                hold="dT\t"+dttf.getText();
+                flag=true;
+            }
+            if (hold.contains(".tran"))
+                break;
+            text+=hold+"\n";
+        }
+        if (!flag){
+            String temp="dT\t"+dttf.getText();
+            text+=temp+"\n";
+        }
+        if (hold.contains(".tran"))
+            text+=hold+"\n";
+
+
+        File file=new File(Main.path);
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] line=text.split("\n");
+            for (String l:line){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
     }
 
     public boolean checkIsPathEmpty(){

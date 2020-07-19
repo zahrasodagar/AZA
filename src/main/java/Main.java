@@ -91,7 +91,7 @@ public class Main extends Application {
        // w0.show();
         w0.setAlwaysOnTop(true);
         scene.setOnMouseMoved(mouseHandler);
-        
+
 
         window=stage;
         Parent root = FXMLLoader.load(getClass().getResource("sampleMainPage.fxml"));
@@ -116,6 +116,7 @@ public class Main extends Application {
         a.setTitle(title);
         a.showAndWait();
     }
+
 
 
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
