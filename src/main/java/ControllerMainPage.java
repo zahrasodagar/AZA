@@ -810,8 +810,77 @@ public class ControllerMainPage implements Initializable {
         //addElement(element);
     }
 
+    public void addLine(String line){
+        File file=new File(Main.path);
+
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        String hold="", text="";
+
+        //User
+        while (input.hasNextLine()&&!hold.contains(".tran")) {
+            hold=input.nextLine();
+            if (!hold.contains(".tran"))
+                text+=hold+"\n";
+        }
+        text+=line;
+        if (hold.contains(".tran"))
+            text+="\n"+hold;
+        while (input.hasNextLine()){
+            hold=input.nextLine();
+            text+="\n"+hold;
+        }
+
+
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] lines=text.split("\n");
+            for (String l:lines){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
+    }
+
     public void addElement(String type,String name,String line){
         System.out.println(line);
+        Brain.manageFile();
+        InputManager inputManager=InputManager.getInstance();
+        inputManager.input=line;
+
+        if (type.equals("Resistor"))if (!inputManager.checkResistor())
+            return;
+        if (type.equals("Capacitor")) if (!inputManager.checkCapacitor())
+            return;
+        if (type.equals("Inductor")) if (!inputManager.checkInductor())
+            return;
+        if (type.equals("Diode 1")||type.equals("Diode 2")) if (!inputManager.checkDiode())
+            return;
+        if (type.equals("VSource DC")||type.equals("VSource AC")) if (inputManager.checkVSource())
+            return;
+        if (type.equals("ISource DC")||type.equals("ISource AC")) if (inputManager.checkISource())
+            return;
+        if (type.equals("ESource")) if (inputManager.checkESource())
+            return;
+        if (type.equals("HSource")) if (inputManager.checkHSource())
+            return;
+        if (type.equals("FSource")) if (inputManager.checkFSource())
+            return;
+        if (type.equals("GSource")) if (inputManager.checkGSource())
+            return;
+        //System.out.println("Haha");
+        addLine(line);
     }
 
     public VBox getLayout(String type, Stage window){
@@ -886,7 +955,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else
-                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText());
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t1");
             });
 
         }
@@ -896,7 +965,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else
-                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText());
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t2");
             });
         }
 
@@ -938,7 +1007,7 @@ public class ControllerMainPage implements Initializable {
 
 
             add.setOnAction(event -> {
-                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
@@ -984,7 +1053,7 @@ public class ControllerMainPage implements Initializable {
 
 
             add.setOnAction(event -> {
-                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
@@ -993,20 +1062,108 @@ public class ControllerMainPage implements Initializable {
         }
 
         if (type.equals("ESource")){
-            
-        }
-        if (type.equals("HSource")){
 
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+            grid.add(a,0,3);
+            grid.add(amp,1,3);
+
+            Label f=new Label("Node 1");
+            TextField freq=new TextField();
+
+            grid.add(f,0,4);
+            grid.add(freq,1,4);
+
+            Label ph=new Label("Node 2");
+            TextField phase=new TextField();
+
+            grid.add(ph,0,5);
+            grid.add(phase,1,5);
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                           +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
+            });
+
+        }
+
+        if (type.equals("HSource")){
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+            grid.add(a,0,4);
+            grid.add(amp,1,4);
+
+            Label f=new Label("Element");
+            TextField freq=new TextField();
+
+            grid.add(f,0,3);
+            grid.add(freq,1,3);
+
+
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                            +"\t"+amp.getText()+"\t"+freq.getText());
+            });
         }
 
         if (type.equals("GSource")){
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+            grid.add(a,0,3);
+            grid.add(amp,1,3);
 
+            Label f=new Label("Node 1");
+            TextField freq=new TextField();
+
+            grid.add(f,0,4);
+            grid.add(freq,1,4);
+
+            Label ph=new Label("Node 2");
+            TextField phase=new TextField();
+
+            grid.add(ph,0,5);
+            grid.add(phase,1,5);
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                            +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
+            });
         }
+
         if (type.equals("FSource")){
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+            grid.add(a,0,4);
+            grid.add(amp,1,4);
 
+            Label f=new Label("Element");
+            TextField freq=new TextField();
+
+            grid.add(f,0,3);
+            grid.add(freq,1,3);
+
+
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                            +"\t"+amp.getText()+"\t"+freq.getText());
+            });
         }
-        layout.getChildren().addAll(buttons);
 
+        layout.getChildren().addAll(buttons);
 
         return layout;
     }
