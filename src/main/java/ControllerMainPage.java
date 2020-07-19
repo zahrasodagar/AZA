@@ -769,6 +769,7 @@ public class ControllerMainPage implements Initializable {
         if (checkIsPathEmpty())
             return;
 
+        Brain.manageFile();
         Stage window= new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Edit Element");
@@ -781,6 +782,7 @@ public class ControllerMainPage implements Initializable {
         HashMap <String,Element> map=new HashMap<>();
         for (Element e:Element.elements){
             comboBox.getItems().add(e.name);
+            //System.out.println("haha");
             map.put(e.name,e);
         }
 
@@ -810,13 +812,55 @@ public class ControllerMainPage implements Initializable {
 
     }
 
+    public void addRemovedElement(String type,String name,String line){
+        File file=new File(Main.path);
+
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        String hold="", text="";
+
+        //System.out.println(line);
+        while (input.hasNextLine()) {
+            hold=input.nextLine();
+            //System.out.println(name);
+            //System.out.println(hold);
+            if (hold.contains(name)) {
+                text+=line+"\n";
+                System.out.println(line);
+            }
+            else
+                text+=hold+"\n";
+        }
+
+
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] lines=text.split("\n");
+            for (String l:lines){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
+    }
+
     public VBox getLayoutEdit(Element element, Stage window){
         String line="";
         VBox layout= new VBox();
         layout.setPadding(new Insets(10,50,10,50));
 
         Label label=new Label("Enter the new parameters");
-        Button add=new Button("Add");
+        Button add=new Button("Edit");
         Button cancel=new Button("Cancel");
         GridPane grid=new GridPane();
         layout.setAlignment(Pos.CENTER);
@@ -829,7 +873,7 @@ public class ControllerMainPage implements Initializable {
         cancel.setOnAction(event1 -> window.close());
 
         javafx.scene.control.Label n=new javafx.scene.control.Label("Name");
-        TextField name=new TextField(element.name);
+        Label name=new Label(element.name);
 
         javafx.scene.control.Label n1=new javafx.scene.control.Label("Node 1");
         TextField node1=new TextField(element.node[0].name);
@@ -878,7 +922,7 @@ public class ControllerMainPage implements Initializable {
             if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                 errorBox("Missing Data","Please fill all fields");
             else {
-                addElement(finalType,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
+                addRemovedElement(finalType,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
                 window.close();
             }
         });
@@ -894,7 +938,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType1,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
+                    addRemovedElement(finalType1,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
                     window.close();
                 }
             });
@@ -912,7 +956,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType1,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
+                    addRemovedElement(finalType1,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
                     window.close();
                 }
             });
@@ -949,7 +993,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType4,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                    addRemovedElement(finalType4,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
                     window.close();
                 }
@@ -979,7 +1023,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType5,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                    addRemovedElement(finalType5,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+amp.getText()+"\t"+freq.getText());
                     window.close();
                 }
@@ -1015,7 +1059,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType6,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                    addRemovedElement(finalType6,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
                     window.close();
                 }
@@ -1044,7 +1088,7 @@ public class ControllerMainPage implements Initializable {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
                 else {
-                    addElement(finalType7,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
+                    addRemovedElement(finalType7,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+amp.getText()+"\t"+freq.getText());
                     window.close();
                 }
@@ -1085,7 +1129,7 @@ public class ControllerMainPage implements Initializable {
                     if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                         errorBox("Missing Data","Please fill all fields");
                     else {
-                        addElement(finalType2,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                        addRemovedElement(finalType2,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                                 "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
                         window.close();
                     }
@@ -1126,7 +1170,7 @@ public class ControllerMainPage implements Initializable {
                     if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                         errorBox("Missing Data","Please fill all fields");
                     else {
-                        addElement(finalType3,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                        addRemovedElement(finalType3,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                                 "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
                         window.close();
                     }
