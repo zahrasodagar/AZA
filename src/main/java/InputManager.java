@@ -30,25 +30,29 @@ public class InputManager {
         Pattern pattern=Pattern.compile("^(([R|r])\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
         Matcher matcher=pattern.matcher(input);
 
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(3),n2=matcher.group(4),r=matcher.group(5);
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            HashMap <Integer,ArrayList<double[]>> resistance=getPolynomial(r);
-            if (resistance==null)
-                return false;
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(3),n2=matcher.group(4),r=matcher.group(5);
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                HashMap <Integer,ArrayList<double[]>> resistance=getPolynomial(r);
+                if (resistance==null)
+                    return false;
 
-            Resistor resistor=new Resistor(name,node1,node2,resistance);
-            Brain.t+=Brain.dt;
-            double hold=resistor.getR();
-            Brain.t-=Brain.dt;
-            if (hold<0){
-                //System.out.println("Negative Resistance");
-                Main.ErrorBox("ERROR",name+" value is negative at ");
-                return false;
+                Resistor resistor=new Resistor(name,node1,node2,resistance);
+                Brain.t+=Brain.dt;
+                double hold=resistor.getR();
+                Brain.t-=Brain.dt;
+                if (hold<0){
+                    //System.out.println("Negative Resistance");
+                    Main.ErrorBox("ERROR",name+" value is negative at ");
+                    return false;
+                }
+
+                return addElement(resistor,node1,node2);
             }
-
-            return addElement(resistor,node1,node2);
+        }catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -57,25 +61,29 @@ public class InputManager {
         Pattern pattern=Pattern.compile("^([C|c]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
         Matcher matcher=pattern.matcher(input);
 
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),c=matcher.group(4);
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            HashMap <Integer,ArrayList<double[]>> capacity=getPolynomial(c);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),c=matcher.group(4);
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                HashMap <Integer,ArrayList<double[]>> capacity=getPolynomial(c);
 
-            if (capacity==null)
-                return false;
+                if (capacity==null)
+                    return false;
 
-            Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
-            Brain.t+=Brain.dt;
-            double hold=capacitor.getC();
-            Brain.t-=Brain.dt;
-            if (hold<0){
-                Main.ErrorBox("ERROR",name+" value is negative at ");
-                //System.out.println("Negative Capacity");
-                return false;
+                Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
+                Brain.t+=Brain.dt;
+                double hold=capacitor.getC();
+                Brain.t-=Brain.dt;
+                if (hold<0){
+                    Main.ErrorBox("ERROR",name+" value is negative at ");
+                    //System.out.println("Negative Capacity");
+                    return false;
+                }
+                return addElement(capacitor,node1,node2);
             }
-            return addElement(capacitor,node1,node2);
+        } catch (Exception e){
+            return false;
         }
 
         return false;
@@ -85,24 +93,28 @@ public class InputManager {
         Pattern pattern=Pattern.compile("^([L|l]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
         Matcher matcher=pattern.matcher(input);
 
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),l=matcher.group(4);
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            HashMap <Integer,ArrayList<double[]>> inductance=getPolynomial(l);
-            if (inductance==null)
-                return false;
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),l=matcher.group(4);
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                HashMap <Integer,ArrayList<double[]>> inductance=getPolynomial(l);
+                if (inductance==null)
+                    return false;
 
-            Inductor inductor=new Inductor(name,node1,node2,inductance);
-            Brain.t+=Brain.dt;
-            double hold=inductor.getL();
-            Brain.t-=Brain.dt;
-            if (hold<0){
-                Main.ErrorBox("ERROR",name+" value is negative at ");
-                //System.out.println("Negative Inductance");
-                return false;
+                Inductor inductor=new Inductor(name,node1,node2,inductance);
+                Brain.t+=Brain.dt;
+                double hold=inductor.getL();
+                Brain.t-=Brain.dt;
+                if (hold<0){
+                    Main.ErrorBox("ERROR",name+" value is negative at ");
+                    //System.out.println("Negative Inductance");
+                    return false;
+                }
+                return addElement(inductor,node1,node2);
             }
-            return addElement(inductor,node1,node2);
+        } catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -133,13 +145,17 @@ public class InputManager {
     public boolean checkVSource(){
         Pattern pattern=Pattern.compile("^([V|v]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
-            double v= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            VSource vSource=new VSource(name,node1,node2,v,a,f,ph);
-            return addElement(vSource,node1,node2);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
+                double v= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                VSource vSource=new VSource(name,node1,node2,v,a,f,ph);
+                return addElement(vSource,node1,node2);
+            }
+        } catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -147,13 +163,17 @@ public class InputManager {
     public boolean checkISource(){
         Pattern pattern=Pattern.compile("^([I|i]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
-            double i= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            ISource iSource=new ISource(name,node1,node2,i,a,f,ph);
-            return addElement(iSource,node1,node2);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
+                double i= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                ISource iSource=new ISource(name,node1,node2,i,a,f,ph);
+                return addElement(iSource,node1,node2);
+            }
+        } catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -162,6 +182,7 @@ public class InputManager {
         Pattern pattern=Pattern.compile("^([G|g]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
+            try{
             String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
             String n21= matcher.group(4),n22= matcher.group(5);
             double a= Double.parseDouble(matcher.group(6));
@@ -171,7 +192,10 @@ public class InputManager {
             Nodes node22=getNode(n22);
 
             GSource gSource=new GSource(name,node11,node12,node21,node22,a);
-            return addElement(gSource,node11,node12);
+            return addElement(gSource,node11,node12);}
+            catch (Exception e){
+                return false;
+            }
         }
         return false;
     }
@@ -179,15 +203,19 @@ public class InputManager {
     public boolean checkFSource(){
         Pattern pattern=Pattern.compile("^([F|f]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
-            double a= Double.parseDouble(matcher.group(5));
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            Element element=getElement(e);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
+                double a= Double.parseDouble(matcher.group(5));
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                Element element=getElement(e);
 
-            FSource fSource=new FSource(name,node1,node2,element,a);
-            return addElement(fSource,node1,node2);
+                FSource fSource=new FSource(name,node1,node2,element,a);
+                return addElement(fSource,node1,node2);
+            }
+        } catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -195,17 +223,21 @@ public class InputManager {
     public boolean checkESource(){
         Pattern pattern=Pattern.compile("^([E|e]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
-        if (matcher.find()){
-            String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
-            String n21= matcher.group(4),n22= matcher.group(5);
-            double a= Double.parseDouble(matcher.group(6));
-            Nodes node11=getNode(n11);
-            Nodes node12=getNode(n12);
-            Nodes node21=getNode(n21);
-            Nodes node22=getNode(n22);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
+                String n21= matcher.group(4),n22= matcher.group(5);
+                double a= Double.parseDouble(matcher.group(6));
+                Nodes node11=getNode(n11);
+                Nodes node12=getNode(n12);
+                Nodes node21=getNode(n21);
+                Nodes node22=getNode(n22);
 
-            ESource eSource=new ESource(name,node11,node12,node21,node22,a);
-            return addElement(eSource,node11,node12);
+                ESource eSource=new ESource(name,node11,node12,node21,node22,a);
+                return addElement(eSource,node11,node12);
+            }
+        } catch (Exception e){
+            return false;
         }
         return false;
     }
@@ -213,15 +245,19 @@ public class InputManager {
     public boolean checkHSource(){
         Pattern pattern=Pattern.compile("^([H|h]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
-        if (matcher.find()){
-            String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
-            double a= Double.parseDouble(matcher.group(5));
-            Nodes node1=getNode(n1);
-            Nodes node2=getNode(n2);
-            Element element=getElement(e);
+        try {
+            if (matcher.find()){
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
+                double a= Double.parseDouble(matcher.group(5));
+                Nodes node1=getNode(n1);
+                Nodes node2=getNode(n2);
+                Element element=getElement(e);
 
-            HSource hSource=new HSource(name,node1,node2,element,a);
-            return addElement(hSource,node1,node2);
+                HSource hSource=new HSource(name,node1,node2,element,a);
+                return addElement(hSource,node1,node2);
+            }
+        } catch (Exception e){
+            return false;
         }
         return false;
     }

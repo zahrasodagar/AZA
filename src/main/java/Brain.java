@@ -33,8 +33,10 @@ public class Brain {
 
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
-    public static void simulateFile(Label percentage,ProgressBar bar){
 
+
+    // TODO: 20/07/19 check if it's temp
+    public static void manageFile(){
         InputManager manager=InputManager.getInstance();
         everything.clear();
         dt=-1;dV=-1;dI=-1;i=0;
@@ -81,17 +83,23 @@ public class Brain {
                 if (!manager.checkInputFormat()) {
                     Main.ErrorBox("ERROR -1"," line "+nLine );
                     //System.out.println("Error -1 ( line "+nLine+" )");
-                    System.exit(0);
+                    //System.exit(0); // TODO: 20/07/19
                 }
             }
         }
         if (dV==-1||dI==-1||dt==-1||!tran){
             Main.ErrorBox("ERROR -1"," dT, dV or dI has not been initialized ");
             //System.out.println("Error -1");
-            System.exit(0);
+            //System.exit(0); // TODO: 20/07/19
         }
         //Nodes.updateNeighbourNodes();
         t=0;
+
+    }
+
+    public static void simulateFile(Label percentage,ProgressBar bar){
+        manageFile();
+
 
         //checkISourceVSource();
         for (i =0 ; i<time ; i+=dt){
