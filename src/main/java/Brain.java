@@ -43,20 +43,46 @@ public class Brain {
         Nodes.nodes.clear();
         Element.elements.clear();
         Nodes.checkGraph=false;
-        /*String current = null;
+        Scanner scanner=null;
+        File inputFile=new File(Main.path);
+
         try {
-            current = new File( "." ).getCanonicalPath();
-        } catch (IOException e) {
+            scanner = new Scanner(inputFile);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("Current dir:"+current);
-        String currentDir = System.getProperty("user.dir");
-        //System.out.println("Current dir using System:" +currentDir);*/
+        String line=scanner.nextLine(); //first line khonde nashe
+        int nLine=1; //1
+        Pattern pattern=Pattern.compile("\\.tran\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
+        Matcher matcher;
+        boolean tran=false;
+        while (scanner.hasNextLine()&&!tran){
+            line=scanner.nextLine();
+            ++nLine;
+            matcher=pattern.matcher(line);
+            if (matcher.find()) {
+                setTime(matcher.group(1),matcher.group(2));
+                tran=true;
+                break;
+            }
+            if (line.charAt(0)!='*'){
+                manager.setInput(line);
+                if (!manager.checkInputFormat()) {
+                    //Main.ErrorBox("ERROR -1"," line "+nLine );
+                    //System.out.println("Error -1 ( line "+nLine+" )");
+                }
+            }
+        }
+    }
+
+    public static void simulateFile(Label percentage,ProgressBar bar){
+        InputManager manager=InputManager.getInstance();
+        everything.clear();
+        dt=-1;dV=-1;dI=-1;i=0;
+        Nodes.nodes.clear();
+        Element.elements.clear();
+        Nodes.checkGraph=false;
         Scanner scanner=null;
-        //System.out.println("Working Directory: " + System.getProperty("user.dir"));
-        /*scanner= new Scanner(System.in);
-        System.out.println("Enter your file directory path");
-        path=scanner.nextLine();*/
         File inputFile=new File(Main.path);
 
         try {
@@ -95,10 +121,6 @@ public class Brain {
         //Nodes.updateNeighbourNodes();
         t=0;
 
-    }
-
-    public static void simulateFile(Label percentage,ProgressBar bar){
-        manageFile();
 
 
         //checkISourceVSource();
