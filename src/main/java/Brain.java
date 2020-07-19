@@ -33,7 +33,8 @@ public class Brain {
 
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
-    public static void simulateFile(Label percentage,ProgressBar bar){
+
+    public static void simulateFile(boolean drawn, Label percentage,ProgressBar bar){
 
         InputManager manager=InputManager.getInstance();
         everything.clear();
@@ -93,6 +94,8 @@ public class Brain {
         //Nodes.updateNeighbourNodes();
         t=0;
 
+        if (!drawn)
+            time=0;
         //checkISourceVSource();
         for (i =0 ; i<time ; i+=dt){
             t=i;

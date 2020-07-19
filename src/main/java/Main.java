@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    static String path=System.getProperty("user.dir")+"\\input.txt"; //default
+    static String path="";//System.getProperty("user.dir")+"\\input.txt"; //default
     static String outputPath=System.getProperty("user.dir")+"\\output.txt"; //default
     static Stage window,w0;
     static Scene mainScene;
@@ -309,206 +309,6 @@ public class Main extends Application {
         */
     }
 
-    public static void addMenuItems(Menu menu, MenuItem ... items){
-        for (MenuItem item: items){
-            menu.getItems().add(item);
-            menu.getItems().add(new SeparatorMenuItem());
-        }
-    }
-
-    public static void addMenus(MenuBar menuBar, Menu ... menus){
-        for (Menu menu: menus){
-            menuBar.getMenus().add(menu);
-        }
-    }
-
-    public static void updateTextArea(TextArea textArea) throws FileNotFoundException {
-        StringBuilder text= new StringBuilder();
-        File file = new File(path);
-        Scanner scanner=new Scanner(file);
-        while (scanner.hasNextLine()){
-            text.append(scanner.nextLine()).append("\n");
-        }
-        textArea.setText(text.toString());
-
-    }
-
-    public static void saveFile(String text) throws IOException {
-        File dataFile=new File(path);
-        FileWriter fw=new FileWriter(dataFile);
-        BufferedWriter writer = new BufferedWriter(fw);
-        String[] lines=text.split("\n");
-        for (String line:lines){
-            writer.write(line);
-            writer.newLine();
-        }
-        writer.close();
-        fw.close();
-    }
-
-    public static void addElementDialogue(){
-        Element element=null;
-
-        Stage window= new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Add Element");
-        window.setMinWidth(250);
-        VBox layout1= new VBox();
-        layout1.setPadding(new Insets(10,50,10,50));
-
-
-        Label label=new Label("Select the type of element");
-        ComboBox comboBox=new ComboBox();
-        comboBox.getItems().addAll("Resistor","Capacitor","Inductor","Diode 1","Diode 2",
-                "VSource DC","VSource AC", "ISource DC","ISource AC",
-                "ESource", "HSource", "GSource", "FSource");
-        Button next=new Button("Next");
-        Button cancel=new Button("Cancel");
-
-        layout1.setAlignment(Pos.CENTER);
-        HBox buttons= new HBox(next,cancel);
-        buttons.setAlignment(Pos.CENTER);
-        layout1.setSpacing(9);
-        buttons.setSpacing(14);
-        layout1.getChildren().addAll(label,comboBox,buttons);
-
-        Scene scene1=new Scene(layout1);
-
-        next.setOnAction(event1 -> {
-            if (comboBox.getValue()!=null){
-                Scene scene2=new Scene(getLayout((String) comboBox.getValue(),window));
-                window.setScene(scene2);
-            }
-        });
-        cancel.setOnAction(event1 -> window.close());
-
-        window.setScene(scene1);
-        window.show();
-
-
-        addElement(element);
-    }
-
-    public static VBox getLayout(String type, Stage window){
-        window.setTitle("New "+type);
-        String line="";
-        VBox layout= new VBox();
-        layout.setPadding(new Insets(10,50,10,50));
-
-        Label label=new Label("Enter the parameters");
-        Button add=new Button("Add");
-        Button cancel=new Button("Cancel");
-        GridPane grid=new GridPane();
-        layout.setAlignment(Pos.CENTER);
-        HBox buttons= new HBox(add,cancel);
-        buttons.setAlignment(Pos.CENTER);
-        layout.setSpacing(9);
-        buttons.setSpacing(14);
-        layout.getChildren().addAll(label,grid);
-        add.setOnAction(event -> {
-            InputManager manager=InputManager.getInstance();
-            manager.input=line;
-            if (manager.checkInputFormat()) // TODO: 20/07/06 DIALOGUE!!!
-                window.close();
-        });
-        cancel.setOnAction(event1 -> window.close());
-
-        Label n=new Label("Node 1");
-        TextField name=new TextField();
-
-        Label n1=new Label("Node 1");
-        TextField node1=new TextField();
-
-        Label n2=new Label("Node 2");
-        TextField node2=new TextField();
-
-        Label val=new Label();
-        TextField value=new TextField();
-
-        grid.setHgap(10);
-        grid.setVgap(7);
-
-        grid.add(n,0,0);
-        grid.add(name,1,0);
-        grid.add(n1,0,1);
-        grid.add(node1,1,1);
-        grid.add(n2,0,2);
-        grid.add(node2,1,2);
-
-
-
-
-
-
-        if (type.equals("Resistor")){
-            val.setText("Resistance");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-        }
-        if (type.equals("Capacitor")){
-            val.setText("Capacity");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-        }
-        if (type.equals("Inductor")){
-            val.setText("Inductance");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-        }
-        if (type.equals("Diode 1")){
-
-        }
-        if (type.equals("Diode 2")){
-
-        }
-
-        if (type.equals("VSource DC")){
-            val.setText("Offset Value");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-
-        }
-        if (type.equals("VSource AC")){
-            val.setText("Offset Value");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-
-        }
-        if (type.equals("ISource DC")){
-            val.setText("Offset Value");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-        }
-        if (type.equals("ISource AC")){
-            val.setText("Offset Value");
-            grid.add(val,0,3);
-            grid.add(value,1,3);
-
-        }
-
-        if (type.equals("ESource")){
-
-        }
-        if (type.equals("HSource")){
-
-        }
-
-        if (type.equals("GSource")){
-
-        }
-        if (type.equals("FSource")){
-
-        }
-        layout.getChildren().addAll(buttons);
-
-
-        return layout;
-    }
-
-    public static void addElement(Element element){
-
-    }
-
     public static void ErrorBox(String title,String message){
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.initModality(Modality.APPLICATION_MODAL);
@@ -517,9 +317,7 @@ public class Main extends Application {
         a.showAndWait();
     }
 
-    public static void DrawCircuit(){
 
-    }
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
 
         @Override

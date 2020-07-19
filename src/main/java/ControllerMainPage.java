@@ -107,6 +107,8 @@ public class ControllerMainPage implements Initializable {
                         Main.path = newPath;
                         //System.out.println(path);
                         updateTextArea();
+                        eraseDrawn();
+                        setTabsTitle();
                         window.close();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -139,7 +141,24 @@ public class ControllerMainPage implements Initializable {
             Main.path=file.getPath();
             //System.out.println(path);
             updateTextArea();
+            eraseDrawn();
+            setTabsTitle();
         }
+
+    }
+
+    public void setTabsTitle(){
+        System.out.println(Main.path);
+        Pattern pattern=Pattern.compile("aza\\\\(.+).txt");
+        Matcher matcher=pattern.matcher(Main.path);
+
+        if (matcher.find()) {
+            String hold=matcher.group(1);
+            System.out.println(hold);
+            inputTab.setText(hold+"'s input");outputTab.setText(hold+"'s output");
+        }
+
+
     }
 
     public void saveProject(){
@@ -277,8 +296,6 @@ public class ControllerMainPage implements Initializable {
         });
     }
 
-
-
     public void initActions2(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -326,8 +343,6 @@ public class ControllerMainPage implements Initializable {
         });
     }
 
-
-
     public void initActions3(ListView<String> list,Stage stage1) throws IOException,Exception{
         list.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -359,7 +374,7 @@ public class ControllerMainPage implements Initializable {
         });
     }
 
-    public void draw() throws IOException,Exception {
+    public void draw() throws Exception {
         run();
         listshow1();
 //        Parent root1= FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -373,23 +388,7 @@ public class ControllerMainPage implements Initializable {
 //        stage.show();
     }
 
-    public void run(){
-        tabPane.getSelectionModel().select(inputTab);
-        saveProject();
-        percentage.setVisible(true);
-        percentage.setText("0.0"+"%");
-        bar.setProgress(0);
-        bar.setVisible(true);
-        Brain.simulateFile(percentage,bar);
-        percentage.setText("100"+"%");
-        bar.setProgress(1);
-        updateOutputTextArea();
-        /////////////////////////
-        HashMap <Element,Boolean> checkList=new HashMap<>();
-        for (Element element:Element.elements){
-            checkList.put(element,false);
-        }
-
+    public void eraseDrawn(){
         for (ImageView img:drawn){
             img.setVisible(false);
         }
@@ -399,130 +398,164 @@ public class ControllerMainPage implements Initializable {
         }
         drawn.clear();
         lines.clear();
-        int[] xy=getXY();
-        Nodes gnd=null;
-        int nc=0;
-        double [] gndLoc=new double[2];
-        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+    }
 
-        for (Nodes node1:Nodes.nodes){
+    public void run() {
+        if (!checkIsPathEmpty()){
+        tabPane.getSelectionModel().select(inputTab);
+
+
+        saveProject();
+        percentage.setVisible(true);
+        percentage.setText("0.0" + "%");
+        bar.setProgress(0);
+        bar.setVisible(true);
+        Brain.simulateFile(false, percentage, bar);
+        percentage.setText("100" + "%");
+        bar.setProgress(1);
+        updateOutputTextArea();
+        /////////////////////////
+       drawCircuit();
+        Brain.simulateFile(true, percentage, bar);
+    }
+    }
+
+
+    public static void errorBox(String title,String message){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.initModality(Modality.APPLICATION_MODAL);
+        a.setContentText(message);
+        a.setTitle(title);
+        a.showAndWait();
+    }
+
+    public void drawCircuit(){
+        HashMap<Element, Boolean> checkList = new HashMap<>();
+        for (Element element : Element.elements) {
+            checkList.put(element, false);
+        }
+        eraseDrawn();
+        int[] xy = getXY();
+        Nodes gnd = null;
+        int nc = 0;
+        double[] gndLoc = new double[2];
+        double horSteps = (pane.getWidth() - 200) / (xy[2] - xy[0]), verSteps = (pane.getHeight() + 30) / (xy[3] + 1);
+
+        for (Nodes node1 : Nodes.nodes) {
             ArrayList<Element> hold;
             if (!(node1 instanceof Ground)) {
-                for (Nodes node2:Nodes.nodes){
-                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
-                        hold=Nodes.getParallelElements(node1,node2);
+                for (Nodes node2 : Nodes.nodes) {
+                    if (!(node2 instanceof Ground) && !node1.name.equals(node2.name)) {
+                        hold = Nodes.getParallelElements(node1, node2);
 
-                        int n1=Integer.parseInt(node1.name);
-                        int n2=Integer.parseInt(node2.name);
+                        int n1 = Integer.parseInt(node1.name);
+                        int n2 = Integer.parseInt(node2.name);
 
-                        double[] xy1=new double[2],xy2=new double[2];
-                        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
-                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+                        double[] xy1 = new double[2], xy2 = new double[2];
+                        xy1[0] = 100 + horSteps * ((n1 - 1) % 6 + 1 - xy[0]);
+                        xy2[0] = 100 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]);
 
-                        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
-                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
-                        int parallel=hold.size(),round=0;
+                        xy1[1] = 50 + verSteps * ((xy[3] - ((n1 - 1) / 6 + 1)));
+                        xy2[1] = 50 + verSteps * ((xy[3] - ((n2 - 1) / 6 + 1)));
+                        int parallel = hold.size(), round = 0;
 
-                        for (Element element:hold) {
-                            if (!checkList.get(element)){
-                                double[] centre=getCentre(Integer.parseInt(element.node[0].name),Integer.parseInt(element.node[1].name),xy);
-                                double shift=-30*parallel+60*round+30;
-                                int isHor=0,isVer=0;
-                                if ((int)(centre[2])%2==0)
-                                    isHor=1;
+                        for (Element element : hold) {
+                            if (!checkList.get(element)) {
+                                double[] centre = getCentre(Integer.parseInt(element.node[0].name), Integer.parseInt(element.node[1].name), xy);
+                                double shift = -30 * parallel + 60 * round + 30;
+                                int isHor = 0, isVer = 0;
+                                if ((int) (centre[2]) % 2 == 0)
+                                    isHor = 1;
                                 else
-                                    isVer=1;
+                                    isVer = 1;
 
-                                Line line= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                Line line = new Line(xy1[0] + isHor * shift, xy1[1] + isVer * shift, xy2[0] + isHor * shift, xy2[1] + isVer * shift);
                                 lines.add(line);
                                 pane.getChildren().add(line);
 
-                                Line line1= new Line(xy1[0]+isHor*shift,xy1[1]+isVer*shift,xy1[0],xy1[1]);
+                                Line line1 = new Line(xy1[0] + isHor * shift, xy1[1] + isVer * shift, xy1[0], xy1[1]);
                                 lines.add(line1);
                                 pane.getChildren().add(line1);
 
-                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+isHor*shift,xy2[1]+isVer*shift);
+                                Line line2 = new Line(xy2[0], xy2[1], xy2[0] + isHor * shift, xy2[1] + isVer * shift);
                                 lines.add(line2);
                                 pane.getChildren().add(line2);
 
-                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
-                                ImageView image=new ImageView(image1);
+                                Image image1 = new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
 
 
-
-                                image.relocate(centre[0]-30+isHor*shift,centre[1]-30+isVer*shift);
-                                image.setRotate(90*centre[2]);
+                                image.relocate(centre[0] - 30 + isHor * shift, centre[1] - 30 + isVer * shift);
+                                image.setRotate(90 * centre[2]);
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
                                 System.out.println(element.name);
                                 System.out.println(centre[0]);
                                 System.out.println(centre[1]);
-                                checkList.replace(element,true);
+                                checkList.replace(element, true);
                                 ++round;
                             }
                         }
                     }
                 }
-            }
-            else {
-                gnd=node1;
-                for (Nodes node2:Nodes.nodes){
-                    if (!(node2 instanceof Ground)&&!node1.name.equals(node2.name)){
-                        hold=Nodes.getParallelElements(node1,node2);
-                        int parallel=hold.size(),round=0;
-                        if (parallel!=0)
+            } else {
+                gnd = node1;
+                for (Nodes node2 : Nodes.nodes) {
+                    if (!(node2 instanceof Ground) && !node1.name.equals(node2.name)) {
+                        hold = Nodes.getParallelElements(node1, node2);
+                        int parallel = hold.size(), round = 0;
+                        if (parallel != 0)
                             ++nc;
 
-                        double[] xy1=new double[2],xy2=new double[2];
-                        int n2=Integer.parseInt(node2.name);
-                        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
-                        xy1[0]=xy2[0];
+                        double[] xy1 = new double[2], xy2 = new double[2];
+                        int n2 = Integer.parseInt(node2.name);
+                        xy2[0] = 100 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]);
+                        xy1[0] = xy2[0];
 
 
-                        xy1[1]=50+verSteps*((xy[3]));
-                        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+                        xy1[1] = 50 + verSteps * ((xy[3]));
+                        xy2[1] = 50 + verSteps * ((xy[3] - ((n2 - 1) / 6 + 1)));
 
 
+                        // line.relocate(xy1[0],xy1[1]);
 
-                       // line.relocate(xy1[0],xy1[1]);
 
+                        for (Element element : hold) {
+                            if (!checkList.get(element)) {
 
-                        for (Element element:hold) {
-                            if (!checkList.get(element)){
+                                gndLoc[0] = xy1[0];
+                                gndLoc[1] = xy1[1];
+                                double shift = -30 * parallel + 60 * round + 30;
 
-                                gndLoc[0]=xy1[0];
-                                gndLoc[1]=xy1[1];
-                                double shift=-30*parallel+60*round+30;
-
-                                Line line= new Line(xy1[0]+shift,xy1[1],xy2[0]+shift,xy2[1]);
+                                Line line = new Line(xy1[0] + shift, xy1[1], xy2[0] + shift, xy2[1]);
                                 lines.add(line);
                                 pane.getChildren().add(line);
 
-                                Line line1= new Line(xy1[0]+shift,xy1[1],xy1[0],xy1[1]);
+                                Line line1 = new Line(xy1[0] + shift, xy1[1], xy1[0], xy1[1]);
                                 lines.add(line1);
                                 pane.getChildren().add(line1);
 
-                                Line line2= new Line(xy2[0],xy2[1],xy2[0]+shift,xy2[1]);
+                                Line line2 = new Line(xy2[0], xy2[1], xy2[0] + shift, xy2[1]);
                                 lines.add(line2);
                                 pane.getChildren().add(line2);
 
 
-                                Image image1=new Image(element.imageAddress, 60, 60, false, false);
-                                ImageView image=new ImageView(image1);
+                                Image image1 = new Image(element.imageAddress, 60, 60, false, false);
+                                ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
 
-                                image.relocate((xy1[0]+xy2[0])/2-30+shift,(xy1[1]+xy2[1])/2-30);
+                                image.relocate((xy1[0] + xy2[0]) / 2 - 30 + shift, (xy1[1] + xy2[1]) / 2 - 30);
                                 // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
                                 if (element.node[0] instanceof Ground)
-                                    image.setRotate(90*2);
+                                    image.setRotate(90 * 2);
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
                                 //System.out.println(element.name);
 
-                                checkList.replace(element,true);
+                                checkList.replace(element, true);
                                 ++round;
                             }
                         }
@@ -531,42 +564,45 @@ public class ControllerMainPage implements Initializable {
             }
         }
 
+        double hold = 0, c = 0;
 
-        if (nc!=1){
+        if (nc != 1) {
 
-            for (Element element:gnd.elements){
+            for (Element element : gnd.elements) {
                 System.out.println(element.name);
-                Nodes node=element.otherNode(gnd);
+                Nodes node = element.otherNode(gnd);
 
-                double[] xy2=new double[2];
-                int n=Integer.parseInt(node.name);
-                xy2[0]=100+horSteps*((n-1)%6+1-xy[0]);
-                xy2[1]=50+verSteps*((xy[3]-((n-1)/6+1)));
-                Line line= new Line(gndLoc[0],gndLoc[1],xy2[0],gndLoc[1]);
+                double[] xy2 = new double[2];
+                int n = Integer.parseInt(node.name);
+                xy2[0] = 100 + horSteps * ((n - 1) % 6 + 1 - xy[0]);
+                xy2[1] = 50 + verSteps * ((xy[3] - ((n - 1) / 6 + 1)));
+                Line line = new Line(gndLoc[0], gndLoc[1], xy2[0], gndLoc[1]);
                 lines.add(line);
                 pane.getChildren().add(line);
+                ++c;
+                hold += xy2[0];
             }
-
+            hold /= c;
         }
-        FileInputStream imageAddress=null;
+
+        FileInputStream imageAddress = null;
         try {
-            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"gnd"+".jpg");
+            imageAddress = new FileInputStream(System.getProperty("user.dir") + "\\elements\\" + "gnd" + ".jpg");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        Image image1=new Image(imageAddress, 60, 60, false, false);
-        ImageView image=new ImageView(image1);
+        Image image1 = new Image(imageAddress, 60, 60, false, false);
+        ImageView image = new ImageView(image1);
         pane.getChildren().add(image);
         drawn.add(image);
 
 
         if (nc != 1) {
-            gndLoc[0] = pane.getWidth()/2;
-            // TODO: 20/07/12 bug za
-
+            gndLoc[0] = hold;
         }
-        image.relocate(gndLoc[0]-30,gndLoc[1]+1);
+        image.relocate(gndLoc[0] - 30, gndLoc[1] + 1);
+
     }
 
     public int[] getXY(){
@@ -592,7 +628,7 @@ public class ControllerMainPage implements Initializable {
 
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
-        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()-100)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()+30)/(xy[3]+1);
         double[] xy1=new double[2],xy2=new double[2];
         xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
         xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
@@ -670,6 +706,10 @@ public class ControllerMainPage implements Initializable {
         dvtf.setText("");
         StringBuilder text= new StringBuilder();
         File file = new File(Main.path);
+        if (Main.path.isEmpty()){
+            //
+            return;
+        }
         try {
             Scanner scanner=new Scanner(file);
             while (scanner.hasNextLine()){
@@ -710,17 +750,18 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void saveFile() throws IOException {
-        String text=codeArea.getText();
-        File dataFile=new File(Main.path);
-        FileWriter fw=new FileWriter(dataFile);
+        if (!checkIsPathEmpty()){String text = codeArea.getText();
+        File dataFile = new File(Main.path);
+        FileWriter fw = new FileWriter(dataFile);
         BufferedWriter writer = new BufferedWriter(fw);
-        String[] lines=text.split("\n");
-        for (String line:lines){
+        String[] lines = text.split("\n");
+        for (String line : lines) {
             writer.write(line);
             writer.newLine();
         }
         writer.close();
         fw.close();
+    }
     }
 
    /* public void updateProgress(int p){
@@ -888,6 +929,14 @@ public class ControllerMainPage implements Initializable {
 
     public void addElement(Element element){
 
+    }
+
+    public boolean checkIsPathEmpty(){
+        if (Main.path.isEmpty()) {
+            errorBox("No file is selected","Please select a file to run");
+            return true;
+        }
+        return false;
     }
 
     @Override
