@@ -34,6 +34,8 @@ public class Brain {
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
 
+
+    // TODO: 20/07/19 check if it's temp
     public static void manageFile(){
         InputManager manager=InputManager.getInstance();
         everything.clear();

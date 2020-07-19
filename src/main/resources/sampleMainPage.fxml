@@ -174,7 +174,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Delete Element">
+                                <MenuItem mnemonicParsing="false" onAction="#removeElementDialogue" text="Remove Element">
                            <graphic>
                               <ImageView fx:id="deleteImage0">
                                  <image>

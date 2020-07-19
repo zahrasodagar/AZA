@@ -765,6 +765,87 @@ public class ControllerMainPage implements Initializable {
     }
     */
 
+    public void removeElementDialogue(){
+       if (checkIsPathEmpty())
+           return;
+
+       Brain.manageFile();
+       Stage window= new Stage();
+       window.initModality(Modality.APPLICATION_MODAL);
+       window.setTitle("Remove Element");
+       window.setMinWidth(250);
+       VBox layout1= new VBox();
+       layout1.setPadding(new Insets(10,50,10,50));
+
+
+       javafx.scene.control.Label label=new javafx.scene.control.Label("Select the element");
+       ComboBox comboBox=new ComboBox();
+       for (Element element:Element.elements){
+           comboBox.getItems().add(element.name);
+       }
+
+
+       Button next=new Button("Remove");
+       Button cancel=new Button("Cancel");
+
+       layout1.setAlignment(Pos.CENTER);
+       HBox buttons= new HBox(next,cancel);
+       buttons.setAlignment(Pos.CENTER);
+       layout1.setSpacing(10);
+       buttons.setSpacing(14);
+       layout1.getChildren().addAll(label,comboBox,buttons);
+
+       Scene scene1=new Scene(layout1);
+
+       next.setOnAction(event1 -> {
+           if (comboBox.getValue()!=null){
+               removeElement((String) comboBox.getValue());
+               window.close();
+           }
+       });
+       cancel.setOnAction(event1 -> window.close());
+
+       window.setScene(scene1);
+       window.show();
+    }
+
+    public void removeElement(String name){
+        File file=new File(Main.path);
+
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        String hold="", text="";
+
+        //User
+        while (input.hasNextLine()) {
+            hold=input.nextLine();
+            if (hold.contains(name+" "))
+                continue;
+            text+=hold+"\n";
+        }
+
+
+        FileWriter fw= null;
+        try {
+            fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            String[] lines=text.split("\n");
+            for (String l:lines){
+                writer.write(l);
+                writer.newLine();
+            }
+            writer.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateTextArea();
+    }
+
     public void addElementDialogue(){
         if (checkIsPathEmpty())
             return;
@@ -822,13 +903,16 @@ public class ControllerMainPage implements Initializable {
         String hold="", text="";
 
         //User
-        while (input.hasNextLine()&&!hold.contains(".tran")) {
+        while (input.hasNextLine()&&!((hold.contains(".tran"))||hold.contains("dV")||hold.contains("dv")
+            ||hold.contains("dI")||hold.contains("di")||hold.contains("dt")||hold.contains("dT"))) {
             hold=input.nextLine();
-            if (!hold.contains(".tran"))
+            if (!((hold.contains(".tran"))||hold.contains("dV")||hold.contains("dv")
+                    ||hold.contains("dI")||hold.contains("di")||hold.contains("dt")||hold.contains("dT")))
                 text+=hold+"\n";
         }
         text+=line;
-        if (hold.contains(".tran"))
+        if ((hold.contains(".tran"))||hold.contains("dV")||hold.contains("dv")
+                ||hold.contains("dI")||hold.contains("di")||hold.contains("dt")||hold.contains("dT"))
             text+="\n"+hold;
         while (input.hasNextLine()){
             hold=input.nextLine();
@@ -946,16 +1030,20 @@ public class ControllerMainPage implements Initializable {
         add.setOnAction(event -> {
             if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                 errorBox("Missing Data","Please fill all fields");
-            else
+            else {
                 addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
+                window.close();
+            }
         });
 
         if (type.equals("Diode 1")){
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t1");
+                    window.close();
+                }
             });
 
         }
@@ -964,8 +1052,10 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t2");
+                    window.close();
+                }
             });
         }
 
@@ -976,9 +1066,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                             "\t"+value.getText()+"\t0\t0\t0");
+                    window.close();
+                }
             });
         }
 
@@ -1009,9 +1101,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                             "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
+                    window.close();
+                }
             });
         }
 
@@ -1022,9 +1116,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                             "\t"+value.getText()+"\t0\t0\t0");
+                    window.close();
+                }
             });
         }
 
@@ -1055,9 +1151,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (freq.getText().isEmpty()||phase.getText().isEmpty()||amp.getText().isEmpty()||name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
                             "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
+                    window.close();
+                }
             });
         }
 
@@ -1083,9 +1181,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
-                           +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
+                            +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
+                    window.close();
+                }
             });
 
         }
@@ -1107,9 +1207,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+amp.getText()+"\t"+freq.getText());
+                    window.close();
+                }
             });
         }
 
@@ -1134,9 +1236,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+freq.getText()+"\t"+phase.getText() +"\t"+amp.getText());
+                    window.close();
+                }
             });
         }
 
@@ -1157,9 +1261,11 @@ public class ControllerMainPage implements Initializable {
             add.setOnAction(event -> {
                 if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
                     errorBox("Missing Data","Please fill all fields");
-                else
+                else {
                     addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()
                             +"\t"+amp.getText()+"\t"+freq.getText());
+                    window.close();
+                }
             });
         }
 
@@ -1167,7 +1273,6 @@ public class ControllerMainPage implements Initializable {
 
         return layout;
     }
-
 
     public boolean checkIsPathEmpty(){
         if (Main.path.isEmpty()) {
