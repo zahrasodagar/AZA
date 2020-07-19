@@ -403,23 +403,20 @@ public class ControllerMainPage implements Initializable {
     public void run() {
         if (!checkIsPathEmpty()){
         tabPane.getSelectionModel().select(inputTab);
-
-
         saveProject();
         percentage.setVisible(true);
         percentage.setText("0.0" + "%");
         bar.setProgress(0);
         bar.setVisible(true);
-        Brain.simulateFile(false, percentage, bar);
+        Brain.manageFile();
         percentage.setText("100" + "%");
         bar.setProgress(1);
         updateOutputTextArea();
         /////////////////////////
-       drawCircuit();
-        Brain.simulateFile(true, percentage, bar);
+        drawCircuit();
+        Brain.simulateFile( percentage, bar);
     }
     }
-
 
     public static void errorBox(String title,String message){
         Alert a = new Alert(Alert.AlertType.ERROR);
@@ -663,18 +660,17 @@ public class ControllerMainPage implements Initializable {
         return centre;
     }
 
-    public void addElement(ActionEvent actionEvent){
-        addElementDialogue();
+    public void codeAreaTypingListener(){
+        hidePercentage();
+        if (checkIsPathEmpty()){
+            codeArea.setText("");
+        }
     }
 
     public void hidePercentage(){
         bar.setVisible(false);
         percentage.setVisible(false);
     }
-
-
-
-
 
     public void outputListener(){
         run();
@@ -697,7 +693,6 @@ public class ControllerMainPage implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     public void updateTextArea()  {
         dttf.setText("");
@@ -764,11 +759,15 @@ public class ControllerMainPage implements Initializable {
     }
     }
 
-   /* public void updateProgress(int p){
+   /*
+    public void updateProgress(int p){
         percentage.setText(String.valueOf(p/10)+"."+String.valueOf(p%10)+"%");
     }
-*/
+    */
+
     public void addElementDialogue(){
+        if (checkIsPathEmpty())
+            return;
         Element element=null;
 
         Stage window= new Stage();
@@ -790,7 +789,7 @@ public class ControllerMainPage implements Initializable {
         layout1.setAlignment(Pos.CENTER);
         HBox buttons= new HBox(next,cancel);
         buttons.setAlignment(Pos.CENTER);
-        layout1.setSpacing(9);
+        layout1.setSpacing(10);
         buttons.setSpacing(14);
         layout1.getChildren().addAll(label,comboBox,buttons);
 
@@ -808,7 +807,11 @@ public class ControllerMainPage implements Initializable {
         window.show();
 
 
-        addElement(element);
+        //addElement(element);
+    }
+
+    public void addElement(String type,String name,String line){
+        System.out.println(line);
     }
 
     public VBox getLayout(String type, Stage window){
@@ -817,25 +820,20 @@ public class ControllerMainPage implements Initializable {
         VBox layout= new VBox();
         layout.setPadding(new Insets(10,50,10,50));
 
-        javafx.scene.control.Label label=new javafx.scene.control.Label("Enter the parameters");
+        Label label=new Label("Enter the parameters");
         Button add=new Button("Add");
         Button cancel=new Button("Cancel");
         GridPane grid=new GridPane();
         layout.setAlignment(Pos.CENTER);
         HBox buttons= new HBox(add,cancel);
         buttons.setAlignment(Pos.CENTER);
-        layout.setSpacing(9);
+        layout.setSpacing(10);
         buttons.setSpacing(14);
         layout.getChildren().addAll(label,grid);
-        add.setOnAction(event -> {
-            InputManager manager=InputManager.getInstance();
-            manager.input=line;
-            if (manager.checkInputFormat()) // TODO: 20/07/06 DIALOGUE!!!
-                window.close();
-        });
+
         cancel.setOnAction(event1 -> window.close());
 
-        javafx.scene.control.Label n=new javafx.scene.control.Label("Node 1");
+        javafx.scene.control.Label n=new javafx.scene.control.Label("Name");
         TextField name=new TextField();
 
         javafx.scene.control.Label n1=new javafx.scene.control.Label("Node 1");
@@ -858,58 +856,144 @@ public class ControllerMainPage implements Initializable {
         grid.add(node2,1,2);
 
 
-
-
-
-
         if (type.equals("Resistor")){
             val.setText("Resistance");
             grid.add(val,0,3);
             grid.add(value,1,3);
         }
+
         if (type.equals("Capacitor")){
             val.setText("Capacity");
             grid.add(val,0,3);
             grid.add(value,1,3);
         }
+
         if (type.equals("Inductor")){
             val.setText("Inductance");
             grid.add(val,0,3);
             grid.add(value,1,3);
         }
+
+        add.setOnAction(event -> {
+            if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                errorBox("Missing Data","Please fill all fields");
+            else
+                addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+"\t"+value.getText());
+        });
+
         if (type.equals("Diode 1")){
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText());
+            });
 
         }
-        if (type.equals("Diode 2")){
 
+        if (type.equals("Diode 2")){
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText());
+            });
         }
 
         if (type.equals("VSource DC")){
             val.setText("Offset Value");
             grid.add(val,0,3);
             grid.add(value,1,3);
-
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                            "\t"+value.getText()+"\t0\t0\t0");
+            });
         }
+
         if (type.equals("VSource AC")){
             val.setText("Offset Value");
             grid.add(val,0,3);
             grid.add(value,1,3);
 
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+
+            grid.add(a,0,4);
+            grid.add(amp,1,4);
+
+            Label f=new Label("Frequency");
+            TextField freq=new TextField();
+
+            grid.add(f,0,5);
+            grid.add(freq,1,5);
+
+            Label ph=new Label("Phase");
+            TextField phase=new TextField();
+
+            grid.add(ph,0,6);
+            grid.add(phase,1,6);
+
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                            "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
+            });
         }
+
         if (type.equals("ISource DC")){
             val.setText("Offset Value");
             grid.add(val,0,3);
             grid.add(value,1,3);
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                            "\t"+value.getText()+"\t0\t0\t0");
+            });
         }
+
         if (type.equals("ISource AC")){
             val.setText("Offset Value");
             grid.add(val,0,3);
             grid.add(value,1,3);
 
+            Label a=new Label("Amplitude");
+            TextField amp=new TextField();
+
+            grid.add(a,0,4);
+            grid.add(amp,1,4);
+
+            Label f=new Label("Frequency");
+            TextField freq=new TextField();
+
+            grid.add(f,0,5);
+            grid.add(freq,1,5);
+
+            Label ph=new Label("Phase");
+            TextField phase=new TextField();
+
+            grid.add(ph,0,6);
+            grid.add(phase,1,6);
+
+
+            add.setOnAction(event -> {
+                if (name.getText().isEmpty()||node1.getText().isEmpty()||node2.getText().isEmpty()||value.getText().isEmpty())
+                    errorBox("Missing Data","Please fill all fields");
+                else
+                    addElement(type,name.getText(),name.getText()+"\t"+node1.getText()+"\t"+node2.getText()+
+                            "\t"+value.getText()+"\t"+amp.getText()+"\t"+freq.getText()+"\t"+phase.getText());
+            });
         }
 
         if (type.equals("ESource")){
-
+            
         }
         if (type.equals("HSource")){
 
@@ -927,9 +1011,6 @@ public class ControllerMainPage implements Initializable {
         return layout;
     }
 
-    public void addElement(Element element){
-
-    }
 
     public boolean checkIsPathEmpty(){
         if (Main.path.isEmpty()) {

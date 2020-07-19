@@ -15,4 +15,4 @@ r7     8  9  35
 dV   100u
 dI   10m
 dT    1m
-.tran  0
+.tran  1

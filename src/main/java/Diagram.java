@@ -17,7 +17,7 @@ public class Diagram extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Brain.simulateFile(true,new Label(),new ProgressBar());
+        Brain.simulateFile(new Label(),new ProgressBar());
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root,1500,600));
