@@ -222,7 +222,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dvtf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="dvtf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#updateDV" prefHeight="22.0" prefWidth="50.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
@@ -232,7 +232,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="ditf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="ditf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#updateDI" onKeyTyped="#updateDI" prefHeight="22.0" prefWidth="50.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
@@ -242,7 +242,7 @@
                                 <Insets top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="dttf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="40.0">
+                        <TextField fx:id="dttf" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#updateDT" onKeyTyped="#updateDT" prefHeight="22.0" prefWidth="50.0">
                             <HBox.margin>
                                 <Insets top="3.0" />
                             </HBox.margin>
