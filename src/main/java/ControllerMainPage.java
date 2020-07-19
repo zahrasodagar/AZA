@@ -171,27 +171,42 @@ public class ControllerMainPage implements Initializable {
 
     public void reloadProject(){
         updateTextArea();
+        eraseDrawn();
     }
 
     public void exitAZA() throws IOException {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("New Project");
+        window.setTitle("Exit AZA");
         window.setMinWidth(250);
         VBox layout1= new VBox();
         layout1.setMinSize(300, 100);
         layout1.setPadding(new Insets(10,50,10,50));
 
-
         javafx.scene.control.Label label=new javafx.scene.control.Label("Are you sure you want to exit AZA?");
         javafx.scene.control.Button yes=new javafx.scene.control.Button("Yes");
         javafx.scene.control.Button cancel=new Button("No");
 
-
-
         yes.setOnAction(event1 -> {
-            // TODO: 20/07/05 Ask to save before exit
-            System.exit(0);
+            if (!Main.path.isEmpty()) {
+                label.setText("Do you want to save your project?");
+
+                yes.setOnAction(event -> {
+                    try {
+                        saveFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.exit(0);
+                });
+
+                cancel.setOnAction(event -> {
+                    System.exit(0);
+                });
+            }
+            else {
+                System.exit(0);
+            }
         });
         cancel.setOnAction(event1 -> window.close());
         layout1.setAlignment(Pos.CENTER);
@@ -1714,6 +1729,14 @@ public class ControllerMainPage implements Initializable {
         }*/
         // Main.w0.hide();
 
+        window.setOnCloseRequest(event -> {
+            event.consume();
+            try {
+                exitAZA();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }
