@@ -92,11 +92,13 @@ public class Brain {
         }
         //Nodes.updateNeighbourNodes();
         t=0;
-
-        //checkISourceVSource();
+        checkExistenceOfGND();
+        checkValueOfGND();
+        checkISourceVSource();
         for (i =0 ; i<time ; i+=dt){
             t=i;
             calculateVoltageAtT();
+            checkValueOfGND();
             //checkVSource();
             //checkISourse();
             for (Object o: Brain.everything){
@@ -147,6 +149,7 @@ public class Brain {
         double temp=0;
         double Itotal1=0,Itotal2=0,Itotal4=0;
         int counter=0;
+        checkISourceVSource();
         while (true){
             ////-------------         reset all nodes
             for (Object o: Brain.everything){
@@ -532,7 +535,7 @@ public class Brain {
                 }
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
-                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        Main.ErrorBox("ERROR -2"," ISources with different value are series ");
                         System.exit(0);
                     }
                 }
@@ -546,7 +549,33 @@ public class Brain {
                 }
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
-                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        Main.ErrorBox("ERROR -2"," ISources with different value are series ");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkExistenceOfGND(){
+        int temp=0;
+        for(Object o : everything){
+            if (o instanceof Ground){
+                temp++;
+            }
+        }
+        if(temp==0){
+            Main.ErrorBox("ERROR -4"," GND is missing ");
+            System.exit(0);
+        }
+    }
+
+    public static void checkValueOfGND(){
+        for(Object o : everything){
+            if (o instanceof VSource){
+                if((((VSource) o).node[0].name.equals(((VSource) o).node[1].name))||((((VSource) o).node[0].name.equals("0")))){
+                    if(Math.abs(((VSource) o).getV(((VSource) o).node[0]))>dV){
+                        Main.ErrorBox("ERROR -4"," You can't change the voltage of GND ");
                         System.exit(0);
                     }
                 }

@@ -44,7 +44,7 @@ public class InputManager {
             Brain.t-=Brain.dt;
             if (hold<0){
                 //System.out.println("Negative Resistance");
-                Main.ErrorBox("ERROR",name+" value is negative at ");
+                Main.ErrorBox("ERROR",name+" value is negative ");
                 return false;
             }
 
