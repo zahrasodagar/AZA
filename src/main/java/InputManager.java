@@ -71,7 +71,7 @@ public class InputManager {
             double hold=capacitor.getC();
             Brain.t-=Brain.dt;
             if (hold<0){
-                Main.ErrorBox("ERROR",name+" value is negative at ");
+                Main.ErrorBox("ERROR",name+" value is negative ");
                 //System.out.println("Negative Capacity");
                 return false;
             }
