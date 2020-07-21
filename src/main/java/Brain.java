@@ -20,6 +20,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -125,16 +126,25 @@ public class Brain {
             //System.exit(0); // TODO: 20/07/19
         }
         //Nodes.updateNeighbourNodes();
+        /*for (Object o : everything){
+            if (o instanceof Node){
+                for(Element e : ((Node) o).elements){
+                    System.out.println(e.otherNode((Nodes) o).name);
+                }
+                System.out.println("---------------------------");
+            }
+        }*/
         t=0;
-
-
-
-        //checkISourceVSource();
+        checkExistenceOfGND();
+        checkValueOfGND();
+        checkISourceVSource();
+        checkFloating();
         for (i =0 ; i<time ; i+=dt){
             t=i;
             calculateVoltageAtT();
-            //checkVSource();
-            //checkISourse();
+            checkValueOfGND();
+            checkVSource();
+            checkISourse();
             for (Object o: Brain.everything){
                 if (o instanceof Nodes){
                     System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
@@ -183,6 +193,7 @@ public class Brain {
         double temp=0;
         double Itotal1=0,Itotal2=0,Itotal4=0;
         int counter=0;
+        checkISourceVSource();
         while (true){
             ////-------------         reset all nodes
             for (Object o: Brain.everything){
@@ -568,7 +579,7 @@ public class Brain {
                 }
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
-                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        Main.ErrorBox("ERROR -2"," ISources with different value are series ");
                         System.exit(0);
                     }
                 }
@@ -582,11 +593,107 @@ public class Brain {
                 }
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
-                        Main.ErrorBox("ERROR -2"," ISources are series ");
+                        Main.ErrorBox("ERROR -2"," ISources with different value are series ");
                         System.exit(0);
                     }
                 }
             }
         }
+    }
+
+    public static void checkExistenceOfGND(){
+        int temp=0;
+        for(Object o : everything){
+            if (o instanceof Ground){
+                temp++;
+            }
+        }
+        if(temp==0){
+            Main.ErrorBox("ERROR -4"," GND is missing ");
+            System.exit(0);
+        }
+    }
+
+    public static void checkValueOfGND(){
+        for(Object o : everything){
+            if (o instanceof VSource){
+                if((((VSource) o).node[0].name.equals(((VSource) o).node[1].name))||((((VSource) o).node[0].name.equals("0")))){
+                    if(Math.abs(((VSource) o).getV(((VSource) o).node[0]))>dV){
+                        Main.ErrorBox("ERROR -4"," You can't change the voltage of GND ");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkFloating(){
+        for (Object o : everything){
+            if (o instanceof Nodes){
+                if (((Nodes) o).name.equals("0")){
+                    continue;
+                }
+                //System.out.println("Node : "+((Nodes) o).name);
+                ArrayList<Nodes>  orderOfNodes = new ArrayList<Nodes>();
+                ArrayList<Element> elements = new ArrayList<Element>();
+                orderOfNodes.add((Nodes) o);
+                if(!checkFloatingNode((Nodes) o, orderOfNodes, elements)){
+                    Main.ErrorBox("ERROR -5"," At least one of the nodes is floating ");
+                    System.exit(0);
+                }
+                //System.out.println("-------------------");
+            }
+        }
+    }
+
+    public static boolean checkFloatingNode(Nodes firstNode , ArrayList<Nodes> orderOfNodes , ArrayList<Element> element){
+        int temp=0;
+        //System.out.println("-------------------------");
+        //System.out.print("[");
+        for (int i=0;i<orderOfNodes.size();i++){
+            //System.out.print(orderOfNodes.get(i).name+",");
+        }
+        //System.out.println("]");
+        //System.out.print("[");
+        for (int i=0;i<element.size();i++){
+            //System.out.print(element.get(i).name+",");
+        }
+        //System.out.println("]");
+        for (Element e:orderOfNodes.get(orderOfNodes.size()-1).elements){
+            temp=0;
+            for (Element value : element) {
+                if (e.equals(value)) {
+                   // System.out.println("omadam inja element : "+value.name);
+                    temp++;
+                }
+            }
+            if (temp>0){
+                //System.out.println("omadam inja");
+                continue;
+            }
+            else {
+                //System.out.println(e.name);
+                //System.out.println(element);
+                //System.out.println(element.size());
+                if (element.size()>0){
+                    //System.out.println(element);
+                    if(e.otherNode(orderOfNodes.get(orderOfNodes.size()-1)).equals(firstNode)){
+                        for (Nodes n : orderOfNodes){
+                            if (n.name.equals("0")){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                orderOfNodes.add((Nodes) e.otherNode(orderOfNodes.get(orderOfNodes.size()-1)));
+                element.add(e);
+                if (checkFloatingNode(firstNode, orderOfNodes, element)){
+                    return true;
+                }
+                orderOfNodes.remove(orderOfNodes.size()-1);
+                element.remove(element.size()-1);
+            }
+        }
+        return false;
     }
 }

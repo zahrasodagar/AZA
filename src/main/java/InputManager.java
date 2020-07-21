@@ -39,15 +39,15 @@ public class InputManager {
                 if (resistance==null)
                     return false;
 
-                Resistor resistor=new Resistor(name,node1,node2,resistance);
-                Brain.t+=Brain.dt;
-                double hold=resistor.getR();
-                Brain.t-=Brain.dt;
-                if (hold<0){
-                    //System.out.println("Negative Resistance");
-                    Main.ErrorBox("ERROR",name+" value is negative at ");
-                    return false;
-                }
+            Resistor resistor=new Resistor(name,node1,node2,resistance);
+            Brain.t+=Brain.dt;
+            double hold=resistor.getR();
+            Brain.t-=Brain.dt;
+            if (hold<0){
+                //System.out.println("Negative Resistance");
+                Main.ErrorBox("ERROR",name+" value is negative ");
+                return false;
+            }
 
                 return addElement(resistor,node1,node2);
             }
@@ -71,6 +71,16 @@ public class InputManager {
                 if (capacity==null)
                     return false;
 
+            Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
+            Brain.t+=Brain.dt;
+            double hold=capacitor.getC();
+            Brain.t-=Brain.dt;
+            if (hold<0){
+                Main.ErrorBox("ERROR",name+" value is negative ");
+                //System.out.println("Negative Capacity");
+                return false;
+            }
+            return addElement(capacitor,node1,node2);
                 Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
                 Brain.t+=Brain.dt;
                 double hold=capacitor.getC();
@@ -182,7 +192,6 @@ public class InputManager {
         Pattern pattern=Pattern.compile("^([G|g]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
-            try{
             String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
             String n21= matcher.group(4),n22= matcher.group(5);
             double a= Double.parseDouble(matcher.group(6));
