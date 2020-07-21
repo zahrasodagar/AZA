@@ -199,7 +199,6 @@ public class InputManager {
             Nodes node12=getNode(n12);
             Nodes node21=getNode(n21);
             Nodes node22=getNode(n22);
-
             GSource gSource=new GSource(name,node11,node12,node21,node22,a);
             try {
             return addElement(gSource,node11,node12);}

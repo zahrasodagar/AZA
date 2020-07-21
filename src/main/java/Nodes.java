@@ -57,7 +57,7 @@ public abstract class Nodes {
                     Nodes n=((ArrayList<Nodes>) node.neighbours.keySet()).get(0);
                     if (node.neighbours.get(n)==1){ //yek bar
                         System.out.println("Error -5");
-                        System.exit(0);
+
                     }
                 }
             } //halghe darim
@@ -72,7 +72,7 @@ public abstract class Nodes {
         for (ISource iSource:iSources){
             if (!(checkISource(iSource,iSource.getI(iSource.node[0]),iSource.node[0])&&checkISource(iSource,iSource.getI(iSource.node[1]),iSource.node[1]))){
                 System.out.println("Error -2");
-                System.exit(0);
+
             }
         }
         //error -3
@@ -84,7 +84,7 @@ public abstract class Nodes {
         for (VSource vSource:vSources){
             if (!checkVSource(vSource)){
                 System.out.println("Error -3");
-                System.exit(0);
+
             }
         }
     }
@@ -169,7 +169,7 @@ public abstract class Nodes {
         }
         if (gnd==null){ // TODO: 20/06/13 Error???
             System.out.println("Error -4");
-            System.exit(0);
+
         }
         else {
             //directly connected to gnd
@@ -189,7 +189,7 @@ public abstract class Nodes {
         for (Nodes node:nodes){
             if (!connection.get(node)){
                 System.out.println("Error -5");
-                System.exit(0);
+
             }
         }
 

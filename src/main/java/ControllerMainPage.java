@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +46,8 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -64,6 +67,7 @@ public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
     public static ArrayList<ImageView> drawn=new ArrayList<>();
     public static ArrayList<Line> lines=new ArrayList<>();
+    public static ArrayList<Label> labels=new ArrayList<>();
     public static String voltagename;
     public static String currentname;
     public static String powername;
@@ -75,6 +79,40 @@ public class ControllerMainPage implements Initializable {
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
+    @FXML public MenuBar menuBar;
+    @FXML public VBox vBox1;
+    @FXML public Button draw,run,output;
+    @FXML public HBox hBox1;
+    @FXML public BorderPane borderPane1;
+    @FXML public CheckMenuItem checkMenuItem1;
+
+    public void darkmode(){
+        if(checkMenuItem1.isSelected()) {
+            menuBar.getStylesheets().add("sample2.css");
+            dvtf.getStylesheets().add("sample2.css");
+            ditf.getStylesheets().add("sample2.css");
+            dttf.getStylesheets().add("sample2.css");
+            timetf.getStylesheets().add("sample2.css");
+            tabPane.getStylesheets().add("sample2.css");
+            draw.getStylesheets().add("sample2.css");
+            run.getStylesheets().add("sample2.css");
+            output.getStylesheets().add("sample2.css");
+            borderPane1.getStylesheets().add("sample2.css");
+        }
+        else{
+            menuBar.getStylesheets().clear();
+            dvtf.getStylesheets().clear();
+            ditf.getStylesheets().clear();
+            dttf.getStylesheets().clear();
+            timetf.getStylesheets().clear();
+            tabPane.getStylesheets().clear();
+            draw.getStylesheets().clear();
+            run.getStylesheets().clear();
+            output.getStylesheets().clear();
+            borderPane1.getStylesheets().clear();
+        }
+
+    }
 
     public void newProject() {
         hidePercentage();
@@ -168,6 +206,7 @@ public class ControllerMainPage implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateTextArea();
     }
 
     public void reloadProject(){
@@ -412,6 +451,8 @@ public class ControllerMainPage implements Initializable {
             line.setVisible(false);
             // TODO: 20/07/12 shit?
         }
+        for (Label label:labels)
+            label.setVisible(false);
         drawn.clear();
         lines.clear();
     }
@@ -420,6 +461,7 @@ public class ControllerMainPage implements Initializable {
         if (!checkIsPathEmpty()){
         tabPane.getSelectionModel().select(inputTab);
         saveProject();
+        updateTextArea();
         percentage.setVisible(true);
         percentage.setText("0.0" + "%");
         bar.setProgress(0);
@@ -493,16 +535,21 @@ public class ControllerMainPage implements Initializable {
                                 ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
-
-
                                 image.relocate(centre[0] - 30 + isHor * shift, centre[1] - 30 + isVer * shift);
                                 image.setRotate(90 * centre[2]);
+                                Label label=new Label(element.name);
+                                labels.add(label);
+                                pane.getChildren().add(label);
+                                label.relocate(centre[0] - 30 + isHor * shift, centre[1] - 30 + isVer * shift);
+
+
+
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
-                                System.out.println(element.name);
-                                System.out.println(centre[0]);
-                                System.out.println(centre[1]);
-                                System.out.println("haha");
+                               // System.out.println(element.name);
+                                //System.out.println(centre[0]);
+                                //System.out.println(centre[1]);
+                                //System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
@@ -553,19 +600,26 @@ public class ControllerMainPage implements Initializable {
                                 pane.getChildren().add(line2);
 
 
+
                                 Image image1 = new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
-
                                 image.relocate((xy1[0] + xy2[0]) / 2 - 30 + shift, (xy1[1] + xy2[1]) / 2 - 30);
+
+                                Label label=new Label(element.name);
+                                labels.add(label);
+                                pane.getChildren().add(label);
+                                label.relocate((xy1[0] + xy2[0]) / 2 - 30 + shift, (xy1[1] + xy2[1]) / 2 - 30);
+
+
                                 // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
                                 if (element.node[0] instanceof Ground)
                                     image.setRotate(90 * 2);
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
                                 //System.out.println(element.name);
-                                System.out.println("haha");
+                               // System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
@@ -694,6 +748,7 @@ public class ControllerMainPage implements Initializable {
             codeArea.setText("");
             return;
         }
+        /*
         dttf.setText("");
         timetf.setText("");
         ditf.setText("");
@@ -736,6 +791,7 @@ public class ControllerMainPage implements Initializable {
 
             }
 
+         */
     }
 
     public void hidePercentage(){
@@ -1758,6 +1814,17 @@ public class ControllerMainPage implements Initializable {
         return layout;
     }
 
+    public void editDs(){
+        if (checkIsPathEmpty()){
+            return;
+        }
+        //System.out.println("I'm here");
+        updateDV();
+        updateDI();
+        updateDT();
+        updateT();
+    }
+
     public void updateDV(){
 
         String hold="", text="";
@@ -1766,39 +1833,24 @@ public class ControllerMainPage implements Initializable {
         String t=codeArea.getText();
         String[] lines=t.split("\n");
         for (String l:lines){
-            hold=l;
-            if (hold.contains("dV ")||hold.contains("dv ")) {
-                hold="dV\t"+dvtf.getText();
+            if (l.contains("dV")||l.contains("dv")){
                 flag=true;
+                t=t.replace(l,"dV\t"+dvtf.getText());
             }
-            if (hold.contains(".tran"))
-                break;
-            text+=hold+"\n";
         }
         if (!flag){
-            String temp="dV\t"+dvtf.getText();
-            text+=temp+"\n";
-        }
-        if (hold.contains(".tran"))
-            text+=hold+"\n";
-
-
-        File file=new File(Main.path);
-        FileWriter fw= null;
-        try {
-            fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-            String[] line=text.split("\n");
-            for (String l:line){
-                writer.write(l);
-                writer.newLine();
+            for (String l:lines){
+                if (l.contains(".tran")){
+                    flag=true;
+                    t=t.replace(l,"dV\t"+dvtf.getText()+"\n"+l);
+                }
             }
-            writer.close();
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        updateTextArea();
+        if (!flag){
+            t+="dV\t"+dvtf.getText();
+        }
+
+        codeArea.setText(t);
     }
 
     public void updateDI(){
@@ -1808,39 +1860,23 @@ public class ControllerMainPage implements Initializable {
         String t=codeArea.getText();
         String[] lines=t.split("\n");
         for (String l:lines){
-            hold=l;
-            if (hold.contains("dI ")||hold.contains("di ")) {
-                hold="dI\t"+ditf.getText();
+            if (l.contains("dI")||l.contains("di")){
                 flag=true;
+                t=t.replace(l,"dI\t"+ditf.getText());
             }
-            if (hold.contains(".tran"))
-                break;
-            text+=hold+"\n";
         }
         if (!flag){
-            String temp="dI\t"+ditf.getText();
-            text+=temp+"\n";
-        }
-        if (hold.contains(".tran"))
-            text+=hold+"\n";
-
-
-        File file=new File(Main.path);
-        FileWriter fw= null;
-        try {
-            fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-            String[] line=text.split("\n");
-            for (String l:line){
-                writer.write(l);
-                writer.newLine();
+            for (String l:lines){
+                if (l.contains(".tran")){
+                    flag=true;
+                    t=t.replace(l,"dI\t"+ditf.getText()+"\n"+l);
+                }
             }
-            writer.close();
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        updateTextArea();
+        if (!flag){
+            t+="dI\t"+ditf.getText();
+        }
+        codeArea.setText(t);
     }
 
     public void updateDT(){
@@ -1850,21 +1886,47 @@ public class ControllerMainPage implements Initializable {
         String t=codeArea.getText();
         String[] lines=t.split("\n");
         for (String l:lines){
-            hold=l;
-            if (hold.contains("dT ")||hold.contains("dt ")) {
-                hold="dT\t"+dttf.getText();
+            if (l.contains("dT")||l.contains("dt")){
                 flag=true;
+                t=t.replace(l,"dT\t"+dttf.getText());
             }
-            if (hold.contains(".tran"))
-                break;
-            text+=hold+"\n";
         }
         if (!flag){
-            String temp="dT\t"+dttf.getText();
+            for (String l:lines){
+                if (l.contains(".tran")){
+                    flag=true;
+                    t=t.replace(l,"dT\t"+dttf.getText()+"\n"+l);
+                }
+            }
+        }
+        if (!flag){
+            t+="dT\t"+dttf.getText();
+        }
+        codeArea.setText(t);
+    }
+
+    public void updateT(){
+        String hold="", text="";
+
+        boolean flag=false;
+        String t=codeArea.getText();
+        String[] lines=t.split("\n");
+        for (String l:lines){
+            if (l.contains(".tran")){
+                flag=true;
+                t=t.replace(l,".tran\t"+timetf.getText());
+                //System.out.println();
+            }
+        }
+        if (!flag){
+            t+=".tran\t"+timetf.getText();
+        }
+        //System.out.println(t);
+        codeArea.setText(t);
+        /*if (!flag){
+            String temp=".tran\t"+timetf.getText();
             text+=temp+"\n";
         }
-        if (hold.contains(".tran"))
-            text+=hold+"\n";
 
 
         File file=new File(Main.path);
@@ -1883,6 +1945,8 @@ public class ControllerMainPage implements Initializable {
             e.printStackTrace();
         }
         updateTextArea();
+
+         */
     }
 
     public boolean checkIsPathEmpty(){
