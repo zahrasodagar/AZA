@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +46,8 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -74,7 +77,40 @@ public class ControllerMainPage implements Initializable {
     @FXML public TextField dvtf,ditf,dttf,timetf;
     @FXML public Label percentage;
     @FXML public ProgressBar bar;
+    @FXML public MenuBar menuBar;
+    @FXML public VBox vBox1;
+    @FXML public Button draw,run,output;
+    @FXML public HBox hBox1;
+    @FXML public BorderPane borderPane1;
+    @FXML public CheckMenuItem checkMenuItem1;
 
+    public void darkmode(){
+        if(checkMenuItem1.isSelected()) {
+            menuBar.getStylesheets().add("sample2.css");
+            dvtf.getStylesheets().add("sample2.css");
+            ditf.getStylesheets().add("sample2.css");
+            dttf.getStylesheets().add("sample2.css");
+            timetf.getStylesheets().add("sample2.css");
+            tabPane.getStylesheets().add("sample2.css");
+            draw.getStylesheets().add("sample2.css");
+            run.getStylesheets().add("sample2.css");
+            output.getStylesheets().add("sample2.css");
+            borderPane1.getStylesheets().add("sample2.css");
+        }
+        else{
+            menuBar.getStylesheets().clear();
+            dvtf.getStylesheets().clear();
+            ditf.getStylesheets().clear();
+            dttf.getStylesheets().clear();
+            timetf.getStylesheets().clear();
+            tabPane.getStylesheets().clear();
+            draw.getStylesheets().clear();
+            run.getStylesheets().clear();
+            output.getStylesheets().clear();
+            borderPane1.getStylesheets().clear();
+        }
+
+    }
     public void newProject() {
         hidePercentage();
         Stage stage = Main.window;

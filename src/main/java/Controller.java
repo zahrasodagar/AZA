@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 public class Controller implements Initializable {
     public static Scene scene;
+    Stage stage=new Stage();
     String selecteditem=new String();
     static double order=1;
     static double order1=1;
@@ -81,7 +82,7 @@ public class Controller implements Initializable {
             }
         }
         listView.setItems(data);
-        Stage stage=new Stage();
+
         StackPane root=new StackPane();
         root.getChildren().add(listView);
         stage.setScene(new Scene(root,500,650));
@@ -135,7 +136,6 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
                         unit=unitfinder(order);
                     }
                 }
@@ -159,7 +159,6 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
                         unit=unitfinder(order);
                     }
                 }
@@ -182,7 +181,7 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
+
                         unit=unitfinder(order);
                     }
                 }
@@ -205,7 +204,7 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
+
                         unit=unitfinder(order);
                     }
                 }
@@ -229,7 +228,6 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
                         unit=unitfinder(order);
                     }
                 }
@@ -252,7 +250,7 @@ public class Controller implements Initializable {
 
 
                         }
-                        System.out.println(order);
+
                         unit=unitfinder(order);
                     }
                 }
@@ -793,12 +791,38 @@ public class Controller implements Initializable {
     public void saveAs(ActionEvent actionEvent) {
         Stage stage=new Stage();
         FileChooser fileChooser = new FileChooser();
-        WritableImage image = lineChart1.snapshot(new SnapshotParameters(),new WritableImage(1300,800));
+        WritableImage image = lineChart1.snapshot(new SnapshotParameters(),new WritableImage(1300,700));
+        WritableImage image1 = lineChart2.snapshot(new SnapshotParameters(),new WritableImage(1300,700));
+        WritableImage image2 = lineChart3.snapshot(new SnapshotParameters(),new WritableImage(1300,700));
         fileChooser.setInitialDirectory(new File("C:\\Users\\228al\\Desktop"));
+        fileChooser.setTitle("Select Voltage Trace Path To Save");
         File file = fileChooser.showSaveDialog(stage);
         try{
 
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+
+
+        }
+        catch (IOException e){
+
+        }
+        fileChooser.setTitle("Select Current Trace Path To Save");
+        file = fileChooser.showSaveDialog(stage);
+        try{
+
+            ImageIO.write(SwingFXUtils.fromFXImage(image1, null), "png", file);
+
+
+        }
+        catch (IOException e){
+
+        }
+        fileChooser.setTitle("Select Power Trace Path To Save");
+        file = fileChooser.showSaveDialog(stage);
+        try{
+
+            ImageIO.write(SwingFXUtils.fromFXImage(image2, null), "png", file);
+
 
         }
         catch (IOException e){
@@ -807,6 +831,10 @@ public class Controller implements Initializable {
 
 
 
+
+    }
+    public void exit(){
+        stage.close();
     }
 
     @Override
