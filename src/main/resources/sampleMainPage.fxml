@@ -257,6 +257,7 @@
                                 <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
+                  <Button mnemonicParsing="false" text="Edit" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#draw" text="Draw">
                             <HBox.margin>

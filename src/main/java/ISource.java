@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 class ISource extends Source {
     public ISource(String name,Nodes node1, Nodes node2, double offset,double amplitude,double frequency,double phase){
         super(name,node1,node2,offset,amplitude,frequency,phase,"is");
@@ -22,6 +25,11 @@ class FSource extends ISource {
     double a;
     public FSource(String name,Nodes node1,Nodes node2,Element element, double a){
         super(name,node1,node2);
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"dis"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.element=element;
         this.a=a;
     }
@@ -53,6 +61,11 @@ class GSource extends ISource {
         this.node1=node21;
         this.node2=node22;
         this.a=a;
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"dis"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
