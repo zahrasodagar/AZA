@@ -201,6 +201,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void saveProject(){
+        if (checkIsPathEmpty())
+            return;
         try {
             saveFile();
         } catch (IOException e) {
@@ -210,6 +212,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void reloadProject(){
+        if (checkIsPathEmpty())
+            return;
         updateTextArea();
         eraseDrawn();
     }
@@ -430,6 +434,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void draw() throws Exception {
+        if (checkIsPathEmpty())
+            return;
         run();
         listshow1();
 //        Parent root1= FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -442,6 +448,7 @@ public class ControllerMainPage implements Initializable {
 //        stage.setScene(scene);
 //        stage.show();
     }
+
     public void help() throws IOException {
         FXMLLoader fXMLLoader;
         Parent root1=FXMLLoader.load(getClass().getResource("sampleHelpPage.fxml"));
@@ -452,7 +459,6 @@ public class ControllerMainPage implements Initializable {
         stage.show();
 
     }
-
 
     public void eraseDrawn(){
         for (ImageView img:drawn){
