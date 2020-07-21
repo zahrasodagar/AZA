@@ -1795,6 +1795,9 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void editDs(){
+        if (checkIsPathEmpty()){
+            return;
+        }
         //System.out.println("I'm here");
         updateDV();
         updateDI();
@@ -1892,13 +1895,13 @@ public class ControllerMainPage implements Initializable {
             if (l.contains(".tran")){
                 flag=true;
                 t=t.replace(l,".tran\t"+timetf.getText());
-                System.out.println();
+                //System.out.println();
             }
         }
         if (!flag){
             t+=".tran\t"+timetf.getText();
         }
-        System.out.println(t);
+        //System.out.println(t);
         codeArea.setText(t);
         /*if (!flag){
             String temp=".tran\t"+timetf.getText();
