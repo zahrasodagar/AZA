@@ -66,6 +66,7 @@ public class ControllerMainPage implements Initializable {
     Stage window=Main.window;
     public static ArrayList<ImageView> drawn=new ArrayList<>();
     public static ArrayList<Line> lines=new ArrayList<>();
+    public static ArrayList<Label> labels=new ArrayList<>();
     public static String voltagename;
     public static String currentname;
     public static String powername;
@@ -111,6 +112,7 @@ public class ControllerMainPage implements Initializable {
         }
 
     }
+
     public void newProject() {
         hidePercentage();
         Stage stage = Main.window;
@@ -448,6 +450,8 @@ public class ControllerMainPage implements Initializable {
             line.setVisible(false);
             // TODO: 20/07/12 shit?
         }
+        for (Label label:labels)
+            label.setVisible(false);
         drawn.clear();
         lines.clear();
     }
@@ -527,16 +531,21 @@ public class ControllerMainPage implements Initializable {
                                 ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
-
-
                                 image.relocate(centre[0] - 30 + isHor * shift, centre[1] - 30 + isVer * shift);
                                 image.setRotate(90 * centre[2]);
+                                Label label=new Label(element.name);
+                                labels.add(label);
+                                pane.getChildren().add(label);
+                                label.relocate(centre[0] - 30 + isHor * shift, centre[1] - 30 + isVer * shift);
+
+
+
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
-                                System.out.println(element.name);
-                                System.out.println(centre[0]);
-                                System.out.println(centre[1]);
-                                System.out.println("haha");
+                               // System.out.println(element.name);
+                                //System.out.println(centre[0]);
+                                //System.out.println(centre[1]);
+                                //System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
@@ -587,19 +596,26 @@ public class ControllerMainPage implements Initializable {
                                 pane.getChildren().add(line2);
 
 
+
                                 Image image1 = new Image(element.imageAddress, 60, 60, false, false);
                                 ImageView image = new ImageView(image1);
                                 pane.getChildren().add(image);
                                 drawn.add(image);
-
                                 image.relocate((xy1[0] + xy2[0]) / 2 - 30 + shift, (xy1[1] + xy2[1]) / 2 - 30);
+
+                                Label label=new Label(element.name);
+                                labels.add(label);
+                                pane.getChildren().add(label);
+                                label.relocate((xy1[0] + xy2[0]) / 2 - 30 + shift, (xy1[1] + xy2[1]) / 2 - 30);
+
+
                                 // TODO: 20/07/12 age gharar shod abaad avaz koni loc ro deghat kon
                                 if (element.node[0] instanceof Ground)
                                     image.setRotate(90 * 2);
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
                                 //System.out.println(element.name);
-                                System.out.println("haha");
+                               // System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
