@@ -45,7 +45,7 @@ public class InputManager {
             Brain.t-=Brain.dt;
             if (hold<0){
                 //System.out.println("Negative Resistance");
-                Main.ErrorBox("ERROR",name+" value is negative ");
+                //Main.ErrorBox("ERROR",name+" value is negative ");
                 return false;
             }
 
@@ -76,7 +76,7 @@ public class InputManager {
             double hold=capacitor.getC();
             Brain.t-=Brain.dt;
             if (hold<0){
-                Main.ErrorBox("ERROR",name+" value is negative ");
+                //Main.ErrorBox("ERROR",name+" value is negative ");
                 //System.out.println("Negative Capacity");
                 return false;
             }
@@ -117,7 +117,7 @@ public class InputManager {
                 double hold=inductor.getL();
                 Brain.t-=Brain.dt;
                 if (hold<0){
-                    Main.ErrorBox("ERROR",name+" value is negative at ");
+                    //Main.ErrorBox("ERROR",name+" value is negative ");
                     //System.out.println("Negative Inductance");
                     return false;
                 }

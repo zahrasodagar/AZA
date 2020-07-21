@@ -60,6 +60,7 @@ import java.util.regex.Pattern;
 import javafx.stage.Stage;
 
 public class ControllerMainPage implements Initializable {
+    static boolean errorCheck=false;
     Stage window=Main.window;
     public static ArrayList<ImageView> drawn=new ArrayList<>();
     public static ArrayList<Line> lines=new ArrayList<>();
@@ -423,9 +424,12 @@ public class ControllerMainPage implements Initializable {
         percentage.setText("0.0" + "%");
         bar.setProgress(0);
         bar.setVisible(true);
+        errorCheck=false;
         Brain.manageFile();
         drawCircuit();
+        errorCheck=true;
         Brain.simulateFile( percentage, bar);
+        errorCheck=false;
         percentage.setText("100" + "%");
         bar.setProgress(1);
         updateOutputTextArea();

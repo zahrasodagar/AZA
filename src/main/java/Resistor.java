@@ -23,11 +23,12 @@ public class Resistor extends Element {
             //System.out.println("delta hold : "+coeff*Math.pow(Simulator.t,deg));
             hold+=coeff*Math.pow(Brain.i,deg);
         }
-        if (hold<=0) {
+        if (hold<=0&&ControllerMainPage.errorCheck) {
             //System.out.println("Resistance : "+hold);
             Main.ErrorBox("ERROR -1",name+" value is negative at "+Brain.i+" second" );
+            Brain.error=1;
             //System.out.println("Negative Resistance");
-            System.exit(0);
+            //System.exit(0);
         }
         //System.out.println("Resistance : "+hold);
         return hold;

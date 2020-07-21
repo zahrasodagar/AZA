@@ -34,6 +34,8 @@ public class Brain {
 
     static ArrayList<Object> everything=new ArrayList<>();
     static double time,t=0,dt=-1,dV=-1,dI=-1,i=0;
+    static int error=0;
+    boolean errorCheck;
 
 
     // TODO: 20/07/19 check if it's temp
@@ -80,6 +82,7 @@ public class Brain {
     }
 
     public static void simulateFile(Label percentage,ProgressBar bar){
+        error=0;
         InputManager manager=InputManager.getInstance();
         everything.clear();
         dt=-1;dV=-1;dI=-1;i=0;
@@ -115,6 +118,7 @@ public class Brain {
                 manager.setInput(line);
                 if (!manager.checkInputFormat()) {
                     Main.ErrorBox("ERROR -1"," line "+nLine );
+                    error=1;
                     //System.out.println("Error -1 ( line "+nLine+" )");
                     //System.exit(0); // TODO: 20/07/19
                 }
@@ -122,6 +126,7 @@ public class Brain {
         }
         if (dV==-1||dI==-1||dt==-1||!tran){
             Main.ErrorBox("ERROR -1"," dT, dV or dI has not been initialized ");
+            error=1;
             //System.out.println("Error -1");
             //System.exit(0); // TODO: 20/07/19
         }
@@ -135,39 +140,47 @@ public class Brain {
             }
         }*/
         t=0;
-        checkExistenceOfGND();
-        checkValueOfGND();
-        checkISourceVSource();
-        checkFloating();
-        for (i =0 ; i<time ; i+=dt){
-            t=i;
-            calculateVoltageAtT();
+        if (error==0){
+            checkExistenceOfGND();
             checkValueOfGND();
-            checkVSource();
-            checkISourse();
-            for (Object o: Brain.everything){
-                if (o instanceof Nodes){
-                    System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
+            checkISourceVSource();
+            checkFloating();
+            for (i =0 ; i<time  ; i+=dt){
+                t=i;
+                calculateVoltageAtT();
+                checkValueOfGND();
+                checkVSource();
+                checkISourse();
+                if (error==1){
+                    Element.reset();
+                    break;
                 }
+                for (Object o: Brain.everything){
+                    if (o instanceof Nodes){
+                        System.out.println(((Nodes) o).name+" : "+((Nodes) o).v);
+                    }
                 /*if (o instanceof Inductor){
                     System.out.println(((Inductor) o).name+" : "+((Inductor) o).getI(((Inductor) o).node[0]));
                 }*/
-            }
-            System.out.println("T : "+i);
-            if (((int)(i/dt)%25==0))
-            {
-                bar.setVisible(true);
-                percentage.setVisible(true);
-                double p=   ((i)/time);
-            String settext = String.format("%.1f",p);
-            percentage.setText(settext+"%");
-            bar.setProgress(p);
+                }
+                System.out.println("T : "+i);
+                if (((int)(i/dt)%25==0))
+                {
+                    bar.setVisible(true);
+                    percentage.setVisible(true);
+                    double p=   ((i)/time);
+                    String settext = String.format("%.1f",p);
+                    percentage.setText(settext+"%");
+                    bar.setProgress(p);
+
+                }
+                System.out.println("--------------------------");
 
             }
-            System.out.println("--------------------------");
-
         }
-        printAll();
+        if(error==0){
+            printAll();
+        }
     }
 
     public static void setTime(String t,String p){
@@ -502,13 +515,15 @@ public class Brain {
                     if((object2 instanceof VSource)&&(((VSource) object2).node[0]==((VSource) object).node[0])&&(((VSource) object2).node[1]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[0]))>dV){
                             Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel at "+i+"th second" );
-                            System.exit(0);
+                            error=1;
+                            //System.exit(0);
                         }
                     }
                     if((object2 instanceof VSource)&&(((VSource) object2).node[1]==((VSource) object).node[0])&&(((VSource) object2).node[0]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[1]))>dV){
                             Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel at "+i+"th second" );
-                            System.exit(0);
+                            error=1;
+                            //System.exit(0);
                         }
                     }
                 }
@@ -530,7 +545,8 @@ public class Brain {
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
                         Main.ErrorBox("ERROR -2"," ISources are series at "+i+"th second");
-                        System.exit(0);
+                        error=1;
+                        //System.exit(0);
                     }
                 }
                 k=0;
@@ -544,7 +560,8 @@ public class Brain {
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
                         Main.ErrorBox("ERROR -2"," ISources are series at "+i+"th second");
-                        System.exit(0);
+                        error=1;
+                        //System.exit(0);
                     }
                 }
             }
@@ -558,13 +575,15 @@ public class Brain {
                     if((object2 instanceof VSource)&&!(object2 instanceof HSource)&&!(object2 instanceof ESource)&&(((VSource) object2).node[0]==((VSource) object).node[0])&&(((VSource) object2).node[1]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[0]))>dV){
                             Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel ");
-                            System.exit(0);
+                            error=1;
+                            //System.exit(0);
                         }
                     }
                     if((object2 instanceof VSource)&&!(object2 instanceof HSource)&&!(object2 instanceof ESource)&&(((VSource) object2).node[1]==((VSource) object).node[0])&&(((VSource) object2).node[0]==((VSource) object).node[1])){
                         if(Math.abs(((VSource) object).getV(((VSource) object).node[0])-((VSource) object2).getV(((VSource) object2).node[1]))>dV){
                             Main.ErrorBox("ERROR -3","At least two VSources with different voltage are parallel ");
-                            System.exit(0);
+                            error=1;
+                            //System.exit(0);
                         }
                     }
                 }
@@ -580,7 +599,8 @@ public class Brain {
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[0].getTotalI(((ISource) object).node[0]))>dI){
                         Main.ErrorBox("ERROR -2"," ISources with different value are series ");
-                        System.exit(0);
+                        error=1;
+                        //System.exit(0);
                     }
                 }
                 k=0;
@@ -594,7 +614,8 @@ public class Brain {
                 if(tt==k){
                     if(Math.abs(((ISource) object).node[1].getTotalI(((ISource) object).node[1]))>dI){
                         Main.ErrorBox("ERROR -2"," ISources with different value are series ");
-                        System.exit(0);
+                        error=1;
+                        //System.exit(0);
                     }
                 }
             }
@@ -610,7 +631,8 @@ public class Brain {
         }
         if(temp==0){
             Main.ErrorBox("ERROR -4"," GND is missing ");
-            System.exit(0);
+            error=1;
+            //System.exit(0);
         }
     }
 
@@ -620,7 +642,8 @@ public class Brain {
                 if((((VSource) o).node[0].name.equals(((VSource) o).node[1].name))||((((VSource) o).node[0].name.equals("0")))){
                     if(Math.abs(((VSource) o).getV(((VSource) o).node[0]))>dV){
                         Main.ErrorBox("ERROR -4"," You can't change the voltage of GND ");
-                        System.exit(0);
+                        error=1;
+                        //System.exit(0);
                     }
                 }
             }
@@ -638,8 +661,9 @@ public class Brain {
                 ArrayList<Element> elements = new ArrayList<Element>();
                 orderOfNodes.add((Nodes) o);
                 if(!checkFloatingNode((Nodes) o, orderOfNodes, elements)){
-                    Main.ErrorBox("ERROR -5"," At least one of the nodes is floating ");
-                    System.exit(0);
+                    Main.ErrorBox("ERROR -5","Node "+((Nodes) o).name+" is floating ");
+                    error=1;
+                    //System.exit(0);
                 }
                 //System.out.println("-------------------");
             }

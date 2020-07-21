@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,11 +21,12 @@ public class Inductor extends Element {
             }
             hold+=coeff*Math.pow(Brain.i,deg);
         }
-        if (hold<=0) {
+        if (hold<=0&&ControllerMainPage.errorCheck) {
             //System.out.println("Resistance : "+hold);
             Main.ErrorBox("ERROR -1",name+" value is negative at "+Brain.i+" second" );
+            Brain.error=1;
             //System.out.println("Negative Inductance");
-            System.exit(0);
+            //System.exit(0);
         }
         return hold;
     }

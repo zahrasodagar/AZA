@@ -64,6 +64,20 @@ public abstract class Element {
         }
     }
 
+    public static void reset(){
+        for (Element element:elements){
+            if (element.vs.size() - +1 > 0) {
+                element.vs.subList(0, element.vs.size() - +1).clear();
+            }
+            if (element.is.size() - +1 > 0) {
+                element.is.subList(0, element.is.size() - +1).clear();
+            }
+            if (element.ps.size() - +1 > 0) {
+                element.ps.subList(0, element.ps.size() - +1).clear();
+            }
+        }
+    }
+
     public abstract double getI(Nodes thisNode);
 
     public Nodes otherNode(Nodes thisNode){
