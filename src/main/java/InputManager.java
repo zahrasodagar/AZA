@@ -81,16 +81,16 @@ public class InputManager {
                 return false;
             }
             return addElement(capacitor,node1,node2);
-                Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
-                Brain.t+=Brain.dt;
-                double hold=capacitor.getC();
-                Brain.t-=Brain.dt;
-                if (hold<0){
-                    Main.ErrorBox("ERROR",name+" value is negative at ");
-                    //System.out.println("Negative Capacity");
-                    return false;
-                }
-                return addElement(capacitor,node1,node2);
+//                Capacitor capacitor=new Capacitor(name,node1,node2,capacity);
+//                Brain.t+=Brain.dt;
+//                double hold=capacitor.getC();
+//                Brain.t-=Brain.dt;
+//                if (hold<0){
+//                    Main.ErrorBox("ERROR",name+" value is negative at ");
+//                    //System.out.println("Negative Capacity");
+//                    return false;
+//                }
+//                return addElement(capacitor,node1,node2);
             }
         } catch (Exception e){
             return false;
@@ -201,6 +201,7 @@ public class InputManager {
             Nodes node22=getNode(n22);
 
             GSource gSource=new GSource(name,node11,node12,node21,node22,a);
+            try {
             return addElement(gSource,node11,node12);}
             catch (Exception e){
                 return false;
