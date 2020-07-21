@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class VSource extends Source {
     public VSource(String name,Nodes node1, Nodes node2, double offset,double amplitude,double frequency,double phase){
         super(name,node1,node2,offset,amplitude,frequency,phase,"vs");
@@ -42,6 +45,11 @@ class HSource extends VSource {
         super(name,node1,node2,0,0,0,0);
         this.element=element;
         this.a=a;
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"dvs"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -64,6 +72,11 @@ class ESource extends VSource {
         this.node1=node21;
         this.node2=node22;
         this.a=a;
+        try {
+            imageAddress= new FileInputStream(System.getProperty("user.dir")+"\\elements\\"+"dvs"+".jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
