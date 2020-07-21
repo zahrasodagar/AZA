@@ -131,7 +131,7 @@ public class Controller implements Initializable {
                             antireverser1();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Nodes) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Nodes) object).vs.get(((int)i))/order));
 
 
                         }
@@ -155,7 +155,7 @@ public class Controller implements Initializable {
                         }
 
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Resistor) object).vs.get(((int)i))/order));
 
 
                         }
@@ -178,7 +178,7 @@ public class Controller implements Initializable {
                             antireverser1();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Capacitor) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Capacitor) object).vs.get(((int)i))/order));
 
 
                         }
@@ -201,7 +201,7 @@ public class Controller implements Initializable {
                             antireverser1();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((ISource) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((ISource) object).vs.get(((int)i))/order));
 
 
                         }
@@ -225,7 +225,7 @@ public class Controller implements Initializable {
                         }
 
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((VSource) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((VSource) object).vs.get(((int)i))/order));
 
 
                         }
@@ -248,7 +248,7 @@ public class Controller implements Initializable {
                             antireverser1();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Inductor) object).vs.get(((int)i))/order));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Inductor) object).vs.get(((int)i))/order));
 
 
                         }
@@ -296,7 +296,7 @@ public class Controller implements Initializable {
                         }
 
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor) object).is.get(((int)i))/order1));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Resistor) object).is.get(((int)i))/order1));
 
 
                         }
@@ -318,7 +318,7 @@ public class Controller implements Initializable {
                             antireverser2();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Capacitor) object).is.get(((int)i))/order1));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Capacitor) object).is.get(((int)i))/order1));
 
 
                         }
@@ -340,7 +340,7 @@ public class Controller implements Initializable {
                             antireverser2();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((ISource) object).is.get(((int)i))/order1));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((ISource) object).is.get(((int)i))/order1));
 
 
                         }
@@ -363,7 +363,7 @@ public class Controller implements Initializable {
                         }
 
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((VSource) object).is.get(((int)i))/order1));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((VSource) object).is.get(((int)i))/order1));
 
 
                         }
@@ -385,7 +385,7 @@ public class Controller implements Initializable {
                             antireverser2();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Inductor) object).is.get(((int)i))/order1));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Inductor) object).is.get(((int)i))/order1));
 
 
                         }
@@ -430,7 +430,7 @@ public class Controller implements Initializable {
                             antireverser3();
                         }
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Element) object).ps.get((int) i)/order2));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Element) object).ps.get((int) i)/order2));
 
 
                         }
@@ -467,8 +467,8 @@ public class Controller implements Initializable {
 //        }
         addVoltage(ControllerMainPage.voltagename,series);
         xAxis.setLowerBound(0);
-        xAxis.setUpperBound(Brain.time);
-        xAxis.setTickUnit(Brain.time/10);
+        xAxis.setUpperBound(Brain.time/orderfinder(Brain.time));
+        xAxis.setTickUnit(Brain.time/orderfinder(Brain.time)/10);
         lineChart1.getData().add(series);
 
     }
@@ -483,8 +483,8 @@ public class Controller implements Initializable {
 //        }
         addCurrent(ControllerMainPage.currentname,series);
         xAxis1.setLowerBound(0);
-        xAxis1.setUpperBound(Brain.time);
-        xAxis1.setTickUnit(Brain.time/10);
+        xAxis1.setUpperBound(Brain.time/orderfinder(Brain.time));
+        xAxis1.setTickUnit(Brain.time/orderfinder(Brain.time)/10);
         lineChart2.getData().add(series);
     }
 
@@ -497,8 +497,8 @@ public class Controller implements Initializable {
 //        }
         addPower(ControllerMainPage.powername,series);
         xAxis2.setLowerBound(0);
-        xAxis2.setUpperBound(Brain.time);
-        xAxis2.setTickUnit(Brain.time/10);
+        xAxis2.setUpperBound(Brain.time/orderfinder(Brain.time));
+        xAxis2.setTickUnit(Brain.time/orderfinder(Brain.time)/10);
         lineChart3.getData().add(series);
     }
     public void addVoltage(String voltageorder,XYChart.Series<Number,Number> series){
@@ -510,7 +510,7 @@ public class Controller implements Initializable {
                     if(((Nodes) object).name.equals(token[1])){
                         order= orderfinder(maximumfinder(((Nodes) object).vs));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Nodes) object).vs.get(((int)i))/orderfinder(maximumfinder(((Nodes) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Nodes) object).vs.get(((int)i))/orderfinder(maximumfinder(((Nodes) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((Nodes) object).vs)));
                         }
                     }
@@ -523,7 +523,7 @@ public class Controller implements Initializable {
                     if(((Resistor) object).name.equals(token[1])){
                         order=orderfinder(maximumfinder(((Resistor) object).vs));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Resistor) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Resistor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Resistor) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((Resistor) object).vs)));
                         }
                     }
@@ -536,7 +536,7 @@ public class Controller implements Initializable {
                     order=orderfinder(maximumfinder(((Capacitor) object).vs));
                     if(((Capacitor) object).name.equals(token[1])){
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Capacitor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Capacitor) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Capacitor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Capacitor) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((Capacitor) object).vs)));
                         }
                     }
@@ -551,7 +551,7 @@ public class Controller implements Initializable {
                     order=orderfinder(maximumfinder(((ISource) object).vs));
                     if(((ISource) object).name.equals(token[1])){
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((ISource) object).vs.get(((int)i))/orderfinder(maximumfinder(((ISource) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((ISource) object).vs.get(((int)i))/orderfinder(maximumfinder(((ISource) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((ISource) object).vs)));
                         }
                     }
@@ -564,7 +564,7 @@ public class Controller implements Initializable {
                     order=orderfinder(maximumfinder(((VSource) object).vs));
                     if(((VSource) object).name.equals(token[1])){
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((VSource) object).vs.get(((int)i))/orderfinder(maximumfinder(((VSource) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((VSource) object).vs.get(((int)i))/orderfinder(maximumfinder(((VSource) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((VSource) object).vs)));
                         }
                     }
@@ -577,15 +577,19 @@ public class Controller implements Initializable {
                     order=orderfinder(maximumfinder(((Inductor) object).vs));
                     if(((Inductor) object).name.equals(token[1])){
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Inductor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Inductor) object).vs))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Inductor) object).vs.get(((int)i))/orderfinder(maximumfinder(((Inductor) object).vs))));
                             unit=unitfinder(orderfinder(maximumfinder(((Inductor) object).vs)));
                         }
                     }
                 }
             }
         }
+        String unit1=unitfinder(orderfinder(Brain.time));
         series.setName("  V:"+token[1]+"  ");
         yAxis.setLabel("Voltage("+unit+"V)");
+        xAxis1.setLabel("time("+unit1+"s)");
+        xAxis.setLabel("time("+unit1+"s)");
+        xAxis2.setLabel("time("+unit1+"s)");
     }
     public double orderfinder(double number){
         double order=1;
@@ -653,7 +657,7 @@ public class Controller implements Initializable {
                     if(((Resistor) object).name.equals(token[1])){
                         order1= orderfinder(maximumfinder(((Resistor) object).is));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Resistor) object).is.get(((int)i))/orderfinder(maximumfinder(((Resistor) object).is))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Resistor) object).is.get(((int)i))/orderfinder(maximumfinder(((Resistor) object).is))));
                             unit=unitfinder(orderfinder(maximumfinder(((Resistor) object).is)));
                         }
                     }
@@ -666,7 +670,7 @@ public class Controller implements Initializable {
                     if(((Capacitor) object).name.equals(token[1])){
                         order1= orderfinder(maximumfinder(((Capacitor) object).is));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Capacitor) object).is.get(((int)i))/orderfinder(maximumfinder(((Capacitor) object).is))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Capacitor) object).is.get(((int)i))/orderfinder(maximumfinder(((Capacitor) object).is))));
                             unit=unitfinder(orderfinder(maximumfinder(((Capacitor) object).is)));
                         }
                     }
@@ -679,7 +683,7 @@ public class Controller implements Initializable {
                     if(((ISource) object).name.equals(token[1])){
                         order1= orderfinder(maximumfinder(((ISource) object).is));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((ISource) object).is.get(((int)i))/orderfinder(maximumfinder(((ISource) object).is))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((ISource) object).is.get(((int)i))/orderfinder(maximumfinder(((ISource) object).is))));
                             unit=unitfinder(orderfinder(maximumfinder(((ISource) object).is)));
                         }
                     }
@@ -692,7 +696,7 @@ public class Controller implements Initializable {
                     if(((VSource) object).name.equals(token[1])){
                         order1= orderfinder(maximumfinder(((VSource) object).is));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((VSource) object).is.get(((int)i))/orderfinder(maximumfinder(((VSource) object).is))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((VSource) object).is.get(((int)i))/orderfinder(maximumfinder(((VSource) object).is))));
                             unit=unitfinder(orderfinder(maximumfinder(((VSource) object).is)));
                         }
                     }
@@ -705,7 +709,7 @@ public class Controller implements Initializable {
                     if(((Inductor) object).name.equals(token[1])){
                         order1= orderfinder(maximumfinder(((Inductor) object).is));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Inductor) object).is.get(((int)i))/orderfinder(maximumfinder(((Inductor) object).is))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Inductor) object).is.get(((int)i))/orderfinder(maximumfinder(((Inductor) object).is))));
                             unit=unitfinder(orderfinder(maximumfinder(((Inductor) object).is)));
                         }
                     }
@@ -724,7 +728,7 @@ public class Controller implements Initializable {
                     if(((Element) object).name.equals(token[1])){
                         order2= orderfinder(maximumfinder(((Element) object).ps));
                         for (double i=0;i<Brain.time/Brain.dt;i++){
-                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt,((Element) object).ps.get((int)i)/orderfinder(maximumfinder(((Element) object).ps))));
+                            series.getData().add(new XYChart.Data<Number, Number>(i*Brain.dt/orderfinder(Brain.time),((Element) object).ps.get((int)i)/orderfinder(maximumfinder(((Element) object).ps))));
                             unit=unitfinder(orderfinder(maximumfinder(((Element) object).ps)));
                         }
                     }
