@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    static String path="";//System.getProperty("user.dir")+"\\input.txt"; //default
+    static String path=System.getProperty("user.dir")+"\\input.txt"; //default
     static String outputPath=System.getProperty("user.dir")+"\\output.txt"; //default
     static Stage window,w0;
     static Scene mainScene;
