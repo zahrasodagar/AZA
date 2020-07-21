@@ -85,7 +85,7 @@ public class Controller implements Initializable {
 
         StackPane root=new StackPane();
         root.getChildren().add(listView);
-        stage.setScene(new Scene(root,500,650));
+        stage.setScene(new Scene(root,300,250));
         stage.show();
         initActions(listView,stage);
     }

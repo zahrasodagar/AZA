@@ -267,7 +267,7 @@ public class ControllerMainPage implements Initializable {
         final ObservableList<String> data =
                 FXCollections.observableArrayList();
         final ListView listView = new ListView(data);
-        listView.setPrefSize(500, 650);
+        listView.setPrefSize(300, 250);
 
 
 
@@ -298,7 +298,7 @@ public class ControllerMainPage implements Initializable {
         stage.setTitle("Select The Voltage Variable");
         StackPane root = new StackPane();
         root.getChildren().add(listView);
-        stage.setScene(new Scene(root, 500, 650));
+        stage.setScene(new Scene(root, 300, 250));
         stage.show();
         initActions1(listView,stage);
     }
@@ -442,6 +442,17 @@ public class ControllerMainPage implements Initializable {
 //        stage.setScene(scene);
 //        stage.show();
     }
+    public void help() throws IOException {
+        FXMLLoader fXMLLoader;
+        Parent root1=FXMLLoader.load(getClass().getResource("sampleHelpPage.fxml"));
+        Stage stage=new Stage();
+        stage.setTitle("Help");
+        Scene scene=new Scene(root1,800,500);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 
     public void eraseDrawn(){
         for (ImageView img:drawn){
