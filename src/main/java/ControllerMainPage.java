@@ -167,6 +167,7 @@ public class ControllerMainPage implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateTextArea();
     }
 
     public void reloadProject(){
