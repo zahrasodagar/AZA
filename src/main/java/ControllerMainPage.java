@@ -443,7 +443,7 @@ public class ControllerMainPage implements Initializable {
         Nodes gnd = null;
         int nc = 0;
         double[] gndLoc = new double[2];
-        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()+30)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()-100)/(xy[3]+1);
 
         for (Nodes node1 : Nodes.nodes) {
             ArrayList<Element> hold;
@@ -604,14 +604,10 @@ public class ControllerMainPage implements Initializable {
         pane.getChildren().add(image);
         drawn.add(image);
 
-
-
         if (nc != 1) {
             gndLoc[0] = hold;
         }
         image.relocate(gndLoc[0] - 30, gndLoc[1] + 1);
-
-
     }
 
     public int[] getXY(){
@@ -645,7 +641,7 @@ public class ControllerMainPage implements Initializable {
 
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
-        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()+30)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()-100)/(xy[3]+1);
         double[] xy1=new double[2],xy2=new double[2];
         xy1[0]=10+horSteps*(getX(n1)-xy[0]+1);
         xy2[0]=10+horSteps*(getX(n2)-xy[0]+1);

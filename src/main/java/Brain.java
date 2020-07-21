@@ -42,6 +42,9 @@ public class Brain {
         dt=-1;dV=-1;dI=-1;i=0;
         Nodes.nodes.clear();
         Element.elements.clear();
+        Ground ground=Ground.getInstance();
+        ground.elements.clear();
+        ground.neighbours.clear();
         Nodes.checkGraph=false;
         Scanner scanner=null;
         File inputFile=new File(Main.path);
@@ -81,6 +84,9 @@ public class Brain {
         dt=-1;dV=-1;dI=-1;i=0;
         Nodes.nodes.clear();
         Element.elements.clear();
+        Ground ground=Ground.getInstance();
+        ground.elements.clear();
+        ground.neighbours.clear();
         Nodes.checkGraph=false;
         Scanner scanner=null;
         File inputFile=new File(Main.path);
