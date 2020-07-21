@@ -117,8 +117,6 @@ public class Main extends Application {
         a.showAndWait();
     }
 
-
-
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
 
         @Override

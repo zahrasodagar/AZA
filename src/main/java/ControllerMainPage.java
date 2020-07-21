@@ -424,21 +424,13 @@ public class ControllerMainPage implements Initializable {
         bar.setProgress(0);
         bar.setVisible(true);
         Brain.manageFile();
+        drawCircuit();
+        Brain.simulateFile( percentage, bar);
         percentage.setText("100" + "%");
         bar.setProgress(1);
         updateOutputTextArea();
         /////////////////////////
-        drawCircuit();
-        Brain.simulateFile( percentage, bar);
     }
-    }
-
-    public static void errorBox(String title,String message){
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.initModality(Modality.APPLICATION_MODAL);
-        a.setContentText(message);
-        a.setTitle(title);
-        a.showAndWait();
     }
 
     public void drawCircuit(){
@@ -451,7 +443,7 @@ public class ControllerMainPage implements Initializable {
         Nodes gnd = null;
         int nc = 0;
         double[] gndLoc = new double[2];
-        double horSteps = (pane.getWidth() - 200) / (xy[2] - xy[0]), verSteps = (pane.getHeight() + 30) / (xy[3] + 1);
+        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()-100)/(xy[3]+1);
 
         for (Nodes node1 : Nodes.nodes) {
             ArrayList<Element> hold;
@@ -464,8 +456,8 @@ public class ControllerMainPage implements Initializable {
                         int n2 = Integer.parseInt(node2.name);
 
                         double[] xy1 = new double[2], xy2 = new double[2];
-                        xy1[0] = 100 + horSteps * ((n1 - 1) % 6 + 1 - xy[0]);
-                        xy2[0] = 100 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]);
+                        xy1[0]=10+horSteps*(getX(n1)-xy[0]+1);
+                        xy2[0]=10+horSteps*(getX(n2)-xy[0]+1);
 
                         xy1[1] = 50 + verSteps * ((xy[3] - ((n1 - 1) / 6 + 1)));
                         xy2[1] = 50 + verSteps * ((xy[3] - ((n2 - 1) / 6 + 1)));
@@ -506,13 +498,15 @@ public class ControllerMainPage implements Initializable {
                                 System.out.println(element.name);
                                 System.out.println(centre[0]);
                                 System.out.println(centre[1]);
+                                System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
                         }
                     }
                 }
-            } else {
+            }
+            else {
                 gnd = node1;
                 for (Nodes node2 : Nodes.nodes) {
                     if (!(node2 instanceof Ground) && !node1.name.equals(node2.name)) {
@@ -523,7 +517,7 @@ public class ControllerMainPage implements Initializable {
 
                         double[] xy1 = new double[2], xy2 = new double[2];
                         int n2 = Integer.parseInt(node2.name);
-                        xy2[0] = 100 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]);
+                        xy2[0] = 10 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]+1);
                         xy1[0] = xy2[0];
 
 
@@ -536,6 +530,7 @@ public class ControllerMainPage implements Initializable {
 
                         for (Element element : hold) {
                             if (!checkList.get(element)) {
+
 
                                 gndLoc[0] = xy1[0];
                                 gndLoc[1] = xy1[1];
@@ -566,7 +561,7 @@ public class ControllerMainPage implements Initializable {
                                 //System.out.println(pane.getWidth());
                                 //System.out.println(pane.getHeight());
                                 //System.out.println(element.name);
-
+                                System.out.println("haha");
                                 checkList.replace(element, true);
                                 ++round;
                             }
@@ -586,7 +581,7 @@ public class ControllerMainPage implements Initializable {
 
                 double[] xy2 = new double[2];
                 int n = Integer.parseInt(node.name);
-                xy2[0] = 100 + horSteps * ((n - 1) % 6 + 1 - xy[0]);
+                xy2[0] = 10 + horSteps * ((n - 1) % 6 + 1 - xy[0]+1);
                 xy2[1] = 50 + verSteps * ((xy[3] - ((n - 1) / 6 + 1)));
                 Line line = new Line(gndLoc[0], gndLoc[1], xy2[0], gndLoc[1]);
                 lines.add(line);
@@ -609,44 +604,50 @@ public class ControllerMainPage implements Initializable {
         pane.getChildren().add(image);
         drawn.add(image);
 
-
         if (nc != 1) {
             gndLoc[0] = hold;
         }
         image.relocate(gndLoc[0] - 30, gndLoc[1] + 1);
-
     }
 
     public int[] getXY(){
-        int [] holdMax=new int[2];
-        int [] holdMin=new int[2];
+        int [] x=new int[2];
+        int [] y=new int[2];
         int [] hold=new int[4];
-        holdMax[0]=1;holdMin[0]=6;
+        x[1]=1;x[0]=6;
         for (Nodes node:Nodes.nodes){
             if (!(node instanceof Ground)){
                 int n=Integer.parseInt(node.name);
-                if ((n-1)%6+1>holdMax[0])
-                    holdMax[0]=(n-1)%6+1;
-                if ((n-1)%6+1<holdMin[0])
-                    holdMin[0]=(n-1)%6+1;
-                if ((n-1)/6+1>holdMax[1])
-                    holdMax[1]=(n-1)/6+1;
+                if ((n-1)%6+1>x[1])
+                    x[1]=(n-1)%6+1;
+                if ((n-1)%6+1<x[0])
+                    x[0]=(n-1)%6+1;
+                if ((n-1)/6+1>y[1])
+                    y[1]=(n-1)/6+1;
             }
         }
-        hold[0]=holdMin[0];hold[1]=holdMin[1];
-        hold[2]=holdMax[0];hold[3]=holdMax[1];
+        hold[0]=x[0];hold[1]=y[0];
+        hold[2]=x[1];hold[3]=y[1];
         return hold;
+    }
+
+    public int getX(int n){
+        return (n-1)%6+1;
+    }
+
+    public int getY(int n){
+        return (n-1)/6+1;
     }
 
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
-        double horSteps=(pane.getWidth()-200)/(xy[2]-xy[0]),verSteps=(pane.getHeight()+30)/(xy[3]+1);
+        double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()-100)/(xy[3]+1);
         double[] xy1=new double[2],xy2=new double[2];
-        xy1[0]=100+horSteps*((n1-1)%6+1-xy[0]);
-        xy2[0]=100+horSteps*((n2-1)%6+1-xy[0]);
+        xy1[0]=10+horSteps*(getX(n1)-xy[0]+1);
+        xy2[0]=10+horSteps*(getX(n2)-xy[0]+1);
 
-        xy1[1]=50+verSteps*((xy[3]-((n1-1)/6+1)));
-        xy2[1]=50+verSteps*((xy[3]-((n2-1)/6+1)));
+        xy1[1]=50+verSteps*((xy[3]-getY(n1)));
+        xy2[1]=50+verSteps*(xy[3]-getY(n2));
 /*
         System.out.println(xy1[0]);
         System.out.println(xy1[1]);
@@ -673,6 +674,14 @@ public class ControllerMainPage implements Initializable {
         //System.out.println(centre[0]);
         //System.out.println(centre[1]);
         return centre;
+    }
+
+    public static void errorBox(String title,String message){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.initModality(Modality.APPLICATION_MODAL);
+        a.setContentText(message);
+        a.setTitle(title);
+        a.showAndWait();
     }
 
     public void codeAreaTypingListener(){
