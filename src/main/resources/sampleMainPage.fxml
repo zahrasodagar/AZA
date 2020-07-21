@@ -257,21 +257,24 @@
                                 <Insets top="3.0" />
                             </HBox.margin>
                         </TextField>
-                  <Button mnemonicParsing="false" text="Edit" />
+                  <Button mnemonicParsing="false" onAction="#editDs" text="Edit">
+                     <HBox.margin>
+                        <Insets left="20.0" top="2.0" />
+                     </HBox.margin></Button>
                         <Region HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#draw" text="Draw">
                             <HBox.margin>
-                                <Insets right="5.0" />
+                                <Insets right="5.0" top="2.0" />
                             </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#run" text="Run">
                             <HBox.margin>
-                                <Insets right="5.0" />
+                                <Insets right="5.0" top="2.0" />
                             </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" onMouseClicked="#outputListener" text="Output">
                             <HBox.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0" top="2.0" />
                             </HBox.margin>
                         </Button>
                     </children>
