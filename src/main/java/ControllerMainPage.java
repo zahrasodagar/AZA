@@ -201,6 +201,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void saveProject(){
+        if (checkIsPathEmpty())
+            return;
         try {
             saveFile();
         } catch (IOException e) {
@@ -210,6 +212,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void reloadProject(){
+        if (checkIsPathEmpty())
+            return;
         updateTextArea();
         eraseDrawn();
     }
@@ -430,6 +434,8 @@ public class ControllerMainPage implements Initializable {
     }
 
     public void draw() throws Exception {
+        if (checkIsPathEmpty())
+            return;
         run();
         listshow1();
 //        Parent root1= FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -442,6 +448,7 @@ public class ControllerMainPage implements Initializable {
 //        stage.setScene(scene);
 //        stage.show();
     }
+
     public void help() throws IOException {
         FXMLLoader fXMLLoader;
         Parent root1=FXMLLoader.load(getClass().getResource("sampleHelpPage.fxml"));
@@ -452,7 +459,6 @@ public class ControllerMainPage implements Initializable {
         stage.show();
 
     }
-
 
     public void eraseDrawn(){
         for (ImageView img:drawn){
@@ -520,6 +526,12 @@ public class ControllerMainPage implements Initializable {
                         xy2[1] = 50 + verSteps * ((xy[3] - ((n2 - 1) / 6 + 1)));
                         int parallel = hold.size(), round = 0;
 
+                        if (parallel!=0) if ((Math.abs(getY(n1)-getY(n2))>1)||(Math.abs(getX(n1)-getX(n2))>1)) {
+                            ++parallel;
+                            System.out.println("*");
+                        }
+
+
                         for (Element element : hold) {
                             if (!checkList.get(element)) {
                                 double[] centre = getCentre(Integer.parseInt(element.node[0].name), Integer.parseInt(element.node[1].name), xy);
@@ -577,6 +589,8 @@ public class ControllerMainPage implements Initializable {
                         if (parallel != 0)
                             ++nc;
 
+
+
                         double[] xy1 = new double[2], xy2 = new double[2];
                         int n2 = Integer.parseInt(node2.name);
                         xy2[0] = 10 + horSteps * ((n2 - 1) % 6 + 1 - xy[0]+1);
@@ -589,6 +603,10 @@ public class ControllerMainPage implements Initializable {
 
                         // line.relocate(xy1[0],xy1[1]);
 
+                        if (parallel!=0) if ((Math.abs(getY(n2))>1)) {
+                            parallel+=2;
+                            System.out.println("*");
+                        }
 
                         for (Element element : hold) {
                             if (!checkList.get(element)) {
@@ -708,6 +726,8 @@ public class ControllerMainPage implements Initializable {
         return (n-1)/6+1;
     }
 
+
+
     public double[] getCentre(int n1,int n2,int[] xy){
         double[] centre=new double[4];
         double horSteps=(pane.getWidth()-20)/(xy[2]-xy[0]+2),verSteps=(pane.getHeight()-100)/(xy[3]+1);
@@ -739,6 +759,7 @@ public class ControllerMainPage implements Initializable {
             else
                 centre[2]=3;
         }
+
 
         //System.out.println(centre[0]);
         //System.out.println(centre[1]);
