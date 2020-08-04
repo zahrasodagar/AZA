@@ -158,9 +158,10 @@ public class InputManager {
         try {
             if (matcher.find()){
                 String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
-                double v= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
+                double v= getWithPow(matcher.group(4)),a= getWithPow(matcher.group(5)),f= getWithPow(matcher.group(6)),ph= getWithPow(matcher.group(7));
                 Nodes node1=getNode(n1);
                 Nodes node2=getNode(n2);
+
                 VSource vSource=new VSource(name,node1,node2,v,a,f,ph);
                 return addElement(vSource,node1,node2);
             }
@@ -176,9 +177,10 @@ public class InputManager {
         try {
             if (matcher.find()){
                 String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3);
-                double i= Double.parseDouble(matcher.group(4)),a= Double.parseDouble(matcher.group(5)),f= Double.parseDouble(matcher.group(6)),ph= Double.parseDouble(matcher.group(7));
+                double i= getWithPow(matcher.group(4)),a= getWithPow(matcher.group(5)),f= getWithPow(matcher.group(6)),ph= getWithPow(matcher.group(7));
                 Nodes node1=getNode(n1);
                 Nodes node2=getNode(n2);
+
                 ISource iSource=new ISource(name,node1,node2,i,a,f,ph);
                 return addElement(iSource,node1,node2);
             }
@@ -188,13 +190,45 @@ public class InputManager {
         return false;
     }
 
+    public double getWithPow(String s){
+        System.out.println(s);
+        System.out.println(":)");
+        double a=0;
+
+        Pattern pattern=Pattern.compile("(\\d+\\.?\\d*)([pnumkMGx]?)$");
+        Matcher matcher=pattern.matcher(s);
+        if (matcher.find()){
+            String p=matcher.group(2);
+        a=Double.parseDouble(matcher.group(1));
+
+        int power=0;
+        if (p.equals("p"))
+            power=-12;
+        if (p.equals("n"))
+            power=-9;
+        if (p.equals("u"))
+            power=-6;
+        if (p.equals("m"))
+            power=-3;
+        if (p.equals("k"))
+            power=3;
+        if (p.equals("M")||p.equals("x"))
+            power=6;
+        if (p.equals("G"))
+            power=9;
+        a=a*Math.pow(10,power);
+        System.out.println(a);
+        }
+        return a;
+    }
+
     public boolean checkGSource(){
         Pattern pattern=Pattern.compile("^([G|g]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
         Matcher matcher=pattern.matcher(input);
         if (matcher.find()){
             String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
             String n21= matcher.group(4),n22= matcher.group(5);
-            double a= Double.parseDouble(matcher.group(6));
+            double a= getWithPow(matcher.group(6));
             Nodes node11=getNode(n11);
             Nodes node12=getNode(n12);
             Nodes node21=getNode(n21);
@@ -210,15 +244,32 @@ public class InputManager {
     }
 
     public boolean checkFSource(){
-        Pattern pattern=Pattern.compile("^([F|f]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
+        Pattern pattern=Pattern.compile("^([F|f]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
         Matcher matcher=pattern.matcher(input);
         try {
             if (matcher.find()){
-                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
-                double a= Double.parseDouble(matcher.group(5));
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4),p=matcher.group(6);
                 Nodes node1=getNode(n1);
                 Nodes node2=getNode(n2);
                 Element element=getElement(e);
+
+                double a=Double.parseDouble(matcher.group(5));
+                int power=0;
+                if (p.equals("p"))
+                    power=-12;
+                if (p.equals("n"))
+                    power=-9;
+                if (p.equals("u"))
+                    power=-6;
+                if (p.equals("m"))
+                    power=-3;
+                if (p.equals("k"))
+                    power=3;
+                if (p.equals("M")||p.equals("x"))
+                    power=6;
+                if (p.equals("G"))
+                    power=9;
+                a=a*Math.pow(10,power);
 
                 FSource fSource=new FSource(name,node1,node2,element,a);
                 return addElement(fSource,node1,node2);
@@ -236,7 +287,7 @@ public class InputManager {
             if (matcher.find()){
                 String name=matcher.group(1),n11=matcher.group(2),n12=matcher.group(3);
                 String n21= matcher.group(4),n22= matcher.group(5);
-                double a= Double.parseDouble(matcher.group(6));
+                double a= getWithPow(matcher.group(6));
                 Nodes node11=getNode(n11);
                 Nodes node12=getNode(n12);
                 Nodes node21=getNode(n21);
@@ -252,15 +303,33 @@ public class InputManager {
     }
 
     public boolean checkHSource(){
-        Pattern pattern=Pattern.compile("^([H|h]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)");
+        Pattern pattern=Pattern.compile("^([H|h]\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\d+\\.?\\d*)([pnumkMGx]?)$");
         Matcher matcher=pattern.matcher(input);
         try {
             if (matcher.find()){
-                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4);
-                double a= Double.parseDouble(matcher.group(5));
+                String name=matcher.group(1),n1=matcher.group(2),n2=matcher.group(3),e=matcher.group(4),p=matcher.group(6);
+
                 Nodes node1=getNode(n1);
                 Nodes node2=getNode(n2);
                 Element element=getElement(e);
+
+                double a=Double.parseDouble(matcher.group(5));
+                int power=0;
+                if (p.equals("p"))
+                    power=-12;
+                if (p.equals("n"))
+                    power=-9;
+                if (p.equals("u"))
+                    power=-6;
+                if (p.equals("m"))
+                    power=-3;
+                if (p.equals("k"))
+                    power=3;
+                if (p.equals("M")||p.equals("x"))
+                    power=6;
+                if (p.equals("G"))
+                    power=9;
+                a=a*Math.pow(10,power);
 
                 HSource hSource=new HSource(name,node1,node2,element,a);
                 return addElement(hSource,node1,node2);

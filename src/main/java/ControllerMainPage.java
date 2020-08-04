@@ -605,7 +605,7 @@ public class ControllerMainPage implements Initializable {
 
                         if (parallel!=0) if ((Math.abs(getY(n2))>1)) {
                             parallel+=2;
-                            System.out.println("*");
+                            //System.out.println("*");
                         }
 
                         for (Element element : hold) {
