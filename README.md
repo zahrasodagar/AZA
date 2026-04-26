@@ -4,7 +4,6 @@ AZA is a SPICE-like circuit simulator implemented in Java, combining object-orie
 
 The system parses text-based circuit descriptions, simulates electrical behavior over time, and provides both numerical outputs and visual representations.
 
----
 
 ## ⚡ Overview
 
@@ -17,7 +16,6 @@ AZA reconstructs the full circuit simulation pipeline:
 
 The project supports **linear, non-linear, and time-dependent circuit elements**, along with interactive visualization tools.
 
----
 
 ## 🧠 Features
 
@@ -79,7 +77,7 @@ The project supports **linear, non-linear, and time-dependent circuit elements**
   * Interactive controls (Run, Draw, Load, Edit)
   * Plotting of voltage / current / power over time
 
----
+
 
 ## 🏗️ Project Structure
 
@@ -115,7 +113,7 @@ The project supports **linear, non-linear, and time-dependent circuit elements**
 └── pom.xml                            # Maven configuration
 ```
 
----
+
 
 ## 🔢 Simulation Method
 
@@ -133,7 +131,7 @@ The project supports **linear, non-linear, and time-dependent circuit elements**
 
   **Σ I(node) ≈ 0**
 
----
+
 
 ## ▶️ How to Run
 
@@ -159,7 +157,7 @@ mvn exec:java -Dexec.mainClass="Main"
   * `output.txt`
   * GUI plots
 
----
+
 
 ## 🖼️ GUI
 
@@ -170,7 +168,7 @@ mvn exec:java -Dexec.mainClass="Main"
   * File editor (load/edit circuits)
   * Interactive plotting (voltage, current, power)
 
----
+
 
 ## ⚠️ Error Handling
 
@@ -184,7 +182,7 @@ The simulator detects:
   * Series current sources
 * Missing or invalid ground node
 
----
+
 
 ## 🎯 Motivation
 
@@ -195,7 +193,7 @@ AZA was built to:
 * Explore numerical solutions of differential systems
 * Provide an interactive interface for experimentation
 
----
+
 
 ## 🚀 Future Work
 
@@ -204,7 +202,7 @@ AZA was built to:
 * More advanced visualization
 * Frequency-domain analysis
 
----
+
 
 ## 👩‍💻 Authors
 
@@ -212,7 +210,7 @@ AZA was built to:
 * Amir Mohammad Marshal Pirgheibi
 * Mohammad Amin Panahandeh
 
----
+
 
 ## 📌 Notes
 
