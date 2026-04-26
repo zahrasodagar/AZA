@@ -204,11 +204,11 @@ AZA was built to:
 
 
 
-## 👩‍💻 Authors
+## 👥 Contributors of AZA
+* Mohammad Amin Panahandeh (A)
+* Zahra Sodagar (Z)
+* Amir Mohammad Marshal Pirgheibi (A)
 
-* Zahra Sodagar
-* Amir Mohammad Marshal Pirgheibi
-* Mohammad Amin Panahandeh
 
 
 
